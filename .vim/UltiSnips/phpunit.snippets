@@ -1,0 +1,16 @@
+snippet class "TestClass"
+/**
+ * ${1}
+ */
+class ${2:`expand("%:r")`} extends ${3:PHPUnit_Framework_TestCase} {
+	protected function setUp() {
+		${0:code ...}
+	}
+}
+endsnippet
+
+snippet tm "testMethod sceleton"
+test${1:MethodToTest}_${2:Scenario}_${3:ExpectedOutcome}() {
+	$0;
+}
+endsnippet

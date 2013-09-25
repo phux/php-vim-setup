@@ -1,0 +1,85 @@
+snippet php "php tag" 
+<?php
+	$0
+?>
+endsnippet
+
+snippet phpi "php inline tag" 
+	<?php $0 ?>
+endsnippet
+
+snippet forek "foreach key value"
+foreach ($${1:variable} as $${2:key} => $${3:value}){
+	${4:// code...}
+}
+endsnippet
+
+snippet pr "print"
+print_r( $0 );
+endsnippet
+
+snippet e "echo" iw
+echo("$0")
+endsnippet
+
+snippet je "json_encode"
+json_encode($${1:stringToEncode)$0
+endsnippet
+
+snippet jd "json_decode"
+json_encode($${1:objectToDecode}, ${2:true})$0
+endsnippet
+
+snippet im "array implode"
+implode(${1:glue}, $${2:array})$0
+endsnippet
+
+snippet ex "array explode"
+explode(${1:delimiter}, $${2:array})$0
+endsnippet
+
+snippet sr "string replace"
+str_replace(${1:search}, ${2:replace}, $${3:haystack})$0
+endsnippet
+
+snippet sp "string position"
+strpos($${1:haystack}, ${2:search})$0
+endsnippet
+
+snippet sip "string case insensitive position"
+stripos($${1:haystack}, ${2:search})$0
+endsnippet
+
+snippet sl "string length"
+strlen($${1:string})$0
+endsnippet
+
+snippet iff "if false"
+if (false === $${1:what}) {
+	${0:// code}
+}
+endsnippet
+
+snippet ift "if true"
+if (true === $${1:what}) {
+	${0:// code}
+}
+endsnippet
+
+snippet ifc "if compare 2 values"
+if ($${1:a} === $${2:b}) {
+	${0:// code}
+}
+endsnippet
+
+snippet r "return"
+return ${1:var};
+endsnippet
+
+snippet = "assign var" !b
+$${1:variable} = ${2:value};$0
+endsnippet
+
+snippet t "$this->" !b
+$this->$0
+endsnippet
