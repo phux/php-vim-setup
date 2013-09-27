@@ -98,7 +98,6 @@ set completeopt=menu,menuone,longest
 set pumheight=15
 
 
-
 " VUNDLE
 
 set rtp+=~/.vim/bundle/vundle/
@@ -142,6 +141,11 @@ filetype plugin indent on     " required!
 
 au! BufRead,BufNewFile,BufWinEnter *Test.php
           \ setfiletype php.phpunit
+" underscores are heavily used due to our naming convention
+" so remove it from word boundary!
+" note: ,b ,w ,e can be used, :h camelcasemotion
+au! BufRead,BufNewFile,BufWinEnter *.php
+          \ set iskeyword+=\_
 
 au! BufRead,BufNewFile,BufWinEnter *.js
           \ setfiletype javascript.jQuery
@@ -176,7 +180,7 @@ map <leader>p "+p
 cmap <leader>p <C-R>+
 vnoremap <leader>y "+y
 
-map <leader>w :set nowrap!<CR>
+map <leader>W :set nowrap!<CR>
 
 map <leader>t :set tags=~/tags/
 
@@ -212,8 +216,8 @@ noremap <silent> <c-h> <c-w>h
 " window resizing
 map <c-down> <C-W>-
 map <c-up> <C-W>+
-map <c-left> <c-w><
-map <c-right> <c-w>>
+map <c-left> <c-w>3<
+map <c-right> <c-w>3>
 
 " move to next or previous buffer with ALT+hl
 nmap <m-h> :bp<cr>
@@ -233,10 +237,17 @@ imap <c-s> <esc>:w<cr>a
 " delete word after cursor in insert mode
 inoremap <c-s-l> <c-o>dw
 
+inoremap <m-;> <esc>A;<esc>
+nnoremap <m-;> A;<esc>
+
 map <F4> :!ctags -h ".php" -R --exclude="\.svn,\.js" --totals=yes --tag-relative=yes --PHP-kinds=+cf --regex-PHP='/abstract class ([^ ]*)/\1/c/' --regex-PHP='/interface ([^ ]*)/\1/c/' --regex-PHP='/(public \|static \|abstract \|protected \|private )+function ([^ (]*)/\2/f/' -f ~/tags/
 
 " unmark search matches
 nmap <silent> ,/ :nohlsearch<CR>
+
+" Refactor names easily (hit ,s on the word you'd like to rename
+nnoremap <Leader>S :s/<c-r><c-w>/<c-r><c-w>/g<left><left>
+nnoremap <Leader>s :%s/<c-R><c-w>/<c-r><c-w>/g<left><left>
 
 map <leader>; :TagbarToggle<cr>
 
@@ -258,16 +269,15 @@ let g:UltiSnipsExpandTrigger="<m-j>"
 let g:UltiSnipsJumpForwardTrigger="<m-j>"
 let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 
-nnoremap <leader>bd :MBEbd<cr>
-
 inoremap <M-P> <ESC>:call PhpDocSingle()<CR>i 
 nnoremap <M-P> :call PhpDocSingle()<CR> 
 vnoremap <M-P> :call PhpDocRange()<CR> 
 
 function! OpenPHPManual(keyword)
-let firefox = '/usr/bin/firefox'
+"let browser = '/usr/bin/firefox'
+let browser = '/usr/bin/chromium-browser'
 let url = 'http://ro.php.net/' . a:keyword
-silent exec '!' . firefox . ' "' . url . '"'
+silent exec '!' . browser . ' "' . url . '"'
 endfunction
 noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
 

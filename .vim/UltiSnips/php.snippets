@@ -1,3 +1,43 @@
+## CLASS RELATED
+
+snippet io "instanceof"
+${1:object} instanceof ${2:class}
+endsnippet
+
+
+snippet ce "class_exists()"
+class_exists(${1:classname})$0
+endsnippet
+
+snippet m "method call $object->"
+$${1:object}->${2:method}($3)
+endsnippet
+
+snippet s "$obj->set()"
+$${1:obj}->set${2:Property}(${3:value})$0
+endsnippet
+
+snippet g "$obj->get()"
+$${1:obj}->get${2:Property}()$0
+endsnippet
+
+snippet gov "get_object_vars()"
+get_object_vars($${1:object})$0
+endsnippet
+
+snippet gc "get_class()"
+get_class(${1:object})$0
+endsnippet
+
+snippet gcm "get_class_methods()"
+get_class_methods(${1:object}$0
+endsnippet
+
+snippet ns "namespace" !b
+namespace $1;$0
+endsnippet
+
+
 snippet php "php tag" 
 <?php
 	$0
@@ -6,6 +46,45 @@ endsnippet
 
 snippet phpi "php inline tag" 
 	<?php $0 ?>
+endsnippet
+
+
+snippet new "New class instance" !b
+$$1 = new $1($2);
+$0
+endsnippet
+
+snippet con "constructor"
+/**
+ * @param mixed ${1/, /\n * \@param mixed /g}
+ **/
+public function __construct(${1:$dependencies}) {
+	${1/\$(\w+)(, )*/\n\t$this->$1 = $$1;/g}
+}$0
+endsnippet
+
+snippet mgs "PHP Class Getter Setter" !b
+/**
+ * @var ${2:type}
+ */
+private $$1;
+
+/**
+ * Getter for $1
+ * @return $2
+ */
+public function get${1/\w+\s*/\u$0/}() {
+	return $this->$1;
+}
+
+/**
+ * Setter for $1
+ * @param $2 $$1
+ */
+public function set${1/\w+\s*/\u$0/}($$1) {
+	$this->$1 = $$1;
+}
+$0
 endsnippet
 
 snippet forek "foreach key value"
@@ -18,7 +97,7 @@ snippet pr "print"
 print_r( $0 );
 endsnippet
 
-snippet e "echo" iw
+snippet e "echo"
 echo("$0")
 endsnippet
 
@@ -28,6 +107,15 @@ endsnippet
 
 snippet jd "json_decode"
 json_encode($${1:objectToDecode}, ${2:true})$0
+endsnippet
+
+## ARRAYS
+snippet a "array"
+array($1)$0
+endsnippet
+
+snippet av
+'${1:key}' => ${2:value},$3
 endsnippet
 
 snippet im "array implode"
@@ -82,4 +170,113 @@ endsnippet
 
 snippet t "$this->" !b
 $this->$0
+endsnippet
+
+snippet rt "return true"
+return true;$0
+endsnippet
+
+snippet rn "return null"
+return null;$0
+endsnippet
+
+snippet rf "return false"
+return false;$0
+endsnippet
+
+snippet c "concatenate"
+$${1:var} .= $2;$0
+endsnippet
+
+snippet vd "sweet single var_dump"
+var_dump($1);
+endsnippet
+
+# killer backtrace:
+snippet kbt "killer backtrace"
+array_walk(debug_backtrace(),create_function('$a,$b','print "{$a[\'function\']}()(".basename($a[\'file\']).":{$a[\'line\']}); <br />";'));
+endsnippet
+
+snippet d "die()"
+die('after $1 in file '.basename(__FILE__).' in line '.__LINE__);$0
+endsnippet
+
+snippet vdd "sweet var_dump"
+var_dump('${1:var} in ' . basename(__FILE__));
+var_dump($1);
+endsnippet
+
+snippet ve "Dumb debug helper in cli"
+var_export($1);$0
+endsnippet
+
+
+snippet try "try/catch"
+try {
+	$1
+} catch (${2:Exception} $e) {
+	error_log('${3:EXCEPTION} in ' . __FILE__ . ' : ' . $e);
+	throw $e;
+}
+endsnippet
+
+snippet throw "throw new Exception"
+throw new $1Exception('${2:message}');$0
+endsnippet
+
+snippet /* "comment"
+/**
+ * ${1:comment}
+ **/
+endsnippet
+
+snippet e
+echo $1;$0
+endsnippet
+
+#######
+# Extbase relevant
+#######
+
+
+### dependency injection
+
+snippet ir "inject repository"
+/**
+ * $1Repository
+ *
+ * @var ${2:Tx_${3:Extension}_Domain_Repository_${1/\w+\s*/\u$0/}Repository}
+ */
+protected $${1:name}Repository;
+
+/**
+ * @param $2 $$1
+ */
+public function inject${1/\w+\s*/\u$0/}Repository($2 $$1Repository) {
+	$this->$1Repository = $$1Repository;
+}$0
+endsnippet
+
+snippet nm "new Model"
+<?php
+class Tx_$1_Domain_Model_$2${3: extends Tx_Extbase_DomainObject_AbstractDomainObject} {
+	$0
+}
+?>
+endsnippet
+
+snippet nm "new Service"
+<?php
+class Tx_$1_Domain_Services_$2Service {
+	$0
+}
+?>
+endsnippet
+
+snippet nm "new Controller"
+<?php
+class Tx_$1_Controller_$2Controller extends Tx_Extbase_MVC_Controller_ActionController {
+	$0
+}
+?>
 endsnippet
