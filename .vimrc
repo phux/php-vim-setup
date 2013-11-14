@@ -90,7 +90,7 @@ set wildmode=list:longest
 set errorformat+=%*[\"]%f%*[\"]\\,\ line\ %l:\ %m
 let g:syntastic_auto_loc_list=1
 let g:syntastic_disabled_filetypes=['html']
-let g:syntastic_enable_signs=1
+let g:syntastic_enable_signs=0
 
 " Complete options (disable preview scratch window)
 set completeopt=menu,menuone,longest
@@ -111,6 +111,7 @@ Bundle 'gmarik/vundle'
 
 " original repos on github
 Bundle 'tpope/vim-surround'
+Bundle 'henrik/vim-indexed-search'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'scrooloose/nerdtree'
@@ -120,18 +121,19 @@ Bundle 'mileszs/ack.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'SirVer/ultisnips'
 Bundle 'docunext/closetag.vim'
-"Bundle 'fholgado/minibufexpl.vim'
 Bundle 'bkad/CamelCaseMotion'
 Bundle 'Raimondi/delimitMate'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 " vim-scripts repos
 Bundle 'YankRing.vim'
+Bundle 'ScrollColors'
 Bundle 'L9'
-"Bundle 'FuzzyFinder'
 Bundle 'mru.vim'
 Bundle 'taglist.vim'
-"Bundle 'bufkill.vim'
+Bundle 'SearchComplete'
+Bundle 'bufkill.vim'
 " non github repos
 Bundle 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (ie. when working on your own plugin)
@@ -263,6 +265,8 @@ map <leader>a :Ack!<space>
 map <leader><enter> :Mru<cr>
 
 nnoremap <silent> <Leader>y :YRShow<CR>
+map <silent><F3> :NEXTCOLOR<cr>:redraw<cr>
+map <silent><F2> :PREVCOLOR<cr>:redraw<cr>
 
 let g:UltiSnipsListSnippets="<s-tab>"
 let g:UltiSnipsExpandTrigger="<m-j>"
@@ -284,7 +288,7 @@ noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
 
 syntax on
 if has("gui_running")
-    colorscheme github
+    colorscheme Monokai
 
     set guicursor=a:block-Cursor
 "cursors dont blink!
