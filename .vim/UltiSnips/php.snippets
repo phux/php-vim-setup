@@ -38,13 +38,13 @@ namespace $1;$0
 endsnippet
 
 
-snippet php "php tag" 
+snippet php "php tag"
 <?php
 	$0
 ?>
 endsnippet
 
-snippet phpi "php inline tag" 
+snippet phpi "php inline tag"
 	<?php $0 ?>
 endsnippet
 
@@ -56,11 +56,12 @@ endsnippet
 
 snippet con "constructor"
 /**
- * @param $2mixed ${1/, /\n * \@param mixed /g}
- */
-public function __construct(${1:$dependencies}) {${1/\$(\w+)(, )*/\n\t$this->$1 = $$1;/g}
-}
-$0
+ * @param mixed ${1/, /\n * \@param mixed /g}
+ **/
+public function __construct(${1:$dependencies})
+{
+	${1/\$(\w+)(, )*/\n\t$this->$1 = $$1;/g}
+}$0
 endsnippet
 
 snippet mgs "PHP Class Getter Setter" !b
@@ -73,7 +74,8 @@ private $$1;
  * Getter for $1
  * @return $2
  */
-public function get${1/\w+\s*/\u$0/}() {
+public function get${1/\w+\s*/\u$0/}()
+{
 	return $this->$1;
 }
 
@@ -81,14 +83,15 @@ public function get${1/\w+\s*/\u$0/}() {
  * Setter for $1
  * @param $2 $$1
  */
-public function set${1/\w+\s*/\u$0/}($$1) {
+public function set${1/\w+\s*/\u$0/}($$1)
+{
 	$this->$1 = $$1;
 }
 $0
 endsnippet
 
 snippet forek "foreach key value"
-foreach ($${1:variable} as $${2:key} => $${3:value}){
+foreach ($${1:variable} as $${2:key} => $${3:value}) {
 	${4:// code...}
 }
 endsnippet
@@ -168,8 +171,12 @@ snippet = "assign var" !b
 $${1:variable} = ${2:value};$0
 endsnippet
 
-snippet t "$this->" !b
+snippet $ "$this->" !b
 $this->$0
+endsnippet
+
+snippet el "error_log"
+error_log('$1 :' . $2);$0
 endsnippet
 
 snippet rt "return true"
@@ -252,14 +259,16 @@ protected $${1:name}Repository;
 /**
  * @param $2 $$1
  */
-public function inject${1/\w+\s*/\u$0/}Repository($2 $$1Repository) {
+public function inject${1/\w+\s*/\u$0/}Repository($2 $$1Repository)
+{
 	$this->$1Repository = $$1Repository;
 }$0
 endsnippet
 
 snippet nm "new Model"
 <?php
-class Tx_$1_Domain_Model_$2${3: extends Tx_Extbase_DomainObject_AbstractDomainObject} {
+class Tx_$1_Domain_Model_$2${3: extends Tx_Extbase_DomainObject_AbstractDomainObject}
+{
 	$0
 }
 ?>
@@ -267,7 +276,8 @@ endsnippet
 
 snippet nm "new Service"
 <?php
-class Tx_$1_Domain_Services_$2Service {
+class Tx_$1_Domain_Services_$2Service
+{
 	$0
 }
 ?>
@@ -275,7 +285,8 @@ endsnippet
 
 snippet nm "new Controller"
 <?php
-class Tx_$1_Controller_$2Controller extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_$1_Controller_$2Controller extends Tx_Extbase_MVC_Controller_ActionController
+{
 	$0
 }
 ?>

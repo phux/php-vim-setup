@@ -1,0 +1,29 @@
+snippet if "if condition"
+<f:if condition="${1:condition}">
+	<f:then>
+		$2
+	</f:then>
+</f:if>
+endsnippet
+
+snippet then "then"
+<f:then>
+	$1
+</f:then>
+endsnippet
+
+snippet else "else"
+<f:else>
+	$1
+</f:else>
+endsnippet
+
+snippet ft "fluid tag"
+<f:${1:tag}>$2</f:$1>
+endsnippet
+
+snippet for "for tag"
+<f:for each="{${1:array}}" as="${2:value}" key="${3:key}">
+	$4
+</f:for>
+endsnippet

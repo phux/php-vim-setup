@@ -60,10 +60,14 @@ set shortmess=atIoOTts
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 
-set autoindent
-set noexpandtab
+" highlight current line
+set cursorline
+
+"set smartindent
 set tabstop=4
+set softtabstop=4
 set shiftwidth=4
+set expandtab
 set list
 "set listchars=eol:¬,nbsp:⋅,tab:\|\ ,trail:⋅,extends:>,precedes:<
 set listchars=nbsp:⋅,tab:\|\ ,trail:⋅,extends:>,precedes:<
@@ -82,18 +86,26 @@ set smartcase
 " " do highlight as you type your search phrase
 set incsearch
 
+" undo 
+set undofile                " Save undo's after file closes
+set undodir=~/.undovim " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000
+
+
 " Better command-line completion
 set wildmenu
 set wildignore+=*.pyc,*.zip,*.gz,*.bz,*.tar,*.jpg,*.png,*.gif,*.avi,*.wmv,*.ogg,*.mp3,*.mov,.git,.svn
 set wildmode=list:longest
 
 set errorformat+=%*[\"]%f%*[\"]\\,\ line\ %l:\ %m
-let g:syntastic_auto_loc_list=1
-let g:syntastic_disabled_filetypes=['html']
-let g:syntastic_enable_signs=0
+"let g:syntastic_auto_loc_list=1
+"let g:syntastic_disabled_filetypes=['html']
+"let g:syntastic_enable_signs=0
 
 " Complete options (disable preview scratch window)
-set completeopt=menu,menuone,longest
+"set completeopt=menu,menuone,longest
+set completeopt=menuone
 " Limit popup menu height
 set pumheight=15
 
@@ -115,7 +127,8 @@ Bundle 'henrik/vim-indexed-search'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
+Bundle 'stephpy/vim-php-cs-fixer'
+"Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
 Bundle 'Lokaltog/vim-powerline'
@@ -125,7 +138,10 @@ Bundle 'bkad/CamelCaseMotion'
 Bundle 'Raimondi/delimitMate'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'flazz/vim-colorschemes'
+Bundle 'joonty/vim-phpqa'
 Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
+Bundle 'vim-php/tagbar-phpctags.vim'
+Bundle 'Shougo/neocomplcache.vim'
 " vim-scripts repos
 Bundle 'YankRing.vim'
 Bundle 'ScrollColors'
@@ -135,7 +151,7 @@ Bundle 'taglist.vim'
 Bundle 'SearchComplete'
 Bundle 'bufkill.vim'
 " non github repos
-Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'wincent/Command-T'
 " git repos on your local machine (ie. when working on your own plugin)
 "Bundle 'file:///Users/gmarik/path/to/plugin'
 
@@ -158,6 +174,8 @@ au FileType php set omnifunc=phpcomplete#CompletePHP
 let php_sql_query=1                                                                           
 let php_htmlInStrings=1
 
+let g:tagbar_phpctags_bin='~/git/phpctags/phpctags'
+let g:tagbar_phpctags_memory_limit = '512M'
 
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
@@ -167,6 +185,26 @@ let g:miniBufExplModSelTarget = 1
 let NERDTreeShowBookmarks = 1
 
 let g:CommandTMaxHeight = 15
+
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1 
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+" AutoComplPop like behavior.
+"let g:neocomplcache_enable_auto_select = 1 
 
 " Mappings
 let mapleader=","
@@ -187,7 +225,7 @@ map <leader>W :set nowrap!<CR>
 map <leader>t :set tags=~/tags/
 
 " fast closing of html tags
-imap ;; </CR><c-x><c-o><del>
+imap ;; </<c-x><c-o>
 
 nmap < <<
 nmap > >>
@@ -233,7 +271,10 @@ nmap <silent> <F5> :e $MYVIMRC<CR>
 nmap <silent> <S-F5> :so $MYVIMRC<CR>:so ~/.gvimrc<cr>
 
 " save with strg-s
+autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent call PhpCsFixerFixFile()<CR>:e<cr>
+
 map <c-s> <esc>:w<cr>
+map <F8> <esc>:w<cr>:Phpmd<cr>
 imap <c-s> <esc>:w<cr>a
 
 " delete word after cursor in insert mode
@@ -272,6 +313,18 @@ let g:UltiSnipsListSnippets="<s-tab>"
 let g:UltiSnipsExpandTrigger="<m-j>"
 let g:UltiSnipsJumpForwardTrigger="<m-j>"
 let g:UltiSnipsJumpBackwardTrigger="<m-k>"
+
+let g:phpqa_codesniffer_autorun = 0
+let g:phpqa_messdetector_autorun = 0
+
+let g:php_cs_fixer_level = "all"                  " which level ?
+let g:php_cs_fixer_config = "default"             " configuration
+let g:php_cs_fixer_php_path = "php"               " Path to PHP
+let g:php_cs_fixer_fixers_list = ""               " List of fixers
+let g:php_cs_fixer_enable_default_mapping = 0     " Enable the mapping by default (<leader>pcd)
+
+let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
+let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
 
 inoremap <M-P> <ESC>:call PhpDocSingle()<CR>i 
 nnoremap <M-P> :call PhpDocSingle()<CR> 
@@ -318,3 +371,11 @@ augroup QFixToggle
     autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
 let g:jah_Quickfix_Win_Height=10
+
+nmap <leader>os ,n<cr>kkk<cr>cd:set tags=~/tags/ski<cr>
+nmap <leader>oo ,n<cr>kkkk<cr>cd:set tags=~/tags/onepage<cr>
+nmap <leader>od ,n<cr>kkkkk<cr>cd:set tags=~/tags/dev<cr>
+
+nmap <F2> :SCROLL<cr>
+
+nmap <F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
