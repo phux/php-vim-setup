@@ -92,6 +92,8 @@ set undodir=~/.undovim " where to save undo histories
 set undolevels=1000         " How many undos
 set undoreload=10000
 
+set textwidth=0
+set fo+=2
 
 " Better command-line completion
 set wildmenu
@@ -99,10 +101,19 @@ set wildignore+=*.pyc,*.zip,*.gz,*.bz,*.tar,*.jpg,*.png,*.gif,*.avi,*.wmv,*.ogg,
 set wildmode=list:longest
 
 set errorformat+=%*[\"]%f%*[\"]\\,\ line\ %l:\ %m
-"let g:syntastic_auto_loc_list=1
-"let g:syntastic_disabled_filetypes=['html']
-"let g:syntastic_enable_signs=0
+let g:syntastic_auto_loc_list=1
+"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+"let g:syntastic_php_checkers = ['php', 'phpmd']
+let g:syntastic_php_checkers = ['php']
+let g:syntastic_disabled_filetypes=['html,javascript']
 
+let g:syntastic_quiet_warnings=0
+let g:syntastic_enable_signs=0
+let g:syntastic_check_on_open=0
+let g:syntastic_auto_jump=0
+let g:syntastic_json_checkers=['jsonlint']
+let g:syntastic_enable_highlighting=0
+let g:syntastic_echo_current_error=1
 " Complete options (disable preview scratch window)
 "set completeopt=menu,menuone,longest
 set completeopt=menuone
@@ -128,7 +139,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'stephpy/vim-php-cs-fixer'
-"Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
 Bundle 'Lokaltog/vim-powerline'
@@ -139,7 +150,8 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'joonty/vim-phpqa'
-Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
+Bundle 'tpope/vim-fugitive'
+"Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'vim-php/tagbar-phpctags.vim'
 Bundle 'Shougo/neocomplcache.vim'
 " vim-scripts repos
@@ -150,8 +162,10 @@ Bundle 'mru.vim'
 Bundle 'taglist.vim'
 Bundle 'SearchComplete'
 Bundle 'bufkill.vim'
-" non github repos
 Bundle 'wincent/Command-T'
+Bundle 'tobyS/pdv'
+Bundle 'tobyS/vmustache'
+" non github repos
 " git repos on your local machine (ie. when working on your own plugin)
 "Bundle 'file:///Users/gmarik/path/to/plugin'
 
@@ -271,7 +285,7 @@ nmap <silent> <F5> :e $MYVIMRC<CR>
 nmap <silent> <S-F5> :so $MYVIMRC<CR>:so ~/.gvimrc<cr>
 
 " save with strg-s
-autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent call PhpCsFixerFixFile()<CR>:e<cr>
+autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent call PhpCsFixerFixFile()<CR>:e<cr>zz
 
 map <c-s> <esc>:w<cr>
 map <F8> <esc>:w<cr>:Phpmd<cr>
@@ -326,9 +340,12 @@ let g:php_cs_fixer_enable_default_mapping = 0     " Enable the mapping by defaul
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
 
-inoremap <M-P> <ESC>:call PhpDocSingle()<CR>i 
-nnoremap <M-P> :call PhpDocSingle()<CR> 
-vnoremap <M-P> :call PhpDocRange()<CR> 
+
+let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>i 
+nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR> 
+nnoremap <M-P> :call pdv#DocumentWithSnip()<CR> 
+"vnoremap <M-P> :call PhpDocRange()<CR> 
 
 function! OpenPHPManual(keyword)
 "let browser = '/usr/bin/firefox'
@@ -341,7 +358,7 @@ noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
 
 syntax on
 if has("gui_running")
-    colorscheme Monokai
+    colorscheme mustang
 
     set guicursor=a:block-Cursor
 "cursors dont blink!
@@ -372,6 +389,7 @@ augroup QFixToggle
 augroup END
 let g:jah_Quickfix_Win_Height=10
 
+nmap <leader>or ,njj<cr>jjjjjjCj<cr>cd:set tags=~/tags/real<cr>
 nmap <leader>os ,n<cr>kkk<cr>cd:set tags=~/tags/ski<cr>
 nmap <leader>oo ,n<cr>kkkk<cr>cd:set tags=~/tags/onepage<cr>
 nmap <leader>od ,n<cr>kkkkk<cr>cd:set tags=~/tags/dev<cr>
@@ -379,3 +397,13 @@ nmap <leader>od ,n<cr>kkkkk<cr>cd:set tags=~/tags/dev<cr>
 nmap <F2> :SCROLL<cr>
 
 nmap <F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
+
+
+
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+
+autocmd BufWrite *.php :call DeleteTrailingWS()
