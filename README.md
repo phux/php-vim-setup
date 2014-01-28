@@ -1,9 +1,38 @@
-basic installation
+# Basic installation
 
-git clone https://github.com/phux/php-vim-setup.git
-git clone https://github.com/gmarik/vundle.git php-vim-setup/.vim/bundle/vundle
+## (optional) create a separate dir to organize git repositories
 
-open vim
-Enter :BundleInstall
+```
+$ mkdir ~/git && cd ~/git
+```
 
-Note: you have to compile the YouCompleteMe plugin manually
+## Clone this repository
+```
+$ git clone https://github.com/phux/php-vim-setup.git
+```
+
+## Install plugins
+### Clone vundle
+```
+$ git clone https://github.com/gmarik/vundle.git ~/git/php-vim-setup/.vim/bundle/vundle
+```
+### fetch and installing plugins
+
+```
+$ vim
+:BundleInstall
+```
+
+#### Compiling Command-T and YouCompleteMe
+Note: you have to compile the Command-T and the YouCompleteMe plugins manually in order to get them working
+##### Command-T
+```
+$ cd ~/git/php-vim-setup/.vim/bundle/Command-T/ruby/command-t/
+$ ruby extconf.rb
+$ make
+```
+##### YouCompleteMe
+```
+$ cd ~/git/php-vim-setup/.vim/bundle/YouCompleteMe
+$ ./install.sh
+```
