@@ -184,6 +184,13 @@ au! BufRead,BufNewFile,BufWinEnter *.js
 au FileType php set omnifunc=phpcomplete#CompletePHP
 
 
+
+" YOUCOMPLETEME SETTINGS
+let g:ycm_complete_in_comments = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+
 " PHP Generated Code Highlights (HTML & SQL)                                              
 let php_sql_query=1                                                                           
 let php_htmlInStrings=1
@@ -278,7 +285,9 @@ inoremap <c-s-l> <c-o>dw
 inoremap <m-;> <esc>A;<esc>
 nnoremap <m-;> A;<esc>
 
-map <F4> :!ctags -h ".php" -R --exclude="\.svn,\.js" --totals=yes --tag-relative=yes --PHP-kinds=+cf --regex-PHP='/abstract class ([^ ]*)/\1/c/' --regex-PHP='/interface ([^ ]*)/\1/c/' --regex-PHP='/(public \|static \|abstract \|protected \|private )+function ([^ (]*)/\2/f/' -f ~/tags/
+map <F4> :!ctags -h ".php" -R --exclude="\.svn" --exclude="\.js" --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP='/abstract class ([^ ]*)/\1/c/' --regex-PHP='/interface ([^ ]*)/\1/c/' --regex-PHP='/(public \|static \|abstract \|protected \|private )+function ([^ (]*)/\2/f/' -f ~/tags/
+"map <F4> :!ctags -h ".php" -R --exclude=".svn" --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP='/abstract\s+class\s+([^ ]+)/\1/c/' --regex-PHP='/interface\s+([^ ]+)/\1/c/' --regex-PHP='/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/' -f ~/tags/
+"map <F4> :!ctags -h ".php" -R --exclude="\.svn" --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP='/abstract\s+class\s+([^ ]*)/\1/c/' --regex-PHP='/interface ([^ ]*)/\1/c/' --regex-PHP='/(public \|static \|abstract \|protected \|private )+function ([^ (]*)/\2/f/' -f ~/tags/
 
 " unmark search matches
 nmap <silent> ,/ :nohlsearch<CR>
