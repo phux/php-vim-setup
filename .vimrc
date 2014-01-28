@@ -151,9 +151,9 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'joonty/vim-phpqa'
 Bundle 'tpope/vim-fugitive'
+Bundle 'amiorin/vim-project'
 "Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'vim-php/tagbar-phpctags.vim'
-Bundle 'Shougo/neocomplcache.vim'
 " vim-scripts repos
 Bundle 'YankRing.vim'
 Bundle 'ScrollColors'
@@ -200,25 +200,6 @@ let NERDTreeShowBookmarks = 1
 
 let g:CommandTMaxHeight = 15
 
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1 
-" <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1 
 
 " Mappings
 let mapleader=","
@@ -323,6 +304,13 @@ nnoremap <silent> <Leader>y :YRShow<CR>
 map <silent><F3> :NEXTCOLOR<cr>:redraw<cr>
 map <silent><F2> :PREVCOLOR<cr>:redraw<cr>
 
+
+
+
+let g:project_use_nerdtree = 1
+set rtp+=~/.vim/bundle/vim-project/
+call project#rc("~/code")
+
 let g:UltiSnipsListSnippets="<s-tab>"
 let g:UltiSnipsExpandTrigger="<m-j>"
 let g:UltiSnipsJumpForwardTrigger="<m-j>"
@@ -407,3 +395,6 @@ func! DeleteTrailingWS()
 endfunc
 
 autocmd BufWrite *.php :call DeleteTrailingWS()
+
+
+so ~/.nonpublic-vimprj-file
