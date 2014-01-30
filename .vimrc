@@ -134,6 +134,7 @@ Bundle 'gmarik/vundle'
 
 " original repos on github
 Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/TabBar'
 Bundle 'henrik/vim-indexed-search'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'shawncplus/phpcomplete.vim'
@@ -155,6 +156,7 @@ Bundle 'amiorin/vim-project'
 "Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'vim-php/tagbar-phpctags.vim'
 " vim-scripts repos
+Bundle 'tpope/vim-unimpaired'
 Bundle 'YankRing.vim'
 Bundle 'ScrollColors'
 Bundle 'L9'
@@ -189,10 +191,6 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
-
-" PHP Generated Code Highlights (HTML & SQL)                                              
-let php_sql_query=1                                                                           
-let php_htmlInStrings=1
 
 let g:tagbar_phpctags_bin='~/git/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
@@ -285,8 +283,6 @@ inoremap <m-;> <esc>A;<esc>
 nnoremap <m-;> A;<esc>
 
 map <F4> :!ctags -h ".php" -R --exclude="\.svn" --exclude="\.js" --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP='/abstract class ([^ ]*)/\1/c/' --regex-PHP='/interface ([^ ]*)/\1/c/' --regex-PHP='/(public \|static \|abstract \|protected \|private )+function ([^ (]*)/\2/f/' -f ~/tags/
-"map <F4> :!ctags -h ".php" -R --exclude=".svn" --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP='/abstract\s+class\s+([^ ]+)/\1/c/' --regex-PHP='/interface\s+([^ ]+)/\1/c/' --regex-PHP='/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/' -f ~/tags/
-"map <F4> :!ctags -h ".php" -R --exclude="\.svn" --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP='/abstract\s+class\s+([^ ]*)/\1/c/' --regex-PHP='/interface ([^ ]*)/\1/c/' --regex-PHP='/(public \|static \|abstract \|protected \|private )+function ([^ (]*)/\2/f/' -f ~/tags/
 
 " unmark search matches
 nmap <silent> ,/ :nohlsearch<CR>
@@ -309,8 +305,10 @@ map <leader>a :Ack!<space>
 map <leader><enter> :Mru<cr>
 
 nnoremap <silent> <Leader>y :YRShow<CR>
+
 map <silent><F3> :NEXTCOLOR<cr>:redraw<cr>
 map <silent><F2> :PREVCOLOR<cr>:redraw<cr>
+nmap <F2> :SCROLL<cr>
 
 
 
@@ -385,12 +383,6 @@ augroup QFixToggle
 augroup END
 let g:jah_Quickfix_Win_Height=10
 
-nmap <leader>or ,njj<cr>jjjjjjCj<cr>cd:set tags=~/tags/real<cr>
-nmap <leader>os ,n<cr>kkk<cr>cd:set tags=~/tags/ski<cr>
-nmap <leader>oo ,n<cr>kkkk<cr>cd:set tags=~/tags/onepage<cr>
-nmap <leader>od ,n<cr>kkkkk<cr>cd:set tags=~/tags/dev<cr>
-
-nmap <F2> :SCROLL<cr>
 
 nmap <F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
 
@@ -406,3 +398,9 @@ autocmd BufWrite *.php :call DeleteTrailingWS()
 
 
 so ~/.nonpublic-vimprj-file
+
+set nocursorcolumn
+set nocursorline
+syntax sync minlines=256
+set scrolljump=5
+let html_no_rendering=1
