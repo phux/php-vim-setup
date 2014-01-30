@@ -313,6 +313,11 @@ nnoremap <Leader>s :%s/<c-R><c-w>/<c-r><c-w>/g<left><left>
 
 map <leader>; :TagbarToggle<cr>
 
+map <leader>gw :Gwrite<cr>
+map <leader>gc :Gcommit<cr>
+map <leader>gp :!git push<cr>
+
+
 map <leader>f :CtrlP<cr>
 "map <leader><space> :CtrlPBuffer<cr>
 
@@ -334,9 +339,9 @@ nmap <F2> :SCROLL<cr>
 
 
 let g:project_use_nerdtree = 1
-let g:project_enable_welcome = 0
+"let g:project_enable_welcome = 0
 set rtp+=~/.vim/bundle/vim-project/
-call project#rc("~/code")
+call project#rc("~/git/code")
 
 let g:UltiSnipsListSnippets="<s-tab>"
 let g:UltiSnipsExpandTrigger="<m-j>"
@@ -428,3 +433,5 @@ set nocursorline
 syntax sync minlines=256
 set scrolljump=5
 let html_no_rendering=1
+
+set nu
