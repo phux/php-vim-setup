@@ -153,6 +153,7 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'joonty/vim-phpqa'
 Bundle 'tpope/vim-fugitive'
 Bundle 'amiorin/vim-project'
+Bundle 'kien/ctrlp.vim'
 "Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'vim-php/tagbar-phpctags.vim'
 " vim-scripts repos
@@ -163,7 +164,6 @@ Bundle 'L9'
 Bundle 'mru.vim'
 Bundle 'SearchComplete'
 Bundle 'bufkill.vim'
-Bundle 'wincent/Command-T'
 Bundle 'tobyS/pdv'
 Bundle 'tobyS/vmustache'
 " non github repos
@@ -192,6 +192,8 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+
 let g:tagbar_phpctags_bin='~/git/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
 
@@ -202,7 +204,6 @@ let g:miniBufExplModSelTarget = 1
 
 let NERDTreeShowBookmarks = 1
 
-let g:CommandTMaxHeight = 15
 
 
 " Mappings
@@ -293,8 +294,8 @@ nnoremap <Leader>s :%s/<c-R><c-w>/<c-r><c-w>/g<left><left>
 
 map <leader>; :TagbarToggle<cr>
 
-map <leader>f :CommandT<cr>
-map <leader><space> :CommandTBuffer<cr>
+map <leader>f :CtrlP<cr>
+"map <leader><space> :CtrlPBuffer<cr>
 
 map <leader>n :NERDTreeToggle<CR>
 map <leader>N :NERDTreeFind<cr>
@@ -314,6 +315,7 @@ nmap <F2> :SCROLL<cr>
 
 
 let g:project_use_nerdtree = 1
+let g:project_enable_welcome = 0
 set rtp+=~/.vim/bundle/vim-project/
 call project#rc("~/code")
 
@@ -322,9 +324,12 @@ let g:UltiSnipsExpandTrigger="<m-j>"
 let g:UltiSnipsJumpForwardTrigger="<m-j>"
 let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 
+let g:ctrlp_working_path_mode = 'ra'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
+
 let g:phpqa_codesniffer_autorun = 0
 let g:phpqa_messdetector_autorun = 0
-
+let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
 let g:php_cs_fixer_level = "all"                  " which level ?
 let g:php_cs_fixer_config = "default"             " configuration
 let g:php_cs_fixer_php_path = "php"               " Path to PHP
