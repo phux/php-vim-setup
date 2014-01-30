@@ -23,14 +23,14 @@ set switchbuf=useopen,usetab
 " jump to last cursor position when opening files
 function! ResCur()
     if line("'\"") <= line("$")
-	normal! g`"
-	return 1
+        normal! g`"
+        return 1
     endif
 endfunction
 
 augroup resCur
-	autocmd!
-	autocmd BufWinEnter * call ResCur()
+    autocmd!
+    autocmd BufWinEnter * call ResCur()
 augroup END
 
 " Show partial commands in the last line of the screen
@@ -140,6 +140,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'stephpy/vim-php-cs-fixer'
+Bundle 'StanAngeloff/php.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
@@ -174,35 +175,35 @@ Bundle 'tobyS/vmustache'
 filetype plugin indent on     " required!
 
 au! BufRead,BufNewFile,BufWinEnter *Test.php
-          \ setfiletype php.phpunit
+            \ setfiletype php.phpunit
 " underscores are heavily used due to our naming convention
 " so remove it from word boundary!
 " note: ,b ,w ,e can be used, :h camelcasemotion
 au! BufRead,BufNewFile,BufWinEnter *.php
-          \ set iskeyword+=\_
+            \ set iskeyword+=\_
 
 au! BufRead,BufNewFile,BufWinEnter *.js
-          \ setfiletype javascript.jQuery
+            \ setfiletype javascript.jQuery
 au FileType php set omnifunc=phpcomplete#CompletePHP
 
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
-  endif
+endif
 
-  " unicode symbols
-  let g:airline_left_sep = '»'
-  let g:airline_left_sep = '▶'
-  let g:airline_right_sep = '«'
-  let g:airline_right_sep = '◀'
-  let g:airline_symbols.linenr = '␊'
-  let g:airline_symbols.linenr = '␤'
-  let g:airline_symbols.linenr = '¶'
-  let g:airline_symbols.branch = '⎇'
-  let g:airline_symbols.paste = 'ρ'
-  let g:airline_symbols.paste = 'Þ'
-  let g:airline_symbols.paste = '∥'
-  let g:airline_symbols.whitespace = 'Ξ'
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
 
 
 " YOUCOMPLETEME SETTINGS
@@ -339,7 +340,7 @@ nmap <F2> :SCROLL<cr>
 
 
 let g:project_use_nerdtree = 1
-"let g:project_enable_welcome = 0
+let g:project_enable_welcome = 0
 set rtp+=~/.vim/bundle/vim-project/
 call project#rc("~/git/code")
 
@@ -371,10 +372,10 @@ nnoremap <M-P> :call pdv#DocumentWithSnip()<CR>
 "vnoremap <M-P> :call PhpDocRange()<CR> 
 
 function! OpenPHPManual(keyword)
-"let browser = '/usr/bin/firefox'
-let browser = '/usr/bin/chromium-browser'
-let url = 'http://ro.php.net/' . a:keyword
-silent exec '!' . browser . ' "' . url . '"'
+    "let browser = '/usr/bin/firefox'
+    let browser = '/usr/bin/chromium-browser'
+    let url = 'http://ro.php.net/' . a:keyword
+    silent exec '!' . browser . ' "' . url . '"'
 endfunction
 noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
 
@@ -384,7 +385,7 @@ if has("gui_running")
     colorscheme solarized
 
     set guicursor=a:block-Cursor
-"cursors dont blink!
+    "cursors dont blink!
     set guicursor+=n-v:blinkon0
 else
     colorscheme slate
@@ -398,9 +399,9 @@ command! -bang -nargs=? QFix call QFixToggle(<bang>0)
 
 function! QFixToggle(forced)
     if exists("g:qfix_win") && a:forced == 0
-	cclose
+        cclose
     else
-	execute "copen " . g:jah_Quickfix_Win_Height
+        execute "copen " . g:jah_Quickfix_Win_Height
     endif
 endfunction
 
@@ -418,9 +419,9 @@ nmap <F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
 
 
 func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
 endfunc
 
 autocmd BufWrite *.php :call DeleteTrailingWS()
