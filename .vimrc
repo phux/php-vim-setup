@@ -144,7 +144,6 @@ Bundle 'StanAngeloff/php.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
-"Bundle 'Lokaltog/vim-powerline'
 Bundle 'bling/vim-airline'
 Bundle 'SirVer/ultisnips'
 Bundle 'docunext/closetag.vim'
@@ -156,36 +155,53 @@ Bundle 'joonty/vim-phpqa'
 Bundle 'tpope/vim-fugitive'
 Bundle 'amiorin/vim-project'
 Bundle 'kien/ctrlp.vim'
-"Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'vim-php/tagbar-phpctags.vim'
-" vim-scripts repos
 Bundle 'tpope/vim-unimpaired'
+Bundle 'tobyS/pdv'
+Bundle 'tobyS/vmustache'
+" vim-scripts repos
 Bundle 'YankRing.vim'
 Bundle 'ScrollColors'
 Bundle 'L9'
 Bundle 'mru.vim'
 Bundle 'SearchComplete'
 Bundle 'bufkill.vim'
-Bundle 'tobyS/pdv'
-Bundle 'tobyS/vmustache'
 " non github repos
 " git repos on your local machine (ie. when working on your own plugin)
 "Bundle 'file:///Users/gmarik/path/to/plugin'
 
-filetype plugin indent on     " required!
 
-au! BufRead,BufNewFile,BufWinEnter *Test.php
-            \ setfiletype php.phpunit
-" underscores are heavily used due to our naming convention
-" so remove it from word boundary!
-" note: ,b ,w ,e can be used, :h camelcasemotion
-au! BufRead,BufNewFile,BufWinEnter *.php
-            \ set iskeyword+=\_
+let g:project_use_nerdtree = 1
+let g:project_enable_welcome = 0
+set rtp+=~/.vim/bundle/vim-project/
+call project#rc("~/git/code")
 
-au! BufRead,BufNewFile,BufWinEnter *.js
-            \ setfiletype javascript.jQuery
-au FileType php set omnifunc=phpcomplete#CompletePHP
+let g:UltiSnipsListSnippets="<s-tab>"
+let g:UltiSnipsExpandTrigger="<m-j>"
+let g:UltiSnipsJumpForwardTrigger="<m-j>"
+let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 
+let g:ctrlp_working_path_mode = 'ra'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
+
+let g:phpqa_codesniffer_autorun = 0
+let g:phpqa_messdetector_autorun = 0
+
+let g:php_cs_fixer_level = "all"                  " which level ?
+let g:php_cs_fixer_config = "default"             " configuration
+let g:php_cs_fixer_php_path = "php"               " Path to PHP
+let g:php_cs_fixer_fixers_list = ""               " List of fixers
+let g:php_cs_fixer_enable_default_mapping = 0     " Enable the mapping by default (<leader>pcd)
+
+let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
+let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
+
+
+let g:pdv_template_dir = $HOME."/.vim/bundle/pdv/templates_snip"
+inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>i 
+nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR> 
+nnoremap <M-P> :call pdv#DocumentWithSnip()<CR> 
+"vnoremap <M-P> :call PhpDocRange()<CR> 
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -217,11 +233,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 let g:tagbar_phpctags_bin='~/git/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
 
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1 
-
 let NERDTreeShowBookmarks = 1
 
 
@@ -247,8 +258,8 @@ map <leader>t :set tags=~/tags/
 " fast closing of html tags
 imap ;; </<c-x><c-o>
 
-nmap < <<
-nmap > >>
+"nmap < <<
+"nmap > >>
 vmap < <gv
 vmap > >gv
 
@@ -339,37 +350,6 @@ nmap <F2> :SCROLL<cr>
 
 
 
-let g:project_use_nerdtree = 1
-let g:project_enable_welcome = 0
-set rtp+=~/.vim/bundle/vim-project/
-call project#rc("~/git/code")
-
-let g:UltiSnipsListSnippets="<s-tab>"
-let g:UltiSnipsExpandTrigger="<m-j>"
-let g:UltiSnipsJumpForwardTrigger="<m-j>"
-let g:UltiSnipsJumpBackwardTrigger="<m-k>"
-
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
-
-let g:phpqa_codesniffer_autorun = 0
-let g:phpqa_messdetector_autorun = 0
-let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
-let g:php_cs_fixer_level = "all"                  " which level ?
-let g:php_cs_fixer_config = "default"             " configuration
-let g:php_cs_fixer_php_path = "php"               " Path to PHP
-let g:php_cs_fixer_fixers_list = ""               " List of fixers
-let g:php_cs_fixer_enable_default_mapping = 0     " Enable the mapping by default (<leader>pcd)
-
-let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
-let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
-
-
-let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
-inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>i 
-nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR> 
-nnoremap <M-P> :call pdv#DocumentWithSnip()<CR> 
-"vnoremap <M-P> :call PhpDocRange()<CR> 
 
 function! OpenPHPManual(keyword)
     "let browser = '/usr/bin/firefox'
