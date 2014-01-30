@@ -143,7 +143,8 @@ Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
-Bundle 'Lokaltog/vim-powerline'
+"Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'SirVer/ultisnips'
 Bundle 'docunext/closetag.vim'
 Bundle 'bkad/CamelCaseMotion'
@@ -184,6 +185,24 @@ au! BufRead,BufNewFile,BufWinEnter *.js
           \ setfiletype javascript.jQuery
 au FileType php set omnifunc=phpcomplete#CompletePHP
 
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+
+  " unicode symbols
+  let g:airline_left_sep = '»'
+  let g:airline_left_sep = '▶'
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = '◀'
+  let g:airline_symbols.linenr = '␊'
+  let g:airline_symbols.linenr = '␤'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.paste = 'Þ'
+  let g:airline_symbols.paste = '∥'
+  let g:airline_symbols.whitespace = 'Ξ'
 
 
 " YOUCOMPLETEME SETTINGS
@@ -357,7 +376,7 @@ noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
 
 syntax on
 if has("gui_running")
-    colorscheme mustang
+    colorscheme solarized
 
     set guicursor=a:block-Cursor
 "cursors dont blink!
