@@ -1,7 +1,77 @@
-set nocompatible               " be iMproved
-filetype off                   " required!
+" ====================
+" = VUNDLE Plugin initializing
+" ====================
+
+
+
+set nocompatible " be iMproved
+filetype off " disable temporarily
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/TabBar'
+Bundle 'henrik/vim-indexed-search'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'shawncplus/phpcomplete.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'mbbill/undotree'
+Bundle 'StanAngeloff/php.vim'
+Bundle 'rayburgemeestre/phpfolding.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'mileszs/ack.vim'
+Bundle 'bling/vim-airline'
+Bundle 'SirVer/ultisnips'
+Bundle 'bkad/CamelCaseMotion'
+Bundle 'Raimondi/delimitMate'
+Bundle 'scrooloose/nerdcommenter'
+"Bundle 'flazz/vim-colorschemes'
+Bundle 'joonty/vim-phpqa'
+Bundle 'tpope/vim-fugitive'
+Bundle 'amiorin/vim-project'
+Bundle 'kien/ctrlp.vim'
+"Bundle 'vim-php/tagbar-phpctags.vim'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'tobyS/pdv'
+Bundle 'tobyS/vmustache'
+
+Bundle 'YankRing.vim'
+"Bundle 'ScrollColors'
+Bundle 'L9'
+Bundle 'mru.vim'
+"Bundle 'SearchComplete'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'bufkill.vim'
+
+
+
+
+
+
+
+
+
+" ====================
+" = Settings: General
+" ====================
+
+
+
+
+
+
+
+" Quickly time out on keycodes, but never time out on mappings
+set notimeout ttimeout ttimeoutlen=200
+
+set nu " show line numbers
 set enc=utf-8
 set hidden
+" no backups
 set nobackup
 set nowritebackup
 set noswapfile
@@ -19,23 +89,8 @@ set clipboard+=+
 " use open windows/tabs for buffer switching
 set switchbuf=useopen,usetab
 
-
-" jump to last cursor position when opening files
-function! ResCur()
-    if line("'\"") <= line("$")
-        normal! g`"
-        return 1
-    endif
-endfunction
-
-augroup resCur
-    autocmd!
-    autocmd BufWinEnter * call ResCur()
-augroup END
-
 " Show partial commands in the last line of the screen
 set showcmd
-
 
 " Line wrapping
 set wrap
@@ -50,7 +105,6 @@ set spr
 " Set the command window height to 1 lines
 set cmdheight=1
 
-
 " This makes more sense than the default of 1
 set winminheight=0
 
@@ -63,6 +117,7 @@ set laststatus=2
 " highlight current line
 set cursorline
 
+set autoindent
 set smartindent
 set tabstop=4
 set softtabstop=4
@@ -101,75 +156,69 @@ set wildignore+=*.pyc,*.zip,*.gz,*.bz,*.tar,*.jpg,*.png,*.gif,*.avi,*.wmv,*.ogg,
 set wildmode=list:longest
 
 set errorformat+=%*[\"]%f%*[\"]\\,\ line\ %l:\ %m
-let g:syntastic_auto_loc_list=1
-"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-"let g:syntastic_php_checkers = ['php', 'phpmd']
-let g:syntastic_php_checkers = ['php']
-let g:syntastic_disabled_filetypes=['html,javascript']
-
-let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_enable_signs=0
-let g:syntastic_check_on_open=0
-let g:syntastic_auto_jump=0
-let g:syntastic_json_checkers=['jsonlint']
-let g:syntastic_enable_highlighting=0
-let g:syntastic_echo_current_error=1
-" Complete options (disable preview scratch window)
-"set completeopt=menu,menuone,longest
 set completeopt=menuone
 " Limit popup menu height
 set pumheight=15
 
-
-" VUNDLE
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
-
-" My Bundles here:
-
-" original repos on github
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/TabBar'
-Bundle 'henrik/vim-indexed-search'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'shawncplus/phpcomplete.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'stephpy/vim-php-cs-fixer'
-"Bundle 'scrooloose/syntastic'
-Bundle 'majutsushi/tagbar'
-Bundle 'mileszs/ack.vim'
-Bundle 'bling/vim-airline'
-Bundle 'SirVer/ultisnips'
-Bundle 'docunext/closetag.vim'
-Bundle 'bkad/CamelCaseMotion'
-Bundle 'Raimondi/delimitMate'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'flazz/vim-colorschemes'
-Bundle 'joonty/vim-phpqa'
-Bundle 'tpope/vim-fugitive'
-Bundle 'amiorin/vim-project'
-Bundle 'kien/ctrlp.vim'
-Bundle 'vim-php/tagbar-phpctags.vim'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tobyS/pdv'
-Bundle 'tobyS/vmustache'
-" vim-scripts repos
-Bundle 'YankRing.vim'
-Bundle 'ScrollColors'
-Bundle 'L9'
-Bundle 'mru.vim'
-Bundle 'SearchComplete'
-Bundle 'bufkill.vim'
-" non github repos
-" git repos on your local machine (ie. when working on your own plugin)
-"Bundle 'file:///Users/gmarik/path/to/plugin'
-
 filetype indent plugin on
+
+" ignore whitespaces when vimdiff'ing
+set diffopt=iwhite
+
+
+" ------
+" - Settings: Folding
+" ------
+
+
+
+
+set foldmethod=indent   "fold based on indent
+set foldnestmax=2      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=2
+
+
+
+
+
+
+" ====================
+" = Settings: Gui
+" ====================
+
+
+
+
+
+
+syntax on
+
+colorscheme solarized
+if has("gui_running")
+    set background=light
+
+    set guicursor=a:block-Cursor
+    "cursors dont blink!
+    set guicursor+=n-v:blinkon0
+else
+    set background=dark
+    colorscheme slate
+endif
+
+
+
+
+
+
+" ====================
+" = Settings: Plugins
+" ====================
+
+
+
+
+
 
 let g:project_use_nerdtree = 1
 let g:project_enable_welcome = 1
@@ -177,10 +226,6 @@ set rtp+=~/.vim/bundle/vim-project/
 call project#rc("~/git/code")
 
 let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-let g:UltiSnipsListSnippets="<s-tab>"
-let g:UltiSnipsExpandTrigger="<m-j>"
-let g:UltiSnipsJumpForwardTrigger="<m-j>"
-let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
@@ -199,10 +244,6 @@ let g:php_cs_fixer_verbose = 0                    " Return the output of command
 
 
 let g:pdv_template_dir = $HOME."/.vim/bundle/pdv/templates_snip"
-inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>i 
-nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR> 
-nnoremap <M-P> :call pdv#DocumentWithSnip()<CR> 
-"vnoremap <M-P> :call PhpDocRange()<CR> 
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -222,7 +263,6 @@ let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
-
 " YOUCOMPLETEME SETTINGS
 let g:ycm_complete_in_comments = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
@@ -238,7 +278,23 @@ let NERDTreeShowBookmarks = 1
 
 
 
-" Mappings
+
+
+" ====================
+" = Mappings
+" ====================
+
+
+
+
+" ------
+" - Mappings: General
+" ------
+
+
+" Edit the vimrc file
+nmap <silent> <F5> :e $MYVIMRC<CR>
+
 let mapleader=","
 
 inoremap jk <esc>
@@ -259,18 +315,16 @@ map <leader>t :set tags=~/tags/
 " fast closing of html tags
 imap ;; </<c-x><c-o>
 
-"nmap < <<
-"nmap > >>
 vmap < <gv
 vmap > >gv
 
+" command line bash behavior
 cnoremap <C-A> <Home>
 cnoremap <C-B> <Left>
 cnoremap <C-E> <End>
 cnoremap <C-F> <Right>
 cnoremap <C-N> <End>
 cnoremap <C-P> <Up>
-
 
 " delete char after cursor in insert mode, same as del key
 inoremap <c-l> <del>
@@ -300,13 +354,12 @@ nmap <leader>o <c-w>g}
 
 " Edit the vimrc file
 nmap <silent> <F5> :e $MYVIMRC<CR>
-nmap <silent> <S-F5> :so $MYVIMRC<CR>:so ~/.gvimrc<cr>
 
 " save with strg-s
-autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent call PhpCsFixerFixFile()<CR>:e<cr>zz
+"autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent call PhpCsFixerFixFile()<CR>:e<cr>zz
+autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent !php-cs-fixer -qn fix %<CR>:e<cr><space>
 
 map <c-s> <esc>:w<cr>
-map <F8> <esc>:w<cr>:Phpmd<cr>
 imap <c-s> <esc>:w<cr>a
 
 " delete word after cursor in insert mode
@@ -324,15 +377,38 @@ nmap <silent> ,/ :nohlsearch<CR>
 nnoremap <Leader>S :s/<c-r><c-w>/<c-r><c-w>/g<left><left>
 nnoremap <Leader>s :%s/<c-R><c-w>/<c-r><c-w>/g<left><left>
 
+" reformat html -> each tag on own row
+nmap <F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
+
+
+" ------
+" - Mappings: folding
+" ------
+
+
+" Toggle folds
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>zz
+vnoremap <Space> zf
+" Folding and unfolding
+map ,f :set foldmethod=indent<cr>zM<cr>
+map ,F :set foldmethod=manual<cr>zR<cr>
+
+
+" ------
+" - Mappings: Plugins
+" ------
+
+
+
+nnoremap <leader>u :UndotreeToggle<cr>
+
 map <leader>; :TagbarToggle<cr>
 
 map <leader>gw :Gwrite<cr>
 map <leader>gc :Gcommit<cr>
 map <leader>gp :!git push<cr>
 
-
-map <leader>f :CtrlP<cr>
-"map <leader><space> :CtrlPBuffer<cr>
+map <c-p> :CtrlP<cr>
 
 map <leader>n :NERDTreeToggle<CR>
 map <leader>N :NERDTreeFind<cr>
@@ -344,9 +420,76 @@ map <leader><enter> :Mru<cr>
 
 nnoremap <silent> <Leader>y :YRShow<CR>
 
+map <F8> <esc>:w<cr>:Phpmd<cr>
+
 map <silent><F3> :NEXTCOLOR<cr>:redraw<cr>
 map <silent><F2> :PREVCOLOR<cr>:redraw<cr>
 nmap <F2> :SCROLL<cr>
+
+inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>i 
+nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR> 
+nnoremap <M-P> :call pdv#DocumentWithSnip()<CR> 
+
+let g:UltiSnipsListSnippets="<s-tab>"
+let g:UltiSnipsExpandTrigger="<m-j>"
+let g:UltiSnipsJumpForwardTrigger="<m-j>"
+let g:UltiSnipsJumpBackwardTrigger="<m-k>"
+
+
+
+
+
+" ====================
+" = Custom functions
+" ====================
+
+
+
+
+
+" auto reload vimrc on save
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
+
+autocmd BufWrite *.php :call DeleteTrailingWS()
+func! DeleteTrailingWS()
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
+endfunc
+
+" toggles the quickfix window.
+map <leader>q :QFix<cr>
+command! -bang -nargs=? QFix call QFixToggle(<bang>0)
+augroup QFixToggle
+    autocmd!
+    autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
+    autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
+augroup END
+let g:jah_Quickfix_Win_Height=10
+
+" jump to last cursor position when opening files
+function! ResCur()
+    if line("'\"") <= line("$")
+        normal! g`"
+        return 1
+    endif
+endfunction
+augroup resCur
+    autocmd!
+    autocmd BufWinEnter * call ResCur()
+augroup END
+
+
+
+
+
+
+" ====================
+" = Auto commands
+" ====================
 
 
 
@@ -360,24 +503,6 @@ function! OpenPHPManual(keyword)
 endfunction
 noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
 
-
-syntax on
-if has("gui_running")
-    colorscheme solarized
-
-    set guicursor=a:block-Cursor
-    "cursors dont blink!
-    set guicursor+=n-v:blinkon0
-else
-    colorscheme slate
-endif
-
-"quickfix window
-map <leader>q :QFix<cr>
-
-" toggles the quickfix window.
-command! -bang -nargs=? QFix call QFixToggle(<bang>0)
-
 function! QFixToggle(forced)
     if exists("g:qfix_win") && a:forced == 0
         cclose
@@ -386,29 +511,17 @@ function! QFixToggle(forced)
     endif
 endfunction
 
-" used to track the quickfix window
-augroup QFixToggle
-    autocmd!
-    autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
-    autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
-augroup END
-let g:jah_Quickfix_Win_Height=10
-
-
-nmap <F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
 
 
 
-func! DeleteTrailingWS()
-    exe "normal mz"
-    %s/\s\+$//ge
-    exe "normal `z"
-endfunc
 
-autocmd BufWrite *.php :call DeleteTrailingWS()
+" ====================
+" = Settings: Performance
+" ====================
 
 
-so ~/.nonpublic-vimprojects
+
+
 
 set nocursorcolumn
 set nocursorline
@@ -416,16 +529,6 @@ syntax sync minlines=256
 set scrolljump=5
 let html_no_rendering=1
 
-set nu
 
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
 
-" Edit the vimrc file
-nmap <silent> <F5> :e $MYVIMRC<CR>
-"nmap <silent> <S-F5> :so $MYVIMRC<CR>:so ~/.gvimrc<cr>
-
-" ignore whitespaces when vimdiff'ing
-set diffopt=iwhite
+so ~/.nonpublic-vimprojects

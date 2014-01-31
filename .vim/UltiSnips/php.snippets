@@ -89,7 +89,7 @@ public function set${2/\w+\s*/\u$0/}($$2)
 $0
 endsnippet
 
-snippet forek "foreach key value"
+snippet fek "foreach key value"
 foreach ($${1:variable} as $${2:key} => $${3:value}) {
 	${4:// code...}
 }
@@ -100,7 +100,8 @@ print_r( $0 );
 endsnippet
 
 snippet e "echo"
-echo("$0")
+echo "$1";
+$0
 endsnippet
 
 snippet je "json_encode"
@@ -170,10 +171,21 @@ snippet = "assign var" !b
 $${1:variable} = ${2:value};$0
 endsnippet
 
-snippet th "$this->" w
+snippet ? "ternary"
+(${1:condition}) ? ${2:true} : ${3:false}$0
+endsnippet
+
+snippet t "$this->" w!
 $this->$0
 endsnippet
 
+snippet ". "concat" i
+" . $1 . "$0
+endsnippet
+
+snippet '. "concat" i
+' . $1 . '$0
+endsnippet
 
 snippet el "error_log"
 error_log('$1 :' . $2);$0
@@ -237,8 +249,8 @@ snippet /* "comment"
  **/
 endsnippet
 
-snippet e
-echo $1;$0
+snippet ee
+echo "$1".PHP_EOL;$0
 endsnippet
 
 #######
