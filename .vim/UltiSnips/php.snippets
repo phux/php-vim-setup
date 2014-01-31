@@ -63,28 +63,28 @@ public function __construct(${1:$dependencies})
 }$0
 endsnippet
 
-snippet mgs "PHP Class Getter Setter" !b
+snippet gs "PHP Class Getter Setter" !b
 /**
- * @var ${2:type}
+ * @var ${3:type}
  */
-private $$1;
+${1:protected} $$2;
 
 /**
- * Getter for $1
- * @return $2
+ * Getter for $2
+ * @return $3
  */
-public function get${1/\w+\s*/\u$0/}()
+public function get${2/\w+\s*/\u$0/}()
 {
-	return $this->$1;
+	return $this->$2;
 }
 
 /**
- * Setter for $1
- * @param $2 $$1
+ * Setter for $2
+ * @param $3 $$2
  */
-public function set${1/\w+\s*/\u$0/}($$1)
+public function set${2/\w+\s*/\u$0/}($$2)
 {
-	$this->$1 = $$1;
+	$this->$2 = $$2;
 }
 $0
 endsnippet
@@ -170,9 +170,10 @@ snippet = "assign var" !b
 $${1:variable} = ${2:value};$0
 endsnippet
 
-snippet $ "$this->" !b
+snippet th "$this->" w
 $this->$0
 endsnippet
+
 
 snippet el "error_log"
 error_log('$1 :' . $2);$0

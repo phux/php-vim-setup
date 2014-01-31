@@ -42,7 +42,7 @@ set wrap
 " " but don't split words
 set lbr
 " "show this in front of broken lines
-set showbreak=…
+set showbreak=↪
 
 " split new window at the right of current
 set spr
@@ -63,7 +63,7 @@ set laststatus=2
 " highlight current line
 set cursorline
 
-"set smartindent
+set smartindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -140,8 +140,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'stephpy/vim-php-cs-fixer'
-Bundle 'StanAngeloff/php.vim'
-Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
@@ -170,12 +169,14 @@ Bundle 'bufkill.vim'
 " git repos on your local machine (ie. when working on your own plugin)
 "Bundle 'file:///Users/gmarik/path/to/plugin'
 
+filetype indent plugin on
 
 let g:project_use_nerdtree = 1
-let g:project_enable_welcome = 0
+let g:project_enable_welcome = 1
 set rtp+=~/.vim/bundle/vim-project/
 call project#rc("~/git/code")
 
+let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 let g:UltiSnipsListSnippets="<s-tab>"
 let g:UltiSnipsExpandTrigger="<m-j>"
 let g:UltiSnipsJumpForwardTrigger="<m-j>"
@@ -407,7 +408,7 @@ endfunc
 autocmd BufWrite *.php :call DeleteTrailingWS()
 
 
-so ~/.nonpublic-vimprj-file
+so ~/.nonpublic-vimprojects
 
 set nocursorcolumn
 set nocursorline
@@ -416,3 +417,15 @@ set scrolljump=5
 let html_no_rendering=1
 
 set nu
+
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
+
+" Edit the vimrc file
+nmap <silent> <F5> :e $MYVIMRC<CR>
+"nmap <silent> <S-F5> :so $MYVIMRC<CR>:so ~/.gvimrc<cr>
+
+" ignore whitespaces when vimdiff'ing
+set diffopt=iwhite
