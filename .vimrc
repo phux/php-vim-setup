@@ -1,6 +1,7 @@
 " ====================
-" = VUNDLE Plugin initializing
+" = Vundle
 " ====================
+
 
 
 
@@ -21,6 +22,7 @@ Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'mbbill/undotree'
 Bundle 'StanAngeloff/php.vim'
+let php_folding=0
 Bundle 'rayburgemeestre/phpfolding.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
@@ -34,6 +36,7 @@ Bundle 'joonty/vim-phpqa'
 Bundle 'tpope/vim-fugitive'
 Bundle 'amiorin/vim-project'
 Bundle 'kien/ctrlp.vim'
+Bundle 'godlygeek/tabular'
 "Bundle 'vim-php/tagbar-phpctags.vim'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tobyS/pdv'
@@ -47,7 +50,7 @@ Bundle 'mru.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bufkill.vim'
 
-
+" }
 
 
 
@@ -77,6 +80,7 @@ set nowritebackup
 set noswapfile
 " automatically read file changed outside of Vim
 set autoread
+
 
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
@@ -109,7 +113,8 @@ set cmdheight=1
 set winminheight=0
 
 " no welcome screen
-set shortmess=atIoOTts
+"set shortmess=atIoOTts
+set shortmess+=filmnrxoOtT
 
 " Always display the status line, even if only one window is displayed
 set laststatus=2
@@ -130,6 +135,10 @@ set listchars=nbsp:⋅,tab:\|\ ,trail:⋅,extends:>,precedes:<
 set whichwrap+=<,>,[,],h,l
 set nostartofline
 set backspace=indent,eol,start
+
+" ------
+" - Search settings
+" ------
 
 " Highlight searches
 set hlsearch
@@ -173,7 +182,6 @@ set diffopt=iwhite
 
 
 
-set foldmethod=indent   "fold based on indent
 set foldnestmax=2      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=2
@@ -310,7 +318,6 @@ vnoremap <leader>y "+y
 
 map <leader>W :set nowrap!<CR>
 
-map <leader>t :set tags=~/tags/
 
 " fast closing of html tags
 imap ;; </<c-x><c-o>
@@ -355,10 +362,6 @@ nmap <leader>o <c-w>g}
 " Edit the vimrc file
 nmap <silent> <F5> :e $MYVIMRC<CR>
 
-" save with strg-s
-"autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent call PhpCsFixerFixFile()<CR>:e<cr>zz
-autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent !php-cs-fixer -qn fix %<CR>:e<cr><space>
-
 map <c-s> <esc>:w<cr>
 imap <c-s> <esc>:w<cr>a
 
@@ -368,7 +371,7 @@ inoremap <c-s-l> <c-o>dw
 inoremap <m-;> <esc>A;<esc>
 nnoremap <m-;> A;<esc>
 
-map <F4> :!ctags -h ".php" -R --exclude="\.svn" --exclude="\.js" --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP='/abstract class ([^ ]*)/\1/c/' --regex-PHP='/interface ([^ ]*)/\1/c/' --regex-PHP='/(public \|static \|abstract \|protected \|private )+function ([^ (]*)/\2/f/' -f ~/tags/
+map <F4> :!ctags -h ".php" -R --exclude=".svn" --exclude="*.js" --exclude=".git" --exclude="*t3*" --exclude="*.html" --exclude="*typo3*" --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP='/abstract class ([^ ]*)/\1/c/' --regex-PHP='/interface ([^ ]*)/\1/c/' --regex-PHP='/(public \|static \|abstract \|protected \|private )+function ([^ (]*)/\2/f/' -f ~/tags/
 
 " unmark search matches
 nmap <silent> ,/ :nohlsearch<CR>
@@ -389,9 +392,6 @@ nmap <F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
 " Toggle folds
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>zz
 vnoremap <Space> zf
-" Folding and unfolding
-map ,f :set foldmethod=indent<cr>zM<cr>
-map ,F :set foldmethod=manual<cr>zR<cr>
 
 
 " ------
@@ -399,8 +399,19 @@ map ,F :set foldmethod=manual<cr>zR<cr>
 " ------
 
 
+map <leader>f :EnableFastPHPFolds<Cr>
+"map <F6> <Esc>:EnablePHPFolds<Cr>
+map <leader>F :DisablePHPFolds<Cr>
 
 nnoremap <leader>u :UndotreeToggle<cr>
+
+if exists(":Tabularize")
+map <Leader>t= :Tabularize /=<CR>
+map <Leader>t: :Tabularize /:<CR>
+map <Leader>t:: :Tabularize /:\\zs<CR>
+map <Leader>t, :Tabularize /,<CR>
+map <Leader>t| :Tabularize /|<CR>
+endif
 
 map <leader>; :TagbarToggle<cr>
 
@@ -408,7 +419,7 @@ map <leader>gw :Gwrite<cr>
 map <leader>gc :Gcommit<cr>
 map <leader>gp :!git push<cr>
 
-map <c-p> :CtrlP<cr>
+map <leader><space> :CtrlP<cr>
 
 map <leader>n :NERDTreeToggle<CR>
 map <leader>N :NERDTreeFind<cr>
@@ -421,10 +432,6 @@ map <leader><enter> :Mru<cr>
 nnoremap <silent> <Leader>y :YRShow<CR>
 
 map <F8> <esc>:w<cr>:Phpmd<cr>
-
-map <silent><F3> :NEXTCOLOR<cr>:redraw<cr>
-map <silent><F2> :PREVCOLOR<cr>:redraw<cr>
-nmap <F2> :SCROLL<cr>
 
 inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>i 
 nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR> 
@@ -447,13 +454,21 @@ let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 
 
 
+function! OpenPHPManual(keyword)
+    "let browser = '/usr/bin/firefox'
+    let browser = '/usr/bin/chromium-browser'
+    let url = 'http://ro.php.net/' . a:keyword
+    silent exec '!' . browser . ' "' . url . '"'
+endfunction
+noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
+
+
 " auto reload vimrc on save
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
 
-autocmd BufWrite *.php :call DeleteTrailingWS()
 func! DeleteTrailingWS()
     exe "normal mz"
     %s/\s\+$//ge
@@ -469,6 +484,17 @@ augroup QFixToggle
     autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
 let g:jah_Quickfix_Win_Height=10
+
+
+function! QFixToggle(forced)
+    if exists("g:qfix_win") && a:forced == 0
+        cclose
+    else
+        execute "copen " . g:jah_Quickfix_Win_Height
+    endif
+endfunction
+
+
 
 " jump to last cursor position when opening files
 function! ResCur()
@@ -493,23 +519,11 @@ augroup END
 
 
 
+" save with strg-s
+autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent !php-cs-fixer -qn fix %<CR>:e<cr>
+autocmd BufWrite *.php :call DeleteTrailingWS()
 
 
-function! OpenPHPManual(keyword)
-    "let browser = '/usr/bin/firefox'
-    let browser = '/usr/bin/chromium-browser'
-    let url = 'http://ro.php.net/' . a:keyword
-    silent exec '!' . browser . ' "' . url . '"'
-endfunction
-noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
-
-function! QFixToggle(forced)
-    if exists("g:qfix_win") && a:forced == 0
-        cclose
-    else
-        execute "copen " . g:jah_Quickfix_Win_Height
-    endif
-endfunction
 
 
 
@@ -524,7 +538,7 @@ endfunction
 
 
 set nocursorcolumn
-set nocursorline
+"set nocursorline
 syntax sync minlines=256
 set scrolljump=5
 let html_no_rendering=1

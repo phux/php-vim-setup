@@ -56,7 +56,7 @@ endsnippet
 snippet con "constructor"
 /**
  * @param mixed ${1/, /\n * \@param mixed /g}
- **/
+ */
 public function __construct(${1:$dependencies})
 {
 	${1/\$(\w+)(, )*/\n\t$this->$1 = $$1;/g}
@@ -246,7 +246,7 @@ endsnippet
 snippet /* "comment"
 /**
  * ${1:comment}
- **/
+ */
 endsnippet
 
 snippet ee
