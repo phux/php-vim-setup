@@ -1,0 +1,341 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	Development	//
+A_CONST	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    const A_CONST = 'foo';$/;"	d	class:UserClass
+AbstractClass	.vim/bundle/pdv/tests/test003_classes.php	/^    abstract class AbstractClass {$/;"	c	implementation:abstract
+AllTogether	.vim/bundle/pdv/tests/test003_classes.php	/^abstract class AllTogether extends ABaseClass implements InterfaceA {$/;"	c	inherits:ABaseClass,InterfaceA	implementation:abstract
+Bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^class Bar {$/;"	c
+Bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_new_oneline_chain.php	/^class Bar {$/;"	c
+BarClass	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteClassName/foo.class.php	/^class BarClass {$/;"	c
+BarClass	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/extends/bar.class.php	/^class BarClass { }$/;"	c
+BarClass2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/extends_extends/bar2_extends_baz.class.php	/^class BarClass2 extends BazClass { }$/;"	c	inherits:BazClass
+BarInterface	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteClassName/foo.class.php	/^interface BarInterface {$/;"	i
+BarNS\Things	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^<?php$/;"	n
+BazClass	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/extends_extends/baz.class.php	/^class BazClass { }$/;"	c
+BazClass	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/typehinted_functions.php	/^class BazClass$/;"	c
+CommonFoo	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/functions.php	/^class CommonFoo {$/;"	c
+DONT_FIND_ME	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/constants.php	/^define('DONT_FIND_ME', 6 * 7);$/;"	d
+DerivedClass	.vim/bundle/pdv/tests/test003_classes.php	/^class DerivedClass extends BaseClass$/;"	c	inherits:BaseClass
+DontFindMe	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentNameSpace/imports.php	/^<?php$/;"	n
+DontFindMe	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentNameSpace/multiple_namespace.php	/^<?php$/;"	n
+FINDME_FOO	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/constants.php	/^define('FINDME_FOO', 42);$/;"	d
+FOO2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetFunctionLocation/foo.function.php	/^function FOO2 ()$/;"	f	signature:()
+FOO_CONST	.vim/bundle/phpcomplete.vim/tests/fixtures/DocBlock/foo.class.php	/^    const FOO_CONST = 42;$/;"	d	class:Foo
+FancyFormat	.vim/bundle/pdv/tests/test003_classes.php	/^  class             FancyFormat      extends FancyWhitespace            {$/;"	c	inherits:FancyWhitespace
+FinalClass	.vim/bundle/pdv/tests/test003_classes.php	/^final class FinalClass$/;"	c
+FindMe	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentNameSpace/multiple_namespace.php	/^}$/;"	n
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^class Foo {$/;"	c	namespace:NS1
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/commented_foo.class.php	/^class Foo {$/;"	c
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/DocBlock/foo.class.php	/^class Foo {$/;"	c
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/same_classname/foo.class.php	/^class Foo extends \\NS1\\Foo {$/;"	c	inherits:NS1,Foo
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/same_classname/ns1_foo.class.php	/^class Foo { }$/;"	c	namespace:NS1
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassLocation/foo.class.php	/^class Foo {$/;"	c
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/arrays.php	/^class Foo {$/;"	c
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/builtin_function.php	/^<?php$/;"	n
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^class Foo {$/;"	c
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^class Foo {$/;"	c	namespace:FooNS
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_new_oneline_chain.php	/^class Foo {$/;"	c
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/function_return_type.php	/^<?php$/;"	n
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/parent.php	/^class Foo extends FooBase {$/;"	c	inherits:FooBase
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_namespaced.php	/^<?php$/;"	n
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentInstruction/instructions.php	/^class Foo extends Bar implements ArrayAccess, It$/;"	c	inherits:Bar,ArrayAccess,It
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentInstruction/instructions.php	/^class Foo {$/;"	c
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentNameSpace/imports.php	/^use RecursiveCallbackFilterIterator as RCFI; \/\/ lookup from the last line should not find this$/;"	n
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentNameSpace/single_namespace.php	/^class Foo {$/;"	c	namespace:Mahou
+Foo	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^class Foo {$/;"	c	namespace:NS1
+Foo2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassLocation/foo.class.php	/^ final class Foo2 {$/;"	c
+FooAbstract	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_abstract.class.php	/^abstract class FooAbstract {$/;"	c	implementation:abstract
+FooAbstract	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_abstract_with_whitespace.class.php	/^    ABSTRACT	class	FooAbstract$/;"	c	implementation:abstract
+FooClass	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteClassName/foo.class.php	/^class FooClass {$/;"	c
+FooClass	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/extends/foo_extends_bar.class.php	/^class FooClass extends BarClass { }$/;"	c	inherits:BarClass
+FooClass	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/foo.class.php	/^class FooClass {$/;"	c
+FooClass	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/foo_whitespace.class.php	/^class FooClass$/;"	c
+FooClass	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/foo_with_extra_content.class.php	/^class FooClass {$/;"	c
+FooClass	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo.class.php	/^class FooClass {$/;"	c
+FooClass	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_outside.class.php	/^class FooClass {$/;"	c
+FooClass	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_with_whitespace.class.php	/^    clASs		    FooClass$/;"	c
+FooClass	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/function_return_type.php	/^class FooClass {$/;"	c	namespace:Foo
+FooClass2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/extends_extends/foo2_extends_bar2.class.php	/^class FooClass2 extends BarClass2 { }$/;"	c	inherits:BarClass2
+FooClassNotThisOne	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/foo_whitespace.class.php	/^class FooClassNotThisOne {$/;"	c
+FooExtension	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^class FooExtension extends Foo {$/;"	c	namespace:FooNS\SubNameSpace	inherits:Foo
+FooInterface	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/foo.interface.php	/^interface FooInterface {$/;"	i
+FooInterface	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^interface FooInterface {$/;"	i	namespace:NS1
+FooMethodsClass	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUnknownClass/foo_methods.class.php	/^class FooMethodsClass {$/;"	c
+FooNS	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^}$/;"	n
+FooNS\SomethingNS	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^}$/;"	n
+FooNS\SubNameSpace	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^}$/;"	n
+FooPropertiesClass	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUnknownClass/foo_properties.class.php	/^class FooPropertiesClass {$/;"	c
+FooSub	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^class FooSub {$/;"	c	namespace:NS1\SUBNS
+FooSub	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^class FooSub {$/;"	c	namespace:NS1\SUBNS
+FooSubSub	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^class FooSubSub {$/;"	c	namespace:NS1\SUBNS\SUBSUB
+FooSubSub	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^class FooSubSub {$/;"	c	namespace:NS1\SUBNS\SUBSUB
+ImplementingClass	.vim/bundle/pdv/tests/test003_classes.php	/^class ImplementingClass implements InterfaceA, InterfaceB$/;"	c	inherits:InterfaceA,InterfaceB
+Level1	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level1.php	/^class Level1 extends Level2 {$/;"	c	namespace:NS1\SubNS2	inherits:Level2
+Level2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level2.php	/^class Level2 extends Level3 {$/;"	c	namespace:NS2\SubNS	inherits:Level3
+Level3	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level3.php	/^class Level3 {$/;"	c	namespace:NS3\SubNS
+Level31	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level31.php	/^class Level31 {$/;"	c	namespace:NS31\SubNS
+Mahou	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentNameSpace/single_namespace.php	/^<?php$/;"	n
+NS1	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteClassName/namespaced.foo.php	/^<?php$/;"	n
+NS1	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_constants.php	/^<?php$/;"	n
+NS1	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^<?php$/;"	n
+NS1	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/import/ns1_foo2.php	/^<?php$/;"	n
+NS1	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/ns1_foo2.php	/^<?php$/;"	n
+NS1	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/same_classname/ns1_foo.class.php	/^<?php$/;"	n
+NS1	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^<?php$/;"	n
+NS1\SUBNS	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_constants.php	/^define('ZAP', 42);$/;"	n
+NS1\SUBNS	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^function bar(){}$/;"	n
+NS1\SUBNS	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^}$/;"	n
+NS1\SUBNS\SUBSUB	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^const ZAPSUB = '';$/;"	n
+NS1\SUBNS\SUBSUB	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^const ZAPSUB = '';$/;"	n
+NS1\SUBNS\SUBSUBNS	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_constants.php	/^define('ZAPSUB', 6 * 7);$/;"	n
+NS1\SubNS	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteClassName/subnamespace.php	/^<?php$/;"	n
+NS1\SubNS2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level1.php	/^<?php$/;"	n
+NS2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/import/ns2_foo.php	/^<?php$/;"	n
+NS2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/ns2_foo.php	/^<?php$/;"	n
+NS2\SubNS	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level2.php	/^<?php$/;"	n
+NS31\SubNS	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level31.php	/^<?php$/;"	n
+NS3\SubNS	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level3.php	/^<?php$/;"	n
+NameSpacedFoo	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteClassName/namespaced.foo.php	/^class NameSpacedFoo {$/;"	c	namespace:NS1
+NameSpacedFooInterface	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteClassName/namespaced.foo.php	/^interface NameSpacedFooInterface {$/;"	i	namespace:NS1
+NamespacedFoo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/import/ns2_foo.php	/^class NamespacedFoo {}$/;"	c	namespace:NS2
+NamespacedFoo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/ns2_foo.php	/^class NamespacedFoo {}$/;"	c	namespace:NS2
+NamespacedFoo2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/import/ns1_foo2.php	/^class NamespacedFoo2 extends NamespacedFoo {}$/;"	c	namespace:NS1	inherits:NamespacedFoo
+NamespacedFoo2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/ns1_foo2.php	/^class NamespacedFoo2 extends \\NS2\\NamespacedFoo {}$/;"	c	namespace:NS1	inherits:NS2,NamespacedFoo
+Page	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_namespaced.php	/^class Page {$/;"	c	namespace:Foo
+SOME_CONTENT	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/foo.interface.php	/^    const SOME_CONTENT = 'bar';$/;"	d	class:FooInterface
+SimplestClass	.vim/bundle/pdv/tests/test003_classes.php	/^class SimplestClass {$/;"	c
+Something	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^class Something {$/;"	c	namespace:FooNS\SomethingNS
+SubNameSpaced	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteClassName/subnamespace.php	/^class SubNameSpaced {$/;"	c	namespace:NS1\SubNS
+SubNameSpacedInterface	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteClassName/subnamespace.php	/^interface SubNameSpacedInterface {$/;"	i	namespace:NS1\SubNS
+TagClass	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteClassName/tagclass.php	/^class TagClass {$/;"	c
+TestClass	.vim/bundle/pdv/tests/test002_functions.php	/^abstract class TestClass$/;"	c	implementation:abstract
+TestClass	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^abstract class TestClass$/;"	c	implementation:abstract
+Thing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^class Thing {$/;"	c	namespace:BarNS\Things
+User	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_return.php	/^class User {$/;"	c
+UserClass	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^class UserClass {$/;"	c
+ZAP	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_constants.php	/^define('ZAP', 42);$/;"	d	namespace:NS1
+ZAP	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^const ZAP = '';$/;"	d	namespace:NS1
+ZAP	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^const ZAP = '';$/;"	d	namespace:NS1
+ZAPSUB	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_constants.php	/^define('ZAPSUB', 6 * 7);$/;"	d	namespace:NS1\SUBNS
+ZAPSUB	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^const ZAPSUB = '';$/;"	d	namespace:NS1\SUBNS
+ZAPSUB	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^const ZAPSUB = '';$/;"	d	namespace:NS1\SUBNS
+ZAPSUBSUB	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_constants.php	/^define('ZAPSUBSUB', 2 * 3 * 7);$/;"	d	namespace:NS1\SUBNS\SUBSUBNS
+ZAPSUBSUB	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^const ZAPSUBSUB = '';$/;"	d	namespace:NS1\SUBNS\SUBSUB
+ZAPSUBSUB	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^const ZAPSUBSUB = '';$/;"	d	namespace:NS1\SUBNS\SUBSUB
+__construct	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    public function __construct() {$/;"	f	class:UserClass	access:public	signature:()
+a	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentInstruction/instructions.php	/^;$/;"	v
+abstractPublicFunc	.vim/bundle/pdv/tests/test002_functions.php	/^    abstract public function abstractPublicFunc();$/;"	f	class:TestClass	access:public	implementation:abstract	signature:()
+abstractPublicFunc	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^    abstract public function abstractPublicFunc();$/;"	f	class:TestClass	access:public	implementation:abstract	signature:()
+array_index_by_col	.vim/bundle/phpcomplete.vim/bin/generator/tools.php	/^function array_index_by_col($arr, $col, $overwrite_duplicate = true) {$/;"	f	signature:($arr, $col, $overwrite_duplicate = true)
+bar	.vim/bundle/pdv/tests/test001_attributes.php	/^    public $bar = array( 1, 2, 3 );$/;"	v	access:public
+bar	.vim/bundle/pdv/tests/test004_attributes_snipmate.php	/^    public $bar = array( 1, 2, 3 );$/;"	v	access:public
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^function bar(){}$/;"	f	namespace:NS1	signature:()
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/foo.class.php	/^    public function bar( $baz = 'foo') {$/;"	f	class:FooClass	access:public	signature:($baz = '...')
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/foo_whitespace.class.php	/^    public function bar( $baz = 'foo')$/;"	f	class:FooClass	access:public	signature:($baz = '...')
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/foo_with_extra_content.class.php	/^    public function bar( $baz = 'foo') {$/;"	f	class:FooClass	access:public	signature:($baz = '...')
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/foo_with_extra_content.class.php	/^function bar() {$/;"	f	signature:()
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/same_classname/foo.class.php	/^    public function bar()$/;"	f	class:Foo	access:public	signature:()
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassLocation/foo.class.php	/^    public function bar() {$/;"	f	class:Foo	access:public	signature:()
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^    public $bar;$/;"	v	class:Foo	access:public
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo.class.php	/^    public function bar() {$/;"	f	class:FooClass	access:public	signature:()
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	function bar() {$/;"	f	class:FooNS\SubNameSpace::FooExtension	signature:()
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_with_whitespace.class.php	/^        public function bar() {$/;"	f	class:FooClass	access:public	signature:()
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/parent.php	/^    public function bar() {$/;"	f	class:Foo	access:public	signature:()
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentInstruction/instructions.php	/^    public function bar()$/;"	f	class:Foo	access:public	signature:()
+bar	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^function bar(){}$/;"	f	namespace:NS1	signature:()
+bar2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassLocation/foo.class.php	/^    function bar2() {$/;"	f	class:Foo2	signature:()
+bar2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^    private $bar2;$/;"	v	class:Foo	access:private
+bar2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^$foo2 = new Foo;$/;"	v
+bar3	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^    protected $bar3;$/;"	v	class:Foo	access:protected
+bar3	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^$foo3 = new Foo;$/;"	v
+barThis	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	function barThis() {$/;"	f	class:FooNS::Foo	signature:()
+barsub	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^function barsub(){}$/;"	f	namespace:NS1\SUBNS	signature:()
+barsub	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^function barsub(){$/;"	f	namespace:NS1\SUBNS	signature:()
+barsubsub	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/namespaced_foo.php	/^function barsubsub(){}$/;"	f	namespace:NS1\SUBNS\SUBSUB	signature:()
+barsubsub	.vim/bundle/phpcomplete.vim/tests/fixtures/common/namespaced_foo.php	/^function barsubsub(){$/;"	f	namespace:NS1\SUBNS\SUBSUB	signature:()
+baz	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/typehinted_functions.php	/^FuNcTiOn baz    (  FooClass2 $bar) {$/;"	f	signature:(FooClass2 $bar)
+baz2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/typehinted_functions.php	/^function baz2(RenamedFoo $bar) {$/;"	f	signature:(RenamedFoo $bar)
+bazFunction	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/typehinted_functions.php	/^    function bazFunction(FooClass9 $bar)$/;"	f	class:BazClass	signature:(FooClass9 $bar)
+commented_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/commented_foo.class.php	/^    public function commented_method($foo, $bar, $baz = '') {$/;"	f	class:Foo	access:public	signature:($foo, $bar, $baz = '...')
+commented_property	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/commented_foo.class.php	/^    public $commented_property;$/;"	v	class:Foo	access:public
+commentedfoo	.vim/bundle/phpcomplete.vim/tests/fixtures/DocBlock/foo.class.php	/^    public function commentedfoo($foo, $bar, $baz = '') {$/;"	f	class:Foo	access:public	signature:($foo, $bar, $baz = '...')
+common_plain_old_function	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/functions.php	/^function common_plain_old_function(){}$/;"	f	signature:()
+common_plain_old_function_with_arguments	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/functions.php	/^function common_plain_old_function_with_arguments($a, $b=''){}$/;"	f	signature:($a, $b = '...')
+common_private_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/functions.php	/^    private function common_private_method($foo) { }$/;"	f	class:CommonFoo	access:private	signature:($foo)
+common_private_static_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/functions.php	/^    private static function common_private_static_method($foo) { }$/;"	f	class:CommonFoo	access:private	signature:($foo)
+common_protected_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/functions.php	/^    protected function common_protected_method($foo) { }$/;"	f	class:CommonFoo	access:protected	signature:($foo)
+common_protected_static_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/functions.php	/^    protected static function common_protected_static_method($foo) { }$/;"	f	class:CommonFoo	access:protected	signature:($foo)
+common_public_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/functions.php	/^    public function common_public_method($foo) { }$/;"	f	class:CommonFoo	access:public	signature:($foo)
+common_public_static_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/functions.php	/^    public static function common_public_static_method($foo) { }$/;"	f	class:CommonFoo	access:public	signature:($foo)
+common_static_public_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteGeneral/functions.php	/^    static public function common_static_public_method($foo) { }$/;"	f	class:CommonFoo	access:public	signature:($foo)
+completeThis	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	function completeThis() {$/;"	f	class:FooNS::Foo	signature:()
+completeThisGetSomething	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	function completeThisGetSomething() {$/;"	f	class:FooNS::Foo	signature:()
+complexDefaultFunc	.vim/bundle/pdv/tests/test002_functions.php	/^    public function complexDefaultFunc( array $foo = array( 1, 2, 3 ) ) {$/;"	f	class:TestClass	access:public	signature:(array $foo = array(1, 2, 3))
+complexDefaultFunc	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^    public function complexDefaultFunc( array $foo = array( 1, 2, 3 ) ) {$/;"	f	class:TestClass	access:public	signature:(array $foo = array(1, 2, 3))
+currentThing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	public $currentThing;$/;"	v	class:FooNS\SomethingNS::Something	access:public
+d	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/builtin_static_return_type.php	/^$d->$/;"	v
+d	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/builtin_static_return_type.php	/^<?php$/;"	v
+d	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^$doc->createAttribute()->ownerElement->$/;"	v
+dist_enabled_class_extensions	.vim/bundle/phpcomplete.vim/bin/generate_builtin_dicts.php	/^);$/;"	v
+dist_enabled_constant_extensions	.vim/bundle/phpcomplete.vim/bin/generate_builtin_dicts.php	/^);$/;"	v
+dist_enabled_function_extensions	.vim/bundle/phpcomplete.vim/bin/generate_builtin_dicts.php	/^require_once __DIR__.'\/'.'generator\/classes.php';$/;"	v
+dist_enabled_interface_extensions	.vim/bundle/phpcomplete.vim/bin/generate_builtin_dicts.php	/^);$/;"	v
+doSometing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level1.php	/^	public function doSometing() {$/;"	f	class:NS1\SubNS2::Level1	access:public	signature:()
+doc	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^$foo->bar3->foo->$/;"	v
+dont_find_me	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteVariable/local_variables.php	/^$find_me4 = new BarClass;$/;"	v
+extract_class_fields	.vim/bundle/phpcomplete.vim/bin/generator/classes.php	/^function extract_class_fields($xpath, $classname, $file) {$/;"	f	signature:($xpath, $classname, $file)
+extract_class_methods	.vim/bundle/phpcomplete.vim/bin/generator/classes.php	/^function extract_class_methods($xpath, $classname, $file) {$/;"	f	signature:($xpath, $classname, $file)
+extract_class_name	.vim/bundle/phpcomplete.vim/bin/generator/classes.php	/^function extract_class_name($xpath) {$/;"	f	signature:($xpath)
+extract_class_signatures	.vim/bundle/phpcomplete.vim/bin/generator/classes.php	/^function extract_class_signatures($files, $extensions) {$/;"	f	signature:($files, $extensions)
+extract_constant_names	.vim/bundle/phpcomplete.vim/bin/generator/constants.php	/^function extract_constant_names($files, $extensions) {$/;"	f	signature:($files, $extensions)
+extract_function_signatures	.vim/bundle/phpcomplete.vim/bin/generator/functions.php	/^function extract_function_signatures($files, $extensions) {$/;"	f	signature:($files, $extensions)
+filenameize	.vim/bundle/phpcomplete.vim/bin/generator/tools.php	/^function filenameize($str) {$/;"	f	signature:($str)
+final_private_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    final private function final_private_method($foo = null)$/;"	f	class:UserClass	access:private	signature:($foo = null)
+final_static_public_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    final static public function final_static_public_method()$/;"	f	class:UserClass	access:public	signature:()
+find_me	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteVariable/local_variables.php	/^<?php$/;"	v
+find_me	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_return.php	/^    public function find_me() { }$/;"	f	class:User	access:public	signature:()
+find_me2	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteVariable/local_variables.php	/^$find_me = "var";$/;"	v
+find_me3	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteVariable/local_variables.php	/^$find_me2 = time();$/;"	v
+find_me4	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteVariable/local_variables.php	/^$find_me3 = new DateTime;$/;"	v
+findme	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/arrays.php	/^    public function findme($a) {$/;"	f	class:Foo	access:public	signature:($a)
+findme	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/function_return_type.php	/^    public function findme() {$/;"	f	class:Foo::FooClass	access:public	signature:()
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/DocBlock/foo.class.php	/^    public $foo;$/;"	v	class:Foo	access:public
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassContents/foo_with_extra_content.class.php	/^function foo() {$/;"	f	signature:()
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^    var $foo;$/;"	v	class:Bar	access:public
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^}$/;"	v
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_abstract.class.php	/^    public function foo() {$/;"	f	class:FooAbstract	access:public	signature:()
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_abstract_with_whitespace.class.php	/^        public function foo() {$/;"	f	class:FooAbstract	access:public	signature:()
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_equals_new_foo.php	/^$foo->$/;"	v
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_equals_new_foo.php	/^<?php$/;"	v
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/function_docblock.php	/^}$/;"	f	signature:($bar3, Some Class $foo)
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/function_return_type.php	/^}$/;"	v	namespace:Foo
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/singleton_getinstance.php	/^$foo->$/;"	v
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/singleton_getinstance.php	/^<?php$/;"	v
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentInstruction/instructions.php	/^$foo = $bar->baz($f, $bar2-> \/\/ cursor before the comment$/;"	v
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentInstruction/instructions.php	/^$foo = $bar->baz($foo = call(), (new foo)->  \/\/ cursor before the comment$/;"	v
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentInstruction/instructions.php	/^;$/;"	v
+foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetFunctionLocation/foo.function.php	/^function foo(){$/;"	f	signature:()
+foo1	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/function_docblock.php	/^function foo1($bar1) {$/;"	f	signature:($bar1)
+foo2	.vim/bundle/phpcomplete.vim/tests/fixtures/DocBlock/foo.class.php	/^    var $foo2 = '';$/;"	v	class:Foo	access:public
+foo2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/arrays.php	/^;$/;"	v
+foo2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^$foobar->$/;"	v
+foo2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/function_docblock.php	/^function foo2($bar1, $bar2, $bar3) {$/;"	f	signature:($bar1, $bar2, $bar3)
+foo2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/function_return_type.php	/^$foo->$/;"	v	namespace:Foo
+foo3	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/arrays.php	/^;$/;"	v
+foo3	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^$bar2->$/;"	v
+foo4	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/arrays.php	/^$foo3 = new Foo;$/;"	v
+foo_conflicting_sources	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/var_comment_mark.php	/^$bar3->$/;"	v
+fooarray	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/arrays.php	/^    public $fooarray;$/;"	v	class:Foo	access:public
+foobar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^$tz->$/;"	v
+format_method_signature	.vim/bundle/phpcomplete.vim/bin/generator/tools.php	/^function format_method_signature($signature) {$/;"	f	signature:($signature)
+fun	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^function fun(Foo $foo) {$/;"	f	signature:(Foo $foo)
+getActualThing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	function getActualThing(){$/;"	f	class:BarNS\Things::Thing	signature:()
+getAnother31Instance	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level3.php	/^	public function getAnother31Instance() {$/;"	f	class:NS3\SubNS::Level3	access:public	signature:()
+getLevel31Instance	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level3.php	/^	public function getLevel31Instance() {$/;"	f	class:NS3\SubNS::Level3	access:public	signature:()
+getPage	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_namespaced.php	/^    public static function getPage(){$/;"	f	class:Foo::Page	access:public	signature:()
+getPage2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_namespaced.php	/^    public static function getPage2(){$/;"	f	class:Foo::Page	access:public	signature:()
+getRenamedPage	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_namespaced.php	/^    public static function getRenamedPage(){$/;"	f	class:Foo::Page	access:public	signature:()
+getRenamedPage2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_namespaced.php	/^    public static function getRenamedPage2(){$/;"	f	class:Foo::Page	access:public	signature:()
+getSomething	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	function getSomething() {$/;"	f	class:FooNS::Foo	signature:()
+getThing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	function getThing() {$/;"	f	class:FooNS::Foo	signature:()
+getThing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	function getThing() {$/;"	f	class:FooNS\SomethingNS::Something	signature:()
+getUser	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_return.php	/^    public static function getUser(){ }$/;"	f	class:User	access:public	signature:()
+get_extension_name	.vim/bundle/phpcomplete.vim/bin/generator/tools.php	/^function get_extension_name($file, $extensions) {$/;"	f	signature:($file, $extensions)
+get_extension_names	.vim/bundle/phpcomplete.vim/bin/generator/tools.php	/^function get_extension_names($docs_dir) {$/;"	f	signature:($docs_dir)
+handle_class_const	.vim/bundle/phpcomplete.vim/bin/generator/classes.php	/^function handle_class_const($xpath, $node, $file) {$/;"	f	signature:($xpath, $node, $file)
+handle_class_property	.vim/bundle/phpcomplete.vim/bin/generator/classes.php	/^function handle_class_property($xpath, $node, $file) {$/;"	f	signature:($xpath, $node, $file)
+handle_func_alias	.vim/bundle/phpcomplete.vim/bin/generator/functions.php	/^function handle_func_alias($xpath, $nodes, $file) {$/;"	f	signature:($xpath, $nodes, $file)
+handle_func_def	.vim/bundle/phpcomplete.vim/bin/generator/functions.php	/^function handle_func_def($xpath, $nodes, $file) {$/;"	f	signature:($xpath, $nodes, $file)
+handle_method_def	.vim/bundle/phpcomplete.vim/bin/generator/classes.php	/^function handle_method_def($xpath, $classname, $node, $file) {$/;"	f	signature:($xpath, $classname, $node, $file)
+i	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentInstruction/instructions.php	/^for ($i = 0; $i < 10; ++$i) $date-> \/\/ cursor before the comment$/;"	v
+inject_class_constants	.vim/bundle/phpcomplete.vim/bin/generator/constants.php	/^function inject_class_constants(&$class_groups, $class_constant_groups, $generate_warnings = true) {$/;"	f	signature:(& $class_groups, $class_constant_groups, $generate_warnings = true)
+lala	.vim/bundle/pdv/tests/test001_attributes.php	/^    public static $lala = 23;$/;"	v	access:public
+lala	.vim/bundle/pdv/tests/test004_attributes_snipmate.php	/^    public static $lala = 23;$/;"	v	access:public
+level1Method	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level1.php	/^	protected function level1Method() {$/;"	f	class:NS1\SubNS2::Level1	access:protected	signature:()
+level2Method_protected	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level2.php	/^	protected function level2Method_protected() {$/;"	f	class:NS2\SubNS::Level2	access:protected	signature:()
+level2Method_public	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level2.php	/^	public function level2Method_public() {$/;"	f	class:NS2\SubNS::Level2	access:public	signature:()
+level31Method	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level31.php	/^	public function level31Method() {$/;"	f	class:NS31\SubNS::Level31	access:public	signature:()
+level3Method_protected	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level3.php	/^	protected function level3Method_protected() {$/;"	f	class:NS3\SubNS::Level3	access:protected	signature:()
+level3Method_public	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_inheritance_level3.php	/^	public function level3Method_public() {$/;"	f	class:NS3\SubNS::Level3	access:public	signature:()
+main	.vim/bundle/phpcomplete.vim/bin/generate_builtin_dicts.php	/^function main($argv){$/;"	f	signature:($argv)
+make_a_foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/function_return_type.php	/^function make_a_foo(){$/;"	f	namespace:Foo	signature:()
+make_a_renamed_foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/function_return_type.php	/^function make_a_renamed_foo(){$/;"	f	namespace:Foo	signature:()
+method1	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUnknownClass/foo_methods.class.php	/^    function method1($foo) {$/;"	f	class:FooMethodsClass	signature:($foo)
+method2	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUnknownClass/foo_methods.class.php	/^    public function method2($foo) {$/;"	f	class:FooMethodsClass	access:public	signature:($foo)
+method3	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUnknownClass/foo_methods.class.php	/^    public static function method3($foo) {$/;"	f	class:FooMethodsClass	access:public	signature:($foo)
+method4	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUnknownClass/foo_methods.class.php	/^    static public function method4($foo) {$/;"	f	class:FooMethodsClass	access:public	signature:($foo)
+method5	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUnknownClass/foo_methods.class.php	/^    private function method5($foo) {$/;"	f	class:FooMethodsClass	access:private	signature:($foo)
+method6	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUnknownClass/foo_methods.class.php	/^    protected function method6($foo) {$/;"	f	class:FooMethodsClass	access:protected	signature:($foo)
+minimally_commented	.vim/bundle/phpcomplete.vim/tests/fixtures/DocBlock/foo.class.php	/^    public function minimally_commented() {$/;"	f	class:Foo	access:public	signature:()
+multiLineParamListFunc	.vim/bundle/pdv/tests/test002_functions.php	/^    public function multiLineParamListFunc($/;"	f	class:TestClass	access:public	signature:(FirstParam $firstParam = null, SecondParam $secondParam, $thirdParam = array('...', array('...')), $fourthParam = 42.23)
+multiLineParamListFunc	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^    public function multiLineParamListFunc($/;"	f	class:TestClass	access:public	signature:(FirstParam $firstParam = null, SecondParam $secondParam, $thirdParam = array('...', array('...')), $fourthParam = 42.23)
+multiParamsFuncFloatDefault	.vim/bundle/pdv/tests/test002_functions.php	/^  public function multiParamsFuncFloatDefault( $someParam = 42.5, $anotherParam )$/;"	f	class:TestClass	access:public	signature:($someParam = 42.5, $anotherParam)
+multiParamsFuncFloatDefault	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^  public function multiParamsFuncFloatDefault( $someParam = 42.5, $anotherParam )$/;"	f	class:TestClass	access:public	signature:($someParam = 42.5, $anotherParam)
+naked_public_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    function naked_public_method(){$/;"	f	class:UserClass	signature:()
+nocomment	.vim/bundle/phpcomplete.vim/tests/fixtures/DocBlock/foo.class.php	/^    public $nocomment;$/;"	v	class:Foo	access:public
+nocomment2	.vim/bundle/phpcomplete.vim/tests/fixtures/DocBlock/foo.class.php	/^    public static $nocomment2;$/;"	v	class:Foo	access:public
+not_commented	.vim/bundle/phpcomplete.vim/tests/fixtures/DocBlock/foo.class.php	/^    public function not_commented() {$/;"	f	class:Foo	access:public	signature:()
+p	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_namespaced.php	/^$p->$/;"	v	namespace:Foo
+p	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_namespaced.php	/^}$/;"	v	namespace:Foo
+paramFuncIntDefault	.vim/bundle/pdv/tests/test002_functions.php	/^    public function paramFuncIntDefault( $parameter = 23 ) {$/;"	f	class:TestClass	access:public	signature:($parameter = 23)
+paramFuncIntDefault	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^    public function paramFuncIntDefault( $parameter = 23 ) {$/;"	f	class:TestClass	access:public	signature:($parameter = 23)
+privateSomeThing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	private $privateSomeThing;$/;"	v	class:FooNS\SomethingNS::Something	access:private
+privateStaticFunc	.vim/bundle/pdv/tests/test002_functions.php	/^    private static function privateStaticFunc( SomeClass $foo = null )$/;"	f	class:TestClass	access:private	signature:(SomeClass $foo = null)
+privateStaticFunc	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^    private static function privateStaticFunc( SomeClass $foo = null )$/;"	f	class:TestClass	access:private	signature:(SomeClass $foo = null)
+privateThing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	private $privateThing;$/;"	v	class:BarNS\Things::Thing	access:private
+private_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    private function private_method($foo) {$/;"	f	class:UserClass	access:private	signature:($foo)
+private_property	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    private $private_property;$/;"	v	class:UserClass	access:private
+private_static_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    private static function private_static_method($foo) {$/;"	f	class:UserClass	access:private	signature:($foo)
+private_static_property	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    private static $private_static_property;$/;"	v	class:UserClass	access:private
+property1	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUnknownClass/foo_properties.class.php	/^    var $property1 = 'foo';$/;"	v	class:FooPropertiesClass	access:public
+property2	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUnknownClass/foo_properties.class.php	/^    public $property2 = 'bar';$/;"	v	class:FooPropertiesClass	access:public
+protectedAbstractFunc	.vim/bundle/pdv/tests/test002_functions.php	/^    protected abstract function protectedAbstractFunc($foo="bar");$/;"	f	class:TestClass	access:protected	implementation:abstract	signature:($foo = '...')
+protectedAbstractFunc	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^    protected abstract function protectedAbstractFunc($foo="bar");$/;"	f	class:TestClass	access:protected	implementation:abstract	signature:($foo = '...')
+protectedFunc	.vim/bundle/pdv/tests/test002_functions.php	/^    protected function protectedFunc( $foo = null, array $bar )$/;"	f	class:TestClass	access:protected	signature:($foo = null, array $bar)
+protectedFunc	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^    protected function protectedFunc( $foo = null, array $bar )$/;"	f	class:TestClass	access:protected	signature:($foo = null, array $bar)
+protectedSomeThing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	protected $protectedSomeThing;$/;"	v	class:FooNS\SomethingNS::Something	access:protected
+protectedThing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	protected $protectedThing;$/;"	v	class:BarNS\Things::Thing	access:protected
+protected_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    protected function protected_method($foo) {$/;"	f	class:UserClass	access:protected	signature:($foo)
+protected_property	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    protected $protected_property;$/;"	v	class:UserClass	access:protected
+protected_static_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    protected static function protected_static_method($foo) {$/;"	f	class:UserClass	access:protected	signature:($foo)
+protected_static_property	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    protected static $protected_static_property;$/;"	v	class:UserClass	access:protected
+publicSomeThing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	public $publicSomeThing;$/;"	v	class:FooNS\SomethingNS::Something	access:public
+publicThing	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_method_chains.php	/^	public $publicThing;$/;"	v	class:BarNS\Things::Thing	access:public
+public_final_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    public final function public_final_method($foo, $anotherfoo = '')$/;"	f	class:UserClass	access:public	signature:($foo, $anotherfoo = '...')
+public_final_static_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    public final static function public_final_static_method( $foo, $anotherfoo = array() )$/;"	f	class:UserClass	access:public	signature:($foo, $anotherfoo = array())
+public_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    public function public_method($foo) {$/;"	f	class:UserClass	access:public	signature:($foo)
+public_method_with_amp	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    public function &public_method_with_amp($foo)$/;"	f	class:UserClass	access:public	signature:($foo)
+public_property1	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    var $public_property1;$/;"	v	class:UserClass	access:public
+public_property2	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    public $public_property2;$/;"	v	class:UserClass	access:public
+public_static_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    public static function public_static_method($foo) {$/;"	f	class:UserClass	access:public	signature:($foo)
+public_static_property	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    public static $public_static_property;$/;"	v	class:UserClass	access:public
+quxFunction	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/typehinted_functions.php	/^    public static function quxFunction(FooClass10 $baz)$/;"	f	class:BazClass	access:public	signature:(FooClass10 $baz)
+return_bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^    public function return_bar() {$/;"	f	class:Foo	access:public	signature:()
+return_bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_new_oneline_chain.php	/^    public function return_bar() {$/;"	f	class:Foo	access:public	signature:()
+return_foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^    public function return_foo() {$/;"	f	class:Bar	access:public	signature:()
+return_foo	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/foo_new_oneline_chain.php	/^    public function return_foo() {$/;"	f	class:Bar	access:public	signature:()
+simpleParamFunc	.vim/bundle/pdv/tests/test002_functions.php	/^public function simpleParamFunc( $parameter )$/;"	f	class:TestClass	access:public	signature:($parameter)
+simpleParamFunc	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^public function simpleParamFunc( $parameter )$/;"	f	class:TestClass	access:public	signature:($parameter)
+simplesFunc	.vim/bundle/pdv/tests/test002_functions.php	/^    public function simplesFunc () {$/;"	f	class:TestClass	access:public	signature:()
+simplesFunc	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^    public function simplesFunc () {$/;"	f	class:TestClass	access:public	signature:()
+some	.vim/bundle/phpcomplete.vim/tests/fixtures/GetCurrentNameSpace/single_namespace.php	/^}$/;"	v	namespace:Mahou
+static_bar	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^    protected static $static_bar;$/;"	v	class:Foo	access:protected
+static_bar2	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^    static public $static_bar2;$/;"	v	class:Foo	access:public
+static_final_protected_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    static final protected function static_final_protected_method()$/;"	f	class:UserClass	access:protected	signature:()
+static_property	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUnknownClass/foo_properties.class.php	/^    public static $static_property = 'bar';$/;"	v	class:FooPropertiesClass	access:public
+static_public_method	.vim/bundle/phpcomplete.vim/tests/fixtures/CompleteUserClass/user_extended.class.php	/^    static public function static_public_method($foo) {$/;"	f	class:UserClass	access:public	signature:($foo)
+typeHintParamsFunc	.vim/bundle/pdv/tests/test002_functions.php	/^public function typeHintParamsFunc(array $foo, SomeClass $bar) {$/;"	f	class:TestClass	access:public	signature:(array $foo, SomeClass $bar)
+typeHintParamsFunc	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^public function typeHintParamsFunc(array $foo, SomeClass $bar) {$/;"	f	class:TestClass	access:public	signature:(array $foo, SomeClass $bar)
+tz	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/call_chains.php	/^$d->add()->getTimezone()->$/;"	v
+u	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/static_docblock_return.php	/^}$/;"	v
+usage	.vim/bundle/phpcomplete.vim/bin/generate_builtin_dicts.php	/^function usage($argv) {$/;"	f	signature:($argv)
+vimstring_escape	.vim/bundle/phpcomplete.vim/bin/generator/tools.php	/^function vimstring_escape($str) {$/;"	f	signature:($str)
+whiteSpaceNoParamsFunc	.vim/bundle/pdv/tests/test002_functions.php	/^    public function whiteSpaceNoParamsFunc(  )$/;"	f	class:TestClass	access:public	signature:()
+whiteSpaceNoParamsFunc	.vim/bundle/pdv/tests/test005_functions_snipmate.php	/^    public function whiteSpaceNoParamsFunc(  )$/;"	f	class:TestClass	access:public	signature:()
+write_class_signatures_to_vim_hash	.vim/bundle/phpcomplete.vim/bin/generator/classes.php	/^function write_class_signatures_to_vim_hash($signatures, $outpath, $keyname, $enabled_extensions = null, $prettyprint = true) {$/;"	f	signature:($signatures, $outpath, $keyname, $enabled_extensions = null, $prettyprint = true)
+write_constant_names_to_vim_hash	.vim/bundle/phpcomplete.vim/bin/generator/constants.php	/^function write_constant_names_to_vim_hash($constant_groups, $outpath, $keyname, $enabled_extensions = null, $prettyprint = true) {$/;"	f	signature:($constant_groups, $outpath, $keyname, $enabled_extensions = null, $prettyprint = true)
+write_function_signatures_to_vim_hash	.vim/bundle/phpcomplete.vim/bin/generator/functions.php	/^function write_function_signatures_to_vim_hash($signatures, $outpath, $keyname, $enabled_extensions = null, $prettyprint = true) {$/;"	f	signature:($signatures, $outpath, $keyname, $enabled_extensions = null, $prettyprint = true)
+xml	.vim/bundle/phpcomplete.vim/tests/fixtures/GetClassName/builtin_function.php	/^namespace Foo;$/;"	v	namespace:Foo

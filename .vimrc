@@ -44,8 +44,8 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'tobyS/pdv'
 Bundle 'tobyS/vmustache'
 Bundle 'ap/vim-css-color'
-
 Bundle 'YankRing.vim'
+Bundle 'tristen/vim-sparkup'
 "Bundle 'ScrollColors'
 Bundle 'L9'
 Bundle 'mru.vim'
@@ -455,7 +455,8 @@ let g:UltiSnipsExpandTrigger="<m-j>"
 let g:UltiSnipsJumpForwardTrigger="<m-j>"
 let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 
-
+let g:sparkupExecuteMapping='<m-i>'
+let g:sparkupNextMapping = '<m-o>'
 
 
 
