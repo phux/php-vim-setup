@@ -577,8 +577,6 @@ autocmd BufWrite *.php :call DeleteTrailingWS()
 
 au FileType php set omnifunc=phpcomplete#CompletePHP
 " PHP Generated Code Highlights (HTML & SQL)
-let php_sql_query=1
-let php_htmlInStrings=0
 
 
 
@@ -594,9 +592,14 @@ let php_htmlInStrings=0
 
 set nocursorcolumn
 set nocursorline
-syntax sync minlines=100
+set noshowmatch
+set lazyredraw
+syntax sync minlines=50
 set scrolljump=5
+let loaded_matchparen = 1
 let html_no_rendering=1
+let php_sql_query=0
+let php_htmlInStrings=0
 
 
 
