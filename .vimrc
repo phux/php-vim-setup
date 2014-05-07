@@ -20,10 +20,12 @@ Bundle 'henrik/vim-indexed-search'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
 Bundle 'mbbill/undotree'
-Bundle 'StanAngeloff/php.vim'
+"Bundle 'StanAngeloff/php.vim'
+"Bundle '2072/vim-syntax-for-PHP'
 let php_folding=0
-Bundle 'rayburgemeestre/phpfolding.vim'
+"Bundle 'rayburgemeestre/phpfolding.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
@@ -41,6 +43,7 @@ Bundle 'godlygeek/tabular'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tobyS/pdv'
 Bundle 'tobyS/vmustache'
+Bundle 'ap/vim-css-color'
 
 Bundle 'YankRing.vim'
 "Bundle 'ScrollColors'
@@ -48,6 +51,7 @@ Bundle 'L9'
 Bundle 'mru.vim'
 "Bundle 'SearchComplete'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'nanotech/jellybeans.vim'
 Bundle 'bufkill.vim'
 
 " }
@@ -129,6 +133,9 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 set list
+
+set formatoptions+=or
+
 "set listchars=eol:¬,nbsp:⋅,tab:\|\ ,trail:⋅,extends:>,precedes:<
 set listchars=nbsp:⋅,tab:\|\ ,trail:⋅,extends:>,precedes:<
 
@@ -202,9 +209,9 @@ set foldlevel=2
 
 syntax on
 
-colorscheme solarized
 if has("gui_running")
-    set background=light
+    colorscheme jellybeans
+"    set background=light
 
     set guicursor=a:block-Cursor
     "cursors dont blink!
@@ -250,6 +257,8 @@ let g:php_cs_fixer_enable_default_mapping = 0     " Enable the mapping by defaul
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
 
+let g:PHP_removeCRwhenUnix = 1
+let g:PHP_vintage_case_default_indent = 1
 
 let g:pdv_template_dir = $HOME."/.vim/bundle/pdv/templates_snip"
 
@@ -276,6 +285,7 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_key_invoke_completion = '<C-Space>'
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
@@ -371,7 +381,8 @@ inoremap <c-s-l> <c-o>dw
 inoremap <m-;> <esc>A;<esc>
 nnoremap <m-;> A;<esc>
 
-map <F4> :!ctags -h ".php" -R --exclude=".svn" --exclude="*.js" --exclude=".git" --exclude="*t3*" --exclude="*.html" --exclude="*typo3*" --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP='/abstract class ([^ ]*)/\1/c/' --regex-PHP='/interface ([^ ]*)/\1/c/' --regex-PHP='/(public \|static \|abstract \|protected \|private )+function ([^ (]*)/\2/f/' -f ~/tags/
+
+map <F4> :call UpdateTags()<cr>
 
 " unmark search matches
 nmap <silent> ,/ :nohlsearch<CR>
@@ -432,6 +443,8 @@ map <leader><enter> :Mru<cr>
 nnoremap <silent> <Leader>y :YRShow<CR>
 
 map <F8> <esc>:w<cr>:Phpmd<cr>
+map <F9> <esc>:w<cr>:Phpcs<cr>
+map <F12> <esc>gg=G:w<cr>:silent !php-cs-fixer -qn fix %<CR>:e<cr>zi:Phpmd<cr>
 
 inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>i 
 nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR> 
@@ -450,6 +463,14 @@ let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 " = Custom functions
 " ====================
 
+function! UpdateTags()
+  let cwd = getcwd()
+  let tagfilename = cwd . "/tags"
+  let cmd = 'ctags -h ".php" --languages=php -R --exclude=".svn" --exclude=".git" --exclude="*t3*"  --exclude="*Twig*"  --exclude="*typo3*" --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP="/abstract class ([^ ]*)/\1/c/" --regex-PHP="/interface ([^ ]*)/\1/c/" --regex-PHP="/(public \|static \|abstract \|protected \|private )+function ([^ (]*)/\2/f/" --fields=+aimS -f '.tagfilename
+  let cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --exclude="*.html" --exclude=".svn" --exclude=".git" --exclude="*t3*" --exclude="*Twig*"  --exclude="*typo3*" -f '.tagfilename
+  let resp = system(cmd)
+  echo resp
+endfunction
 
 
 
@@ -508,7 +529,38 @@ augroup resCur
     autocmd BufWinEnter * call ResCur()
 augroup END
 
+function! BExtractMethod() range
+  let name = inputdialog("Name of new method:")
+  '<
+  exe "normal! O\<BS>private " . name ."()\<CR>{\<Esc>"
+  '>
+  exe "normal! oreturn ;\<CR>}\<Esc>k"
+  s/return/\/\/ return/ge
+  normal! j%
+  normal! kf(
+  exe "normal! yyPi// = \<Esc>wdwA;\<Esc>"
+  normal! ==
+  normal! j0w
+endfunction
 
+function! ExtractMethod() range
+    normal gvd
+    exe "normal! ma"
+    let name = inputdialog("name of new method")
+    let params = inputdialog("parameters separated by ,")
+    ?function
+    exe "normal! }"
+    exe "normal! o\private function " . name ."(" . params . ") {"
+    exe "normal! oreturn ;"
+    exe "normal! o\}"
+    normal kP
+    exe "normal! 'a"
+    exe "normal! O= $this->" . name . "(" . params . ");"
+    normal I 
+endfunction
+ 
+" call function by:
+vmap <leader>em :call ExtractMethod()<cr>
 
 
 
@@ -523,7 +575,10 @@ augroup END
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent !php-cs-fixer -qn fix %<CR>:e<cr>
 autocmd BufWrite *.php :call DeleteTrailingWS()
 
-
+au FileType php set omnifunc=phpcomplete#CompletePHP
+" PHP Generated Code Highlights (HTML & SQL)
+let php_sql_query=1
+let php_htmlInStrings=0
 
 
 
@@ -538,11 +593,12 @@ autocmd BufWrite *.php :call DeleteTrailingWS()
 
 
 set nocursorcolumn
-"set nocursorline
-syntax sync minlines=256
+set nocursorline
+syntax sync minlines=100
 set scrolljump=5
 let html_no_rendering=1
 
 
 
 so ~/.nonpublic-vimprojects
+
