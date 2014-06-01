@@ -11,48 +11,47 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/TabBar'
 Bundle 'henrik/vim-indexed-search'
-Bundle 'Valloric/YouCompleteMe'
+Bundle 'ervandew/supertab'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
-Bundle 'mbbill/undotree'
-"Bundle 'StanAngeloff/php.vim'
-"Bundle '2072/vim-syntax-for-PHP'
-let php_folding=0
-"Bundle 'rayburgemeestre/phpfolding.vim'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
 Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
 Bundle 'bkad/CamelCaseMotion'
 Bundle 'Raimondi/delimitMate'
-Bundle 'scrooloose/nerdcommenter'
-"Bundle 'flazz/vim-colorschemes'
 Bundle 'joonty/vim-phpqa'
-Bundle 'tpope/vim-fugitive'
 Bundle 'amiorin/vim-project'
 Bundle 'kien/ctrlp.vim'
-Bundle 'godlygeek/tabular'
-"Bundle 'vim-php/tagbar-phpctags.vim'
+Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tobyS/pdv'
 Bundle 'tobyS/vmustache'
 Bundle 'ap/vim-css-color'
 Bundle 'YankRing.vim'
 Bundle 'tristen/vim-sparkup'
-"Bundle 'ScrollColors'
+Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'L9'
 Bundle 'mru.vim'
-"Bundle 'SearchComplete'
+Bundle 'docteurklein/vim-symfony'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'bufkill.vim'
+" experimenting with python
+Bundle 'nvie/vim-flake8'
+Bundle 'pytest.vim'
+Bundle 'hynek/vim-python-pep8-indent'
+Bundle 'jmcantrell/vim-virtualenv'
+Bundle 'davidhalter/jedi-vim'
 
 " }
 
@@ -129,7 +128,9 @@ set cursorline
 set autoindent
 set smartindent
 set tabstop=4
+set smarttab
 set softtabstop=4
+set shiftround
 set shiftwidth=4
 set expandtab
 set list
@@ -157,13 +158,12 @@ set smartcase
 " " do highlight as you type your search phrase
 set incsearch
 
-" undo 
+" undo
 set undofile                " Save undo's after file closes
 set undodir=~/.undovim " where to save undo histories
 set undolevels=1000         " How many undos
 set undoreload=10000
 
-set textwidth=0
 set fo+=2
 
 " Better command-line completion
@@ -172,11 +172,11 @@ set wildignore+=*.pyc,*.zip,*.gz,*.bz,*.tar,*.jpg,*.png,*.gif,*.avi,*.wmv,*.ogg,
 set wildmode=list:longest
 
 set errorformat+=%*[\"]%f%*[\"]\\,\ line\ %l:\ %m
-set completeopt=menuone
+set completeopt=menuone,longest
 " Limit popup menu height
 set pumheight=15
 
-filetype indent plugin on
+filetype plugin indent on
 
 " ignore whitespaces when vimdiff'ing
 set diffopt=iwhite
@@ -240,7 +240,7 @@ let g:project_enable_welcome = 1
 set rtp+=~/.vim/bundle/vim-project/
 call project#rc("~/git/code")
 
-let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+let g:UltiSnipsSnippetsDir = '~/.vim/bundle/vim-snippets/UltiSnips/'
 
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
@@ -281,11 +281,11 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
 " YOUCOMPLETEME SETTINGS
-let g:ycm_complete_in_comments = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_key_invoke_completion = '<C-Space>'
+"let g:ycm_complete_in_comments = 1
+"let g:ycm_collect_identifiers_from_tags_files = 1
+"let g:ycm_seed_identifiers_with_syntax = 1
+"let g:ycm_collect_identifiers_from_comments_and_strings = 1
+"let g:ycm_key_invoke_completion = '<C-Space>'
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
@@ -294,7 +294,11 @@ let g:tagbar_phpctags_memory_limit = '512M'
 
 let NERDTreeShowBookmarks = 1
 
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabLongestHighlight = 1
 
+let g:jedi#popup_on_dot = 0
+let g:jedi#use_tabs_not_buffers = 0
 
 
 
@@ -311,7 +315,7 @@ let NERDTreeShowBookmarks = 1
 
 
 " Edit the vimrc file
-nmap <silent> <F5> :e $MYVIMRC<CR>
+nmap <silent> <F1> :e $MYVIMRC<CR>
 
 let mapleader=","
 
@@ -369,9 +373,6 @@ nmap <m-l> :bn<cr>
 " tag bindings
 nmap <leader>o <c-w>g}
 
-" Edit the vimrc file
-nmap <silent> <F5> :e $MYVIMRC<CR>
-
 map <c-s> <esc>:w<cr>
 imap <c-s> <esc>:w<cr>a
 
@@ -410,19 +411,11 @@ vnoremap <Space> zf
 " ------
 
 
-map <leader>f :EnableFastPHPFolds<Cr>
-"map <F6> <Esc>:EnablePHPFolds<Cr>
-map <leader>F :DisablePHPFolds<Cr>
-
-nnoremap <leader>u :UndotreeToggle<cr>
-
-if exists(":Tabularize")
-map <Leader>t= :Tabularize /=<CR>
-map <Leader>t: :Tabularize /:<CR>
-map <Leader>t:: :Tabularize /:\\zs<CR>
-map <Leader>t, :Tabularize /,<CR>
-map <Leader>t| :Tabularize /|<CR>
-endif
+"namespace plugin
+inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
+noremap <Leader>u :call PhpInsertUse()<CR>
+inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+noremap <Leader>e :call PhpExpandClass()<CR>
 
 map <leader>; :TagbarToggle<cr>
 
@@ -431,6 +424,7 @@ map <leader>gc :Gcommit<cr>
 map <leader>gp :!git push<cr>
 
 map <leader><space> :CtrlP<cr>
+map <leader><leader> :CtrlPMixed<cr>
 
 map <leader>n :NERDTreeToggle<CR>
 map <leader>N :NERDTreeFind<cr>
@@ -442,15 +436,17 @@ map <leader><enter> :Mru<cr>
 
 nnoremap <silent> <Leader>y :YRShow<CR>
 
+nmap <f5> :CtrlPClearCache<cr>
+
 map <F8> <esc>:w<cr>:Phpmd<cr>
 map <F9> <esc>:w<cr>:Phpcs<cr>
 map <F12> <esc>gg=G:w<cr>:silent !php-cs-fixer -qn fix %<CR>:e<cr>zi:Phpmd<cr>
 
-inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>i 
-nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR> 
-nnoremap <M-P> :call pdv#DocumentWithSnip()<CR> 
+inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>i
+nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR>
+nnoremap <M-P> :call pdv#DocumentWithSnip()<CR>
 
-let g:UltiSnipsListSnippets="<s-tab>"
+"let g:UltiSnipsListSnippets="<s-tab>"
 let g:UltiSnipsExpandTrigger="<m-j>"
 let g:UltiSnipsJumpForwardTrigger="<m-j>"
 let g:UltiSnipsJumpBackwardTrigger="<m-k>"
@@ -458,6 +454,26 @@ let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 let g:sparkupExecuteMapping='<m-i>'
 let g:sparkupNextMapping = '<m-o>'
 
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+" python
+" Execute the tests
+nmap <silent><Leader>tf <Esc>:Pytest file<CR>
+nmap <silent><Leader>tc <Esc>:Pytest class<CR>
+nmap <silent><Leader>tm <Esc>:Pytest method<CR>
+" cycle through test errors
+nmap <silent><Leader>tn <Esc>:Pytest next<CR>
+nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
+nmap <silent><Leader>te <Esc>:Pytest error<CR>
+
+let g:jedi#goto_assignments_command = "<leader>jg"
+let g:jedi#goto_definitions_command = "<leader>jd"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>jn"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>jr"
+let g:jedi#show_call_signatures = "1"
 
 
 " ====================
@@ -467,7 +483,6 @@ let g:sparkupNextMapping = '<m-o>'
 function! UpdateTags()
   let cwd = getcwd()
   let tagfilename = cwd . "/tags"
-  let cmd = 'ctags -h ".php" --languages=php -R --exclude=".svn" --exclude=".git" --exclude="*t3*"  --exclude="*Twig*"  --exclude="*typo3*" --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP="/abstract class ([^ ]*)/\1/c/" --regex-PHP="/interface ([^ ]*)/\1/c/" --regex-PHP="/(public \|static \|abstract \|protected \|private )+function ([^ (]*)/\2/f/" --fields=+aimS -f '.tagfilename
   let cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --exclude="*.html" --exclude=".svn" --exclude=".git" --exclude="*t3*" --exclude="*Twig*"  --exclude="*typo3*" -f '.tagfilename
   let resp = system(cmd)
   echo resp
@@ -490,12 +505,6 @@ augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
-
-func! DeleteTrailingWS()
-    exe "normal mz"
-    %s/\s\+$//ge
-    exe "normal `z"
-endfunc
 
 " toggles the quickfix window.
 map <leader>q :QFix<cr>
@@ -557,13 +566,36 @@ function! ExtractMethod() range
     normal kP
     exe "normal! 'a"
     exe "normal! O= $this->" . name . "(" . params . ");"
-    normal I 
+    normal I
 endfunction
- 
+
 " call function by:
 vmap <leader>em :call ExtractMethod()<cr>
 
 
+" jump to a twig view in symfony
+"
+" note: path must be set to project root! should be set automatically when using vim-projects.
+" otherwise: uncomment following line
+" set path+=**
+
+function! s:SfJumpToView()
+    mark C
+    normal! ]M
+    let end = line(".")
+    normal! [m
+    try
+        call search('v[^.:]+.html.twig', '', end)
+        normal! gf
+    catch
+        normal! g`C
+        echohl WarningMsg | echomsg "Template file not found" | echohl None
+    endtry
+endfunction
+com! SfJumpToView call s:SfJumpToView()
+
+" create a mapping only in a Controller file
+autocmd BufEnter *Controller.php nmap <buffer><leader>v :SfJumpToView<CR>
 
 
 " ====================
@@ -577,9 +609,20 @@ autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent !php-cs-fixer -qn fix
 autocmd BufWrite *.php :call DeleteTrailingWS()
 
 au FileType php set omnifunc=phpcomplete#CompletePHP
-" PHP Generated Code Highlights (HTML & SQL)
 
+"Automatically delete trailing DOS-returns and whitespace
+autocmd BufRead * silent! %s/[\r \t]\+$//
+autocmd BufEnter *.php :%s/[ \t\r]\+$//e
 
+"python stuff
+au FileType python let g:pyref_mapping = 'K'
+au FileType python setlocal omnifunc=pythoncomplete#Complete
+au FileType python setlocal formatoptions=croql
+au FileType python nmap <buffer> <F5> :w<Esc>mwG:r!python %<CR>`.
+autocmd BufWritePost *.py call Flake8()
+autocmd FileType python setlocal completeopt-=preview
+set foldmethod=indent
+set foldlevel=99
 
 
 
@@ -593,11 +636,9 @@ au FileType php set omnifunc=phpcomplete#CompletePHP
 
 set nocursorcolumn
 set nocursorline
-set noshowmatch
 set lazyredraw
 syntax sync minlines=50
 set scrolljump=5
-let loaded_matchparen = 1
 let html_no_rendering=1
 let php_sql_query=0
 let php_htmlInStrings=0
