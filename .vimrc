@@ -7,52 +7,53 @@
 
 set nocompatible " be iMproved
 filetype off " disable temporarily
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required!
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/TabBar'
-Bundle 'henrik/vim-indexed-search'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'shawncplus/phpcomplete.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'majutsushi/tagbar'
-Bundle 'mileszs/ack.vim'
-Bundle 'bling/vim-airline'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
-Bundle 'bkad/CamelCaseMotion'
-Bundle 'Raimondi/delimitMate'
-Bundle 'joonty/vim-phpqa'
-Bundle 'amiorin/vim-project'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tobyS/pdv'
-Bundle 'tobyS/vmustache'
-Bundle 'ap/vim-css-color'
-Bundle 'YankRing.vim'
-Bundle 'tristen/vim-sparkup'
-Bundle 'arnaud-lb/vim-php-namespace'
-Bundle 'L9'
-Bundle 'mru.vim'
-Bundle 'docteurklein/vim-symfony'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'nanotech/jellybeans.vim'
-Bundle 'bufkill.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/TabBar'
+Plugin 'henrik/vim-indexed-search'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'majutsushi/tagbar'
+Plugin 'mileszs/ack.vim'
+Plugin 'bling/vim-airline'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'bkad/CamelCaseMotion'
+Plugin 'Raimondi/delimitMate'
+Plugin 'joonty/vim-phpqa'
+Plugin 'amiorin/vim-project'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tobyS/pdv'
+Plugin 'tobyS/vmustache'
+Plugin 'ap/vim-css-color'
+Plugin 'YankRing.vim'
+Plugin 'tristen/vim-sparkup'
+Plugin 'arnaud-lb/vim-php-namespace'
+Plugin 'L9'
+Plugin 'mru.vim'
+Plugin 'docteurklein/vim-symfony'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'bufkill.vim'
 " experimenting with python
-Bundle 'nvie/vim-flake8'
-Bundle 'pytest.vim'
-Bundle 'hynek/vim-python-pep8-indent'
-Bundle 'jmcantrell/vim-virtualenv'
-Bundle 'davidhalter/jedi-vim'
+Plugin 'nvie/vim-flake8'
+Plugin 'pytest.vim'
+Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'jmcantrell/vim-virtualenv'
+Plugin 'davidhalter/jedi-vim'
 
+call vundle#end()
 " }
 
 
