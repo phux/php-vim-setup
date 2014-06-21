@@ -42,8 +42,6 @@ Plugin 'arnaud-lb/vim-php-namespace'
 Plugin 'L9'
 Plugin 'mru.vim'
 Plugin 'docteurklein/vim-symfony'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'nanotech/jellybeans.vim'
 Plugin 'bufkill.vim'
 " experimenting with python
 Plugin 'nvie/vim-flake8'
@@ -210,7 +208,7 @@ set foldlevel=2
 syntax on
 
 if has("gui_running")
-    colorscheme wombat256mod
+    colorscheme Mustang
 "    set background=light
 
     set guicursor=a:block-Cursor
