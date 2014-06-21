@@ -41,13 +41,13 @@ $ git clone https://github.com/phux/php-vim-setup.git
 ### Install plugins
 #### Clone vundle
 ```
-$ git clone https://github.com/gmarik/vundle.git ~/git/php-vim-setup/.vim/bundle/vundle
+$ git clone https://github.com/gmarik/Vundle.vim.git ~/git/php-vim-setup/.vim/bundle/Vundle.vim
 ```
 #### fetch and installing plugins
 
 ```
 $ vim
-:BundleInstall
+:PluginInstall
 ```
 
 ##### Compiling Command-T and YouCompleteMe
