@@ -602,7 +602,6 @@ autocmd BufEnter *Controller.php nmap <buffer><leader>v :SfJumpToView<CR>
 
 " save with strg-s
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent !php-cs-fixer -qn fix %<CR>:e<cr>
-autocmd BufWrite *.php :call DeleteTrailingWS()
 
 au FileType php set omnifunc=phpcomplete#CompletePHP
 
