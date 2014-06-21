@@ -17,7 +17,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/TabBar'
 Bundle 'henrik/vim-indexed-search'
-Bundle 'ervandew/supertab'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
@@ -210,7 +210,7 @@ set foldlevel=2
 syntax on
 
 if has("gui_running")
-    colorscheme jellybeans
+    colorscheme wombat256mod
 "    set background=light
 
     set guicursor=a:block-Cursor
@@ -281,10 +281,10 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
 " YOUCOMPLETEME SETTINGS
-"let g:ycm_complete_in_comments = 1
-"let g:ycm_collect_identifiers_from_tags_files = 1
-"let g:ycm_seed_identifiers_with_syntax = 1
-"let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_complete_in_comments = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 "let g:ycm_key_invoke_completion = '<C-Space>'
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
@@ -294,8 +294,6 @@ let g:tagbar_phpctags_memory_limit = '512M'
 
 let NERDTreeShowBookmarks = 1
 
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabLongestHighlight = 1
 
 let g:jedi#popup_on_dot = 0
 let g:jedi#use_tabs_not_buffers = 0
