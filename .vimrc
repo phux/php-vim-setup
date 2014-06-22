@@ -28,7 +28,6 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Raimondi/delimitMate'
 Plugin 'amiorin/vim-project'
-"Plugin 'kien/ctrlp.vim'
 Plugin 'wincent/Command-T'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
@@ -40,6 +39,11 @@ Plugin 'tristen/vim-sparkup'
 Plugin 'L9'
 Plugin 'mru.vim'
 Plugin 'bufkill.vim'
+Plugin 'matchit.zip'
+"colorschemes
+Plugin 'ScrollColors'
+Plugin 'sjl/badwolf'
+Plugin 'twerth/ir_black'
 
 
 Plugin 'joonty/vim-phpqa'
@@ -210,7 +214,7 @@ set foldlevel=2
 syntax on
 
 if has("gui_running")
-    colorscheme Mustang
+    colorscheme halflife
 "    set background=light
 
     set guicursor=a:block-Cursor
@@ -242,7 +246,6 @@ call project#rc("~/git/code")
 
 let g:UltiSnipsSnippetsDir = '~/.vim/bundle/vim-snippets/UltiSnips/'
 
-let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
 
 let g:phpqa_codesniffer_autorun = 0
@@ -313,7 +316,7 @@ let g:jedi#use_tabs_not_buffers = 0
 
 
 " Edit the vimrc file
-nmap <silent> <F1> :e $MYVIMRC<CR>
+nmap <silent> <F5> :e $MYVIMRC<CR>
 
 let mapleader=","
 
@@ -415,6 +418,7 @@ noremap <Leader>u :call PhpInsertUse()<CR>
 inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
 noremap <Leader>e :call PhpExpandClass()<CR>
 
+
 map <leader>; :TagbarToggle<cr>
 
 map <leader>gw :Gwrite<cr>
@@ -439,7 +443,7 @@ map <F8> <esc>:w<cr>:Phpmd<cr>
 map <F9> <esc>:w<cr>:Phpcs<cr>
 map <F12> <esc>gg=G:w<cr>:silent !php-cs-fixer -qn fix %<CR>:e<cr>zi:Phpmd<cr>
 
-inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>i
+inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>
 nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR>
 nnoremap <M-P> :call pdv#DocumentWithSnip()<CR>
 
@@ -451,8 +455,6 @@ let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 let g:sparkupExecuteMapping='<m-i>'
 let g:sparkupNextMapping = '<m-o>'
 
-
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 " python
 " Execute the tests
@@ -494,7 +496,7 @@ function! OpenPHPManual(keyword)
     "let browser = '/usr/bin/firefox'
     let browser = '/usr/bin/chromium-browser'
     let url = 'http://ro.php.net/' . a:keyword
-    silent exec '!' . browser . ' "' . url . '"'
+    silent exec '!' . browser . ' "' . url . '" &'
 endfunction
 noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
 
