@@ -18,7 +18,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/TabBar'
 Plugin 'henrik/vim-indexed-search'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'shawncplus/phpcomplete.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -28,9 +27,9 @@ Plugin 'bling/vim-airline'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Raimondi/delimitMate'
-Plugin 'joonty/vim-phpqa'
 Plugin 'amiorin/vim-project'
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
+Plugin 'wincent/Command-T'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tobyS/pdv'
@@ -38,11 +37,16 @@ Plugin 'tobyS/vmustache'
 Plugin 'ap/vim-css-color'
 Plugin 'YankRing.vim'
 Plugin 'tristen/vim-sparkup'
-Plugin 'arnaud-lb/vim-php-namespace'
 Plugin 'L9'
 Plugin 'mru.vim'
-Plugin 'docteurklein/vim-symfony'
 Plugin 'bufkill.vim'
+
+
+Plugin 'joonty/vim-phpqa'
+Plugin 'arnaud-lb/vim-php-namespace'
+Plugin 'docteurklein/vim-symfony'
+Plugin 'shawncplus/phpcomplete.vim'
+
 " experimenting with python
 Plugin 'nvie/vim-flake8'
 Plugin 'pytest.vim'
@@ -161,8 +165,6 @@ set undofile                " Save undo's after file closes
 set undodir=~/.undovim " where to save undo histories
 set undolevels=1000         " How many undos
 set undoreload=10000
-
-set fo+=2
 
 " Better command-line completion
 set wildmenu
@@ -283,15 +285,15 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
-"let g:ycm_key_invoke_completion = '<C-Space>'
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 let g:tagbar_phpctags_bin='~/git/phpctags/phpctags'
-let g:tagbar_phpctags_memory_limit = '512M'
+let g:tagbar_phpctags_memory_limit = '1024M'
 
 let NERDTreeShowBookmarks = 1
 
+let g:CommandTMaxHeight = 10
 
 let g:jedi#popup_on_dot = 0
 let g:jedi#use_tabs_not_buffers = 0
@@ -419,8 +421,8 @@ map <leader>gw :Gwrite<cr>
 map <leader>gc :Gcommit<cr>
 map <leader>gp :!git push<cr>
 
-map <leader><space> :CtrlP<cr>
-map <leader><leader> :CtrlPMixed<cr>
+map <leader><space> :CommandT<cr>
+map <leader><leader> :CommandTBuffer<cr>
 
 map <leader>n :NERDTreeToggle<CR>
 map <leader>N :NERDTreeFind<cr>
@@ -432,7 +434,6 @@ map <leader><enter> :Mru<cr>
 
 nnoremap <silent> <Leader>y :YRShow<CR>
 
-nmap <f5> :CtrlPClearCache<cr>
 
 map <F8> <esc>:w<cr>:Phpmd<cr>
 map <F9> <esc>:w<cr>:Phpcs<cr>
@@ -462,6 +463,8 @@ nmap <silent><Leader>tm <Esc>:Pytest method<CR>
 nmap <silent><Leader>tn <Esc>:Pytest next<CR>
 nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
 nmap <silent><Leader>te <Esc>:Pytest error<CR>
+
+
 
 let g:jedi#goto_assignments_command = "<leader>jg"
 let g:jedi#goto_definitions_command = "<leader>jd"
@@ -599,11 +602,9 @@ autocmd BufEnter *Controller.php nmap <buffer><leader>v :SfJumpToView<CR>
 " ====================
 
 
-
+"autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 " save with strg-s
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent !php-cs-fixer -qn fix %<CR>:e<cr>
-
-au FileType php set omnifunc=phpcomplete#CompletePHP
 
 "Automatically delete trailing DOS-returns and whitespace
 autocmd BufRead * silent! %s/[\r \t]\+$//
