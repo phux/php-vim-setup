@@ -222,7 +222,7 @@ if has("gui_running")
     set guicursor+=n-v:blinkon0
 else
     set background=dark
-    colorscheme slate
+    colorscheme default
 endif
 
 
@@ -295,6 +295,10 @@ let g:tagbar_phpctags_bin='~/git/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '1024M'
 
 let NERDTreeShowBookmarks = 1
+
+
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 let g:jedi#popup_on_dot = 0
 let g:jedi#use_tabs_not_buffers = 0
