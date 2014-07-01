@@ -27,7 +27,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Raimondi/delimitMate'
 Plugin 'amiorin/vim-project'
-Plugin 'wincent/Command-T'
+Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tobyS/pdv'
@@ -222,7 +222,7 @@ if has("gui_running")
     set guicursor+=n-v:blinkon0
 else
     set background=dark
-    colorscheme slate
+    colorscheme default
 endif
 
 
@@ -296,7 +296,9 @@ let g:tagbar_phpctags_memory_limit = '1024M'
 
 let NERDTreeShowBookmarks = 1
 
-let g:CommandTMaxHeight = 10
+
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 let g:jedi#popup_on_dot = 0
 let g:jedi#use_tabs_not_buffers = 0
@@ -425,8 +427,8 @@ map <leader>gw :Gwrite<cr>
 map <leader>gc :Gcommit<cr>
 map <leader>gp :!git push<cr>
 
-map <leader><space> :CommandT<cr>
-map <leader><leader> :CommandTBuffer<cr>
+map <leader><space> :CtrlP<cr>
+map <leader><leader> :CtrlPMixed<cr>
 
 map <leader>n :NERDTreeToggle<CR>
 map <leader>N :NERDTreeFind<cr>
