@@ -216,7 +216,7 @@ set foldlevel=2
 syntax on
 
 if has("gui_running")
-    colorscheme wombat256mod
+    colorscheme Monokai-chris
 "    set background=light
 
     set guicursor=a:block-Cursor
@@ -445,7 +445,7 @@ nnoremap <silent> <Leader>y :YRShow<CR>
 
 map <F8> <esc>:w<cr>:Phpmd<cr>
 map <F9> <esc>:w<cr>:Phpcs<cr>
-map <F12> <esc>gg=G:w<cr>:!php-cs-fixer -qn fix % --config=sf23<CR>:e<cr>zi:Phpmd<cr>
+map <F12> <esc>gg=G:w<cr>:!silent php-cs-fixer -qn fix % --config=sf23<CR>:e<cr>zi:Phpmd<cr>
 
 inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>
 nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR>
