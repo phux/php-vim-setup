@@ -48,8 +48,10 @@ Plugin 'flazz/vim-colorschemes'
 
 "Plugin 'joonty/vim-phpqa'
 "Plugin 'arnaud-lb/vim-php-namespace'
-Plugin 'docteurklein/vim-symfony'
 "Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'docteurklein/vim-symfony'
+" php 5.5 syntax highlight
+Plugin 'joshtronic/php.vim'
 
 " experimenting with python
 "Plugin 'nvie/vim-flake8'
