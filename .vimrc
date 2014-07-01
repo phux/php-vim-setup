@@ -47,8 +47,8 @@ Plugin 'flazz/vim-colorschemes'
 
 
 "Plugin 'joonty/vim-phpqa'
-"Plugin 'arnaud-lb/vim-php-namespace'
 "Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'arnaud-lb/vim-php-namespace'
 Plugin 'docteurklein/vim-symfony'
 " php 5.5 syntax highlight
 Plugin 'joshtronic/php.vim'
