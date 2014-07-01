@@ -43,6 +43,8 @@ Plugin 'matchit.zip'
 Plugin 'ScrollColors'
 Plugin 'sjl/badwolf'
 Plugin 'twerth/ir_black'
+Plugin 'flazz/vim-colorschemes'
+
 
 "Plugin 'joonty/vim-phpqa'
 "Plugin 'arnaud-lb/vim-php-namespace'
