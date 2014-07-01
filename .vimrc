@@ -19,7 +19,6 @@ Plugin 'vim-scripts/TabBar'
 Plugin 'henrik/vim-indexed-search'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
@@ -45,18 +44,17 @@ Plugin 'ScrollColors'
 Plugin 'sjl/badwolf'
 Plugin 'twerth/ir_black'
 
-
-Plugin 'joonty/vim-phpqa'
-Plugin 'arnaud-lb/vim-php-namespace'
+"Plugin 'joonty/vim-phpqa'
+"Plugin 'arnaud-lb/vim-php-namespace'
 Plugin 'docteurklein/vim-symfony'
-Plugin 'shawncplus/phpcomplete.vim'
+"Plugin 'shawncplus/phpcomplete.vim'
 
 " experimenting with python
-Plugin 'nvie/vim-flake8'
-Plugin 'pytest.vim'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'davidhalter/jedi-vim'
+"Plugin 'nvie/vim-flake8'
+"Plugin 'pytest.vim'
+"Plugin 'hynek/vim-python-pep8-indent'
+"Plugin 'jmcantrell/vim-virtualenv'
+"Plugin 'davidhalter/jedi-vim'
 
 call vundle#end()
 " }
@@ -214,7 +212,7 @@ set foldlevel=2
 syntax on
 
 if has("gui_running")
-    colorscheme halflife
+    colorscheme wombat256mod
 "    set background=light
 
     set guicursor=a:block-Cursor
@@ -441,7 +439,7 @@ nnoremap <silent> <Leader>y :YRShow<CR>
 
 map <F8> <esc>:w<cr>:Phpmd<cr>
 map <F9> <esc>:w<cr>:Phpcs<cr>
-map <F12> <esc>gg=G:w<cr>:silent !php-cs-fixer -qn fix %<CR>:e<cr>zi:Phpmd<cr>
+map <F12> <esc>gg=G:w<cr>:!php-cs-fixer -qn fix % --config=sf23<CR>:e<cr>zi:Phpmd<cr>
 
 inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>
 nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR>
@@ -606,7 +604,7 @@ autocmd BufEnter *Controller.php nmap <buffer><leader>v :SfJumpToView<CR>
 
 "autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 " save with strg-s
-autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:silent !php-cs-fixer -qn fix %<CR>:e<cr>
+autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:!php-cs-fixer -qn fix % --config=sf23<CR>:e<cr>
 
 "Automatically delete trailing DOS-returns and whitespace
 autocmd BufRead * silent! %s/[\r \t]\+$//
