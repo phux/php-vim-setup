@@ -46,10 +46,10 @@ Plugin 'twerth/ir_black'
 Plugin 'flazz/vim-colorschemes'
 
 
-"Plugin 'joonty/vim-phpqa'
-"Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'joonty/vim-phpqa'
+Plugin 'evidens/vim-twig'
+Plugin 'shawncplus/phpcomplete.vim'
 Plugin 'arnaud-lb/vim-php-namespace'
-Plugin 'docteurklein/vim-symfony'
 " php 5.5 syntax highlight
 Plugin 'joshtronic/php.vim'
 
@@ -610,7 +610,7 @@ autocmd BufEnter *Controller.php nmap <buffer><leader>v :SfJumpToView<CR>
 
 "autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 " save with strg-s
-autocmd FileType php map <buffer> <c-s> <esc>:w<cr>:!php-cs-fixer -qn fix % --config=sf23<CR>:e<cr>
+autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
 
 "Automatically delete trailing DOS-returns and whitespace
 autocmd BufRead * silent! %s/[\r \t]\+$//
