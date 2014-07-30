@@ -39,6 +39,8 @@ Plugin 'L9'
 Plugin 'mru.vim'
 Plugin 'bufkill.vim'
 Plugin 'matchit.zip'
+Plugin 'scrooloose/syntastic'
+
 "colorschemes
 Plugin 'ScrollColors'
 Plugin 'sjl/badwolf'
@@ -48,6 +50,7 @@ Plugin 'flazz/vim-colorschemes'
 
 Plugin 'joonty/vim-phpqa'
 Plugin 'evidens/vim-twig'
+Plugin 'elzr/vim-json'
 Plugin 'shawncplus/phpcomplete.vim'
 Plugin 'arnaud-lb/vim-php-namespace'
 " php 5.5 syntax highlight
@@ -216,7 +219,7 @@ set foldlevel=2
 syntax on
 
 if has("gui_running")
-    colorscheme Monokai-chris
+    colorscheme jellybeans
 "    set background=light
 
     set guicursor=a:block-Cursor
@@ -250,8 +253,8 @@ let g:UltiSnipsSnippetsDir = '~/.vim/bundle/vim-snippets/UltiSnips/'
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
 
-let g:phpqa_codesniffer_autorun = 0
-let g:phpqa_messdetector_autorun = 0
+let g:phpqa_codesniffer_autorun = 1
+let g:phpqa_messdetector_autorun = 1
 
 let g:php_cs_fixer_level = "all"                  " which level ?
 let g:php_cs_fixer_config = "default"             " configuration
@@ -261,6 +264,9 @@ let g:php_cs_fixer_enable_default_mapping = 0     " Enable the mapping by defaul
 
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
+
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_aggregate_errors = 1
 
 let g:PHP_removeCRwhenUnix = 1
 let g:PHP_vintage_case_default_indent = 1
@@ -446,6 +452,7 @@ nnoremap <silent> <Leader>y :YRShow<CR>
 map <F8> <esc>:w<cr>:Phpmd<cr>
 map <F9> <esc>:w<cr>:Phpcs<cr>
 map <F12> <esc>gg=G:w<cr>:!silent php-cs-fixer -qn fix % --config=sf23<CR>:e<cr>zi:Phpmd<cr>
+map <M-s> <esc>gg=G:w<cr>:!php-cs-fixer -qn fix % --config=sf23<CR>:e<cr>zi<cr>:Phpmd<cr>
 
 inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>
 nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR>
