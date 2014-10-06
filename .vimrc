@@ -17,7 +17,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/TabBar'
 Plugin 'henrik/vim-indexed-search'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'Shougo/neocomplete.vim'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'majutsushi/tagbar'
@@ -40,6 +41,8 @@ Plugin 'mru.vim'
 Plugin 'bufkill.vim'
 Plugin 'matchit.zip'
 Plugin 'scrooloose/syntastic'
+"Plugin 'stephpy/vim-php-cs-fixer'
+"Plugin 'rayburgemeestre/phpfolding.vim'
 
 "colorschemes
 Plugin 'ScrollColors'
@@ -55,6 +58,11 @@ Plugin 'shawncplus/phpcomplete.vim'
 Plugin 'arnaud-lb/vim-php-namespace'
 " php 5.5 syntax highlight
 Plugin 'joshtronic/php.vim'
+
+Plugin 'pangloss/vim-javascript'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'einars/js-beautify'
 
 " experimenting with python
 "Plugin 'nvie/vim-flake8'
@@ -198,9 +206,9 @@ set diffopt=iwhite
 
 
 
-set foldnestmax=2      "deepest fold is 10 levels
-set nofoldenable        "dont fold by default
-set foldlevel=2
+"set foldnestmax=2      "deepest fold is 10 levels
+set foldenable        "dont fold by default
+"set foldlevel=2
 
 
 
@@ -219,15 +227,15 @@ set foldlevel=2
 syntax on
 
 if has("gui_running")
-    colorscheme jellybeans
-"    set background=light
+    colorscheme wombat256mod
+    "set background=light
 
     set guicursor=a:block-Cursor
     "cursors dont blink!
     set guicursor+=n-v:blinkon0
 else
     set background=dark
-    colorscheme default
+    colorscheme wombat256mod
 endif
 
 
@@ -243,7 +251,7 @@ endif
 
 
 
-
+let g:vim_json_syntax_conceal = 0
 let g:project_use_nerdtree = 1
 let g:project_enable_welcome = 1
 set rtp+=~/.vim/bundle/vim-project/
@@ -253,20 +261,21 @@ let g:UltiSnipsSnippetsDir = '~/.vim/bundle/vim-snippets/UltiSnips/'
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
 
-let g:phpqa_codesniffer_autorun = 1
-let g:phpqa_messdetector_autorun = 1
+"let g:phpqa_codesniffer_autorun = 1
+"let g:phpqa_messdetector_autorun = 1
 
 let g:php_cs_fixer_level = "all"                  " which level ?
-let g:php_cs_fixer_config = "default"             " configuration
+let g:php_cs_fixer_config = "sf23"             " configuration
 let g:php_cs_fixer_php_path = "php"               " Path to PHP
-let g:php_cs_fixer_fixers_list = ""               " List of fixers
+"let g:php_cs_fixer_fixers_list = ""               " List of fixers
 let g:php_cs_fixer_enable_default_mapping = 0     " Enable the mapping by default (<leader>pcd)
 
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
 
-let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-let g:syntastic_aggregate_errors = 1
+"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_javascript_checkers = ['jslint']
+"let g:syntastic_aggregate_errors = 1
 
 let g:PHP_removeCRwhenUnix = 1
 let g:PHP_vintage_case_default_indent = 1
@@ -292,10 +301,13 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
 " YOUCOMPLETEME SETTINGS
-let g:ycm_complete_in_comments = 1
+"let g:ycm_complete_in_comments = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_confirm_extra_conf=0
+set completeopt-=preview
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
@@ -422,12 +434,23 @@ vnoremap <Space> zf
 " ------
 
 
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
 "namespace plugin
 inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
 noremap <Leader>u :call PhpInsertUse()<CR>
 inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
 noremap <Leader>e :call PhpExpandClass()<CR>
 
+map <F6> <Esc>:EnableFastPHPFolds<Cr>
+map <F7> <Esc>:EnablePHPFolds<Cr>
 
 map <leader>; :TagbarToggle<cr>
 
@@ -441,8 +464,8 @@ map <leader><leader> :CtrlPMixed<cr>
 map <leader>n :NERDTreeToggle<CR>
 map <leader>N :NERDTreeFind<cr>
 
-map <silent> <leader>A :exec "Ack! ".expand("<cword>")<cr>
-map <leader>a :Ack!<space>
+map <silent> <leader>A :exec "Ack! --ignore-file=is:tags ".expand("<cword>")<cr>
+map <leader>a :Ack! --ignore-file=is:tags<space>
 
 map <leader><enter> :Mru<cr>
 
@@ -451,8 +474,8 @@ nnoremap <silent> <Leader>y :YRShow<CR>
 
 map <F8> <esc>:w<cr>:Phpmd<cr>
 map <F9> <esc>:w<cr>:Phpcs<cr>
-map <F12> <esc>gg=G:w<cr>:!silent php-cs-fixer -qn fix % --config=sf23<CR>:e<cr>zi:Phpmd<cr>
-map <M-s> <esc>gg=G:w<cr>:!php-cs-fixer -qn fix % --config=sf23<CR>:e<cr>zi<cr>:Phpmd<cr>
+map <F12> <esc>gg=G:w<cr>:!silent php-cs-fixer -qn fix % --level=all<CR>:e<cr>zi:Phpmd<cr>
+map <M-s> <esc>gg=G:w<cr>:!php-cs-fixer -qn fix % --level=all<CR>
 
 inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>
 nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR>
@@ -465,6 +488,41 @@ let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 
 let g:sparkupExecuteMapping='<m-i>'
 let g:sparkupNextMapping = '<m-o>'
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
 
 " python
@@ -495,7 +553,7 @@ let g:jedi#show_call_signatures = "1"
 function! UpdateTags()
   let cwd = getcwd()
   let tagfilename = cwd . "/tags"
-  let cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --exclude="*.html" --exclude=".svn" --exclude=".git" --exclude="*t3*" --exclude="*Twig*"  --exclude="*typo3*" -f '.tagfilename
+  let cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --exclude="*.html" --exclude=".svn" --exclude=".git" --exclude="*t3*" --exclude="*Twig*" --exclude="*typo3*" -f '.tagfilename.' --PHP-kinds=+cf-v --regex-PHP="/abstract\s+class\s+([^ ]+)/\1/c/" --regex-PHP="/interface\s+([^ ]+)/\1/c/" --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
   let resp = system(cmd)
   echo resp
 endfunction
@@ -511,12 +569,6 @@ function! OpenPHPManual(keyword)
 endfunction
 noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
 
-
-" auto reload vimrc on save
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
 
 " toggles the quickfix window.
 map <leader>q :QFix<cr>
@@ -615,10 +667,8 @@ autocmd BufEnter *Controller.php nmap <buffer><leader>v :SfJumpToView<CR>
 " ====================
 
 
-"autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-" save with strg-s
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
-
+autocmd FileType php nmap <buffer> <silent><leader>w :!silent php-cs-fixer -qn fix % --level=all<CR>:e<cr>zi
 "Automatically delete trailing DOS-returns and whitespace
 autocmd BufRead * silent! %s/[\r \t]\+$//
 autocmd BufEnter *.php :%s/[ \t\r]\+$//e
@@ -627,10 +677,9 @@ autocmd BufEnter *.php :%s/[ \t\r]\+$//e
 au FileType python let g:pyref_mapping = 'K'
 au FileType python setlocal omnifunc=pythoncomplete#Complete
 au FileType python setlocal formatoptions=croql
-au FileType python nmap <buffer> <F5> :w<Esc>mwG:r!python %<CR>`.
+"au FileType python nmap <buffer> <F5> :w<Esc>mwG:r!python %<CR>`.
 autocmd BufWritePost *.py call Flake8()
-autocmd FileType python setlocal completeopt-=preview
-set foldmethod=indent
+set foldmethod=syntax
 set foldlevel=99
 
 
@@ -646,13 +695,14 @@ set foldlevel=99
 set nocursorcolumn
 set nocursorline
 set lazyredraw
-syntax sync minlines=50
+"syntax sync minlines=100
+"set synmaxcol=200
 set scrolljump=5
-let html_no_rendering=1
-let php_sql_query=0
-let php_htmlInStrings=0
-
-
+let html_no_rendering=0
+let php_sql_query=1
+let php_noShortTags=1
+let php_folding=1
+let php_htmlInStrings=1
+set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 
 so ~/.nonpublic-vimprojects
-
