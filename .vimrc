@@ -18,7 +18,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/TabBar'
 Plugin 'henrik/vim-indexed-search'
 Plugin 'Shougo/neocomplete.vim'
-"Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'majutsushi/tagbar'
@@ -41,8 +40,6 @@ Plugin 'mru.vim'
 Plugin 'bufkill.vim'
 Plugin 'matchit.zip'
 Plugin 'scrooloose/syntastic'
-"Plugin 'stephpy/vim-php-cs-fixer'
-"Plugin 'rayburgemeestre/phpfolding.vim'
 
 "colorschemes
 Plugin 'ScrollColors'
@@ -54,6 +51,7 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'joonty/vim-phpqa'
 Plugin 'evidens/vim-twig'
 Plugin 'elzr/vim-json'
+"Plugin 'docteurklein/vim-symfony'
 Plugin 'shawncplus/phpcomplete.vim'
 Plugin 'arnaud-lb/vim-php-namespace'
 " php 5.5 syntax highlight
@@ -63,13 +61,6 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'einars/js-beautify'
-
-" experimenting with python
-"Plugin 'nvie/vim-flake8'
-"Plugin 'pytest.vim'
-"Plugin 'hynek/vim-python-pep8-indent'
-"Plugin 'jmcantrell/vim-virtualenv'
-"Plugin 'davidhalter/jedi-vim'
 
 call vundle#end()
 " }
@@ -135,7 +126,6 @@ set cmdheight=1
 set winminheight=0
 
 " no welcome screen
-"set shortmess=atIoOTts
 set shortmess+=filmnrxoOtT
 
 " Always display the status line, even if only one window is displayed
@@ -146,11 +136,10 @@ set cursorline
 
 set autoindent
 set smartindent
-set tabstop=4
 set smarttab
-set softtabstop=4
+set softtabstop=2
 set shiftround
-set shiftwidth=4
+set shiftwidth=2
 set expandtab
 set list
 
@@ -259,17 +248,6 @@ call project#rc("~/git/code")
 
 let g:UltiSnipsSnippetsDir = '~/.vim/bundle/vim-snippets/UltiSnips/'
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
-
-"let g:phpqa_codesniffer_autorun = 1
-"let g:phpqa_messdetector_autorun = 1
-
-let g:php_cs_fixer_level = "all"                  " which level ?
-let g:php_cs_fixer_config = "sf23"             " configuration
-let g:php_cs_fixer_php_path = "php"               " Path to PHP
-"let g:php_cs_fixer_fixers_list = ""               " List of fixers
-let g:php_cs_fixer_enable_default_mapping = 0     " Enable the mapping by default (<leader>pcd)
-
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
 
@@ -300,13 +278,6 @@ let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
-" YOUCOMPLETEME SETTINGS
-"let g:ycm_complete_in_comments = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_add_preview_to_completeopt=0
-let g:ycm_confirm_extra_conf=0
 set completeopt-=preview
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
@@ -320,8 +291,6 @@ let NERDTreeShowBookmarks = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-let g:jedi#popup_on_dot = 0
-let g:jedi#use_tabs_not_buffers = 0
 
 
 
@@ -471,17 +440,10 @@ map <leader><enter> :Mru<cr>
 
 nnoremap <silent> <Leader>y :YRShow<CR>
 
-
-map <F8> <esc>:w<cr>:Phpmd<cr>
-map <F9> <esc>:w<cr>:Phpcs<cr>
-map <F12> <esc>gg=G:w<cr>:!silent php-cs-fixer -qn fix % --level=all<CR>:e<cr>zi:Phpmd<cr>
-map <M-s> <esc>gg=G:w<cr>:!php-cs-fixer -qn fix % --level=all<CR>
-
 inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>
 nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR>
 nnoremap <M-P> :call pdv#DocumentWithSnip()<CR>
 
-"let g:UltiSnipsListSnippets="<s-tab>"
 let g:UltiSnipsExpandTrigger="<m-j>"
 let g:UltiSnipsJumpForwardTrigger="<m-j>"
 let g:UltiSnipsJumpBackwardTrigger="<m-k>"
@@ -489,17 +451,16 @@ let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 let g:sparkupExecuteMapping='<m-i>'
 let g:sparkupNextMapping = '<m-o>'
 
-" Recommended key-mappings.
+" Recommended key-mappings. neocomplete
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+    return neocomplete#close_popup() . "\<CR>"
+    " For no inserting <CR> key.
+    "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
@@ -514,7 +475,6 @@ let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -525,37 +485,16 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
 
-" python
-" Execute the tests
-nmap <silent><Leader>tf <Esc>:Pytest file<CR>
-nmap <silent><Leader>tc <Esc>:Pytest class<CR>
-nmap <silent><Leader>tm <Esc>:Pytest method<CR>
-" cycle through test errors
-nmap <silent><Leader>tn <Esc>:Pytest next<CR>
-nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
-nmap <silent><Leader>te <Esc>:Pytest error<CR>
-
-
-
-let g:jedi#goto_assignments_command = "<leader>jg"
-let g:jedi#goto_definitions_command = "<leader>jd"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>jn"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>jr"
-let g:jedi#show_call_signatures = "1"
-
-
 " ====================
 " = Custom functions
 " ====================
 
 function! UpdateTags()
-  let cwd = getcwd()
-  let tagfilename = cwd . "/tags"
-  let cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --exclude="*.html" --exclude=".svn" --exclude=".git" --exclude="*t3*" --exclude="*Twig*" --exclude="*typo3*" -f '.tagfilename.' --PHP-kinds=+cf-v --regex-PHP="/abstract\s+class\s+([^ ]+)/\1/c/" --regex-PHP="/interface\s+([^ ]+)/\1/c/" --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
-  let resp = system(cmd)
-  echo resp
+    let cwd = getcwd()
+    let tagfilename = cwd . "/tags"
+    let cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --exclude="*.html" --exclude=".svn" --exclude=".git" --exclude="*t3*" --exclude="*Twig*" --exclude="*typo3*" -f '.tagfilename.' --PHP-kinds=+cf-v --regex-PHP="/abstract\s+class\s+([^ ]+)/\1/c/" --regex-PHP="/interface\s+([^ ]+)/\1/c/" --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
+    let resp = system(cmd)
+    echo resp
 endfunction
 
 
@@ -602,20 +541,6 @@ augroup resCur
     autocmd!
     autocmd BufWinEnter * call ResCur()
 augroup END
-
-function! BExtractMethod() range
-  let name = inputdialog("Name of new method:")
-  '<
-  exe "normal! O\<BS>private " . name ."()\<CR>{\<Esc>"
-  '>
-  exe "normal! oreturn ;\<CR>}\<Esc>k"
-  s/return/\/\/ return/ge
-  normal! j%
-  normal! kf(
-  exe "normal! yyPi// = \<Esc>wdwA;\<Esc>"
-  normal! ==
-  normal! j0w
-endfunction
 
 function! ExtractMethod() range
     normal gvd
@@ -668,19 +593,16 @@ autocmd BufEnter *Controller.php nmap <buffer><leader>v :SfJumpToView<CR>
 
 
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
-autocmd FileType php nmap <buffer> <silent><leader>w :!silent php-cs-fixer -qn fix % --level=all<CR>:e<cr>zi
+autocmd FileType php nmap <buffer> <silent><leader>w :!php-cs-fixer -qn fix % --level=all<CR>
+map <F8> <esc>:w<cr>:Phpmd<cr>
+map <F9> <esc>:w<cr>:Phpcs<cr>
+map <M-s> <esc>gg=G:w<cr>:!php-cs-fixer -qn fix % --level=all<CR>
+
 "Automatically delete trailing DOS-returns and whitespace
 autocmd BufRead * silent! %s/[\r \t]\+$//
 autocmd BufEnter *.php :%s/[ \t\r]\+$//e
 
-"python stuff
-au FileType python let g:pyref_mapping = 'K'
-au FileType python setlocal omnifunc=pythoncomplete#Complete
-au FileType python setlocal formatoptions=croql
-"au FileType python nmap <buffer> <F5> :w<Esc>mwG:r!python %<CR>`.
-autocmd BufWritePost *.py call Flake8()
-set foldmethod=syntax
-set foldlevel=99
+
 
 
 
