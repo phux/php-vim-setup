@@ -137,9 +137,9 @@ set cursorline
 set autoindent
 set smartindent
 set smarttab
-set softtabstop=2
+set softtabstop=4
 set shiftround
-set shiftwidth=2
+set shiftwidth=4
 set expandtab
 set list
 
