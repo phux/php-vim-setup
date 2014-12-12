@@ -1,69 +1,163 @@
-" ====================
-" = Vundle
-" ====================
+" Note: Skip initialization for vim-tiny or vim-small.
+ if !1 | finish | endif
 
+ if has('vim_starting')
+   if &compatible
+     set nocompatible               " Be iMproved
+   endif
 
+   " Required:
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+ endif
 
+ " Required:
+ call neobundle#begin(expand('~/.vim/bundle/'))
 
-set nocompatible " be iMproved
-filetype off " disable temporarily
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
+ " Let NeoBundle manage NeoBundle
+ " Required:
+ NeoBundleFetch 'Shougo/neobundle.vim'
 
-" let Vundle manage Vundle
-" required!
-Plugin 'gmarik/Vundle.vim'
+ " My Bundles here:
+ " Refer to |:NeoBundle-examples|.
+ " Note: You don't set neobundle setting in .gvimrc!
+ "
 
-Plugin 'tpope/vim-surround'
-Plugin 'vim-scripts/TabBar'
-Plugin 'henrik/vim-indexed-search'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'majutsushi/tagbar'
-Plugin 'mileszs/ack.vim'
-Plugin 'bling/vim-airline'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'Raimondi/delimitMate'
-Plugin 'amiorin/vim-project'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tobyS/pdv'
-Plugin 'tobyS/vmustache'
-Plugin 'ap/vim-css-color'
-Plugin 'YankRing.vim'
-Plugin 'tristen/vim-sparkup'
-Plugin 'L9'
-Plugin 'mru.vim'
-Plugin 'bufkill.vim'
-Plugin 'matchit.zip'
-Plugin 'scrooloose/syntastic'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'vim-scripts/TabBar'
+NeoBundle 'henrik/vim-indexed-search'
+NeoBundle 'Shougo/neocomplete.vim'
+"Bundle 'Shougo/neosnippet'
+"Bundle 'Shougo/neosnippet-snippets'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'amiorin/vim-project'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'tobyS/pdv'
+NeoBundle 'tobyS/vmustache'
+NeoBundle 'ap/vim-css-color'
+NeoBundle 'YankRing.vim'
+NeoBundle 'tristen/vim-sparkup'
+NeoBundle 'L9'
+NeoBundle 'mru.vim'
+NeoBundle 'bufkill.vim'
+NeoBundle 'matchit.zip'
+"NeoBundle 'scrooloose/syntastic'
 
 "colorschemes
-Plugin 'ScrollColors'
-Plugin 'sjl/badwolf'
-Plugin 'twerth/ir_black'
-Plugin 'flazz/vim-colorschemes'
+NeoBundle 'ScrollColors'
+NeoBundle 'sjl/badwolf'
+NeoBundle 'twerth/ir_black'
+NeoBundle 'flazz/vim-colorschemes'
 
 
-Plugin 'joonty/vim-phpqa'
-Plugin 'evidens/vim-twig'
-Plugin 'elzr/vim-json'
-"Plugin 'docteurklein/vim-symfony'
-Plugin 'shawncplus/phpcomplete.vim'
-Plugin 'arnaud-lb/vim-php-namespace'
+NeoBundle 'joonty/vim-phpqa'
+NeoBundle 'evidens/vim-twig'
+"NeoBundle 'tokutake/twig-indent'
+NeoBundle 'elzr/vim-json'
+"NeoBundle 'docteurklein/vim-symfony'
+NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundle 'arnaud-lb/vim-php-namespace'
 " php 5.5 syntax highlight
-Plugin 'joshtronic/php.vim'
+NeoBundle 'joshtronic/php.vim'
 
-Plugin 'pangloss/vim-javascript'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'einars/js-beautify'
+NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'Shougo/unite.vim'
+"NeoBundle 'm2mdas/phpcomplete-extended'
 
-call vundle#end()
-" }
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'maksimr/vim-jsbeautify'
+NeoBundle 'einars/js-beautify'
+
+ call neobundle#end()
+
+ " Required:
+ filetype plugin indent on
+
+ " If there are uninstalled bundles found on startup,
+ " this will conveniently prompt you to install them.
+ NeoBundleCheck
+"" ====================
+"" = Vundle
+"" ====================
+"
+"
+"
+"
+"set nocompatible " be iMproved
+"filetype off " disable temporarily
+"set rtp+=~/.vim/bundle/Vundle.vim/
+"call vundle#begin()
+"
+"" let Vundle manage Vundle
+"" required!
+"Plugin 'gmarik/Vundle.vim'
+"
+"Plugin 'tpope/vim-surround'
+"Plugin 'vim-scripts/TabBar'
+"Plugin 'henrik/vim-indexed-search'
+"Plugin 'Shougo/neocomplete.vim'
+""Bundle 'Shougo/neosnippet'
+""Bundle 'Shougo/neosnippet-snippets'
+"Plugin 'scrooloose/nerdtree'
+"Plugin 'scrooloose/nerdcommenter'
+"Plugin 'majutsushi/tagbar'
+"Plugin 'mileszs/ack.vim'
+"Plugin 'bling/vim-airline'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
+"Plugin 'Raimondi/delimitMate'
+"Plugin 'amiorin/vim-project'
+"Plugin 'kien/ctrlp.vim'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-unimpaired'
+"Plugin 'tobyS/pdv'
+"Plugin 'tobyS/vmustache'
+"Plugin 'ap/vim-css-color'
+"Plugin 'YankRing.vim'
+"Plugin 'tristen/vim-sparkup'
+"Plugin 'L9'
+"Plugin 'mru.vim'
+"Plugin 'bufkill.vim'
+"Plugin 'matchit.zip'
+""Plugin 'scrooloose/syntastic'
+"
+""colorschemes
+"Plugin 'ScrollColors'
+"Plugin 'sjl/badwolf'
+"Plugin 'twerth/ir_black'
+"Plugin 'flazz/vim-colorschemes'
+"
+"
+"Plugin 'joonty/vim-phpqa'
+"Plugin 'evidens/vim-twig'
+""Plugin 'tokutake/twig-indent'
+"Plugin 'elzr/vim-json'
+""Plugin 'docteurklein/vim-symfony'
+"Plugin 'shawncplus/phpcomplete.vim'
+"Plugin 'arnaud-lb/vim-php-namespace'
+"" php 5.5 syntax highlight
+"Plugin 'joshtronic/php.vim'
+"
+"Plugin 'Shougo/vimproc.vim'
+"Plugin 'Shougo/unite.vim'
+""Plugin 'm2mdas/phpcomplete-extended'
+"
+"Plugin 'pangloss/vim-javascript'
+"Plugin 'jelera/vim-javascript-syntax'
+"Plugin 'maksimr/vim-jsbeautify'
+"Plugin 'einars/js-beautify'
+"
+"call vundle#end()
+"" }
 
 
 
@@ -196,7 +290,7 @@ set diffopt=iwhite
 
 
 "set foldnestmax=2      "deepest fold is 10 levels
-set foldenable        "dont fold by default
+"set foldenable        "dont fold by default
 "set foldlevel=2
 
 
@@ -280,7 +374,7 @@ let g:airline_symbols.whitespace = 'Ξ'
 
 set completeopt-=preview
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/cache/*     " MacOSX/Linux
 
 let g:tagbar_phpctags_bin='~/git/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '1024M'
@@ -291,6 +385,9 @@ let NERDTreeShowBookmarks = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
+" Don't run codesniffer on save (default = 1)
+let g:phpqa_codesniffer_autorun = 1
+let g:phpqa_codesniffer_args = "--standard=PSR2"
 
 
 
@@ -387,6 +484,7 @@ nnoremap <Leader>s :%s/<c-R><c-w>/<c-r><c-w>/g<left><left>
 " reformat html -> each tag on own row
 nmap <F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
 
+inoremap <c-space> <C-x><C-o>
 
 " ------
 " - Mappings: folding
@@ -394,8 +492,8 @@ nmap <F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
 
 
 " Toggle folds
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>zz
-vnoremap <Space> zf
+"nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>zz
+"vnoremap <Space> zf
 
 
 " ------
@@ -403,14 +501,14 @@ vnoremap <Space> zf
 " ------
 
 
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+autocmd FileType javascript noremap <buffer> <leader>f :call JsBeautify()<cr>
+autocmd FileType javascript vnoremap <buffer> <leader>f :call RangeJsBeautify()<cr>
 " for html
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+autocmd FileType html noremap <buffer> <leader>f :call HtmlBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <leader>f :call RangeHtmlBeautify()<cr>
 " for css or scss
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+autocmd FileType css noremap <buffer> <leader>f :call CSSBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <leader>f :call RangeCSSBeautify()<cr>
 
 "namespace plugin
 inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
@@ -427,8 +525,8 @@ map <leader>gw :Gwrite<cr>
 map <leader>gc :Gcommit<cr>
 map <leader>gp :!git push<cr>
 
-map <leader><space> :CtrlP<cr>
-map <leader><leader> :CtrlPMixed<cr>
+map <leader><space> :CtrlPMixed<cr>
+map <space><leader> :CtrlP<cr>
 
 map <leader>n :NERDTreeToggle<CR>
 map <leader>N :NERDTreeFind<cr>
@@ -451,20 +549,6 @@ let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 let g:sparkupExecuteMapping='<m-i>'
 let g:sparkupNextMapping = '<m-o>'
 
-" Recommended key-mappings. neocomplete
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-    return neocomplete#close_popup() . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -473,16 +557,48 @@ let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+
+
+let g:phpcomplete_complete_for_unknown_classes = 1
+let g:phpcomplete_search_tags_for_variables = 1
+let g:phpcomplete_parse_docblock_comments = 1
+let g:phpcomplete_cache_taglists = 1
+let g:phpcomplete_enhance_jump_to_definition = 1
+
+
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+set omnifunc=syntaxcomplete#Complete
 
 
 " ====================
@@ -562,30 +678,6 @@ endfunction
 vmap <leader>em :call ExtractMethod()<cr>
 
 
-" jump to a twig view in symfony
-"
-" note: path must be set to project root! should be set automatically when using vim-projects.
-" otherwise: uncomment following line
-" set path+=**
-
-function! s:SfJumpToView()
-    mark C
-    normal! ]M
-    let end = line(".")
-    normal! [m
-    try
-        call search('v[^.:]+.html.twig', '', end)
-        normal! gf
-    catch
-        normal! g`C
-        echohl WarningMsg | echomsg "Template file not found" | echohl None
-    endtry
-endfunction
-com! SfJumpToView call s:SfJumpToView()
-
-" create a mapping only in a Controller file
-autocmd BufEnter *Controller.php nmap <buffer><leader>v :SfJumpToView<CR>
-
 
 " ====================
 " = Auto commands
@@ -593,10 +685,10 @@ autocmd BufEnter *Controller.php nmap <buffer><leader>v :SfJumpToView<CR>
 
 
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
-autocmd FileType php nmap <buffer> <silent><leader>w :!php-cs-fixer -qn fix % --level=all<CR>
+autocmd FileType php nmap <buffer> <silent><leader>w :!php-cs-fixer -qn fix %<CR>e:
 map <F8> <esc>:w<cr>:Phpmd<cr>
 map <F9> <esc>:w<cr>:Phpcs<cr>
-map <M-s> <esc>gg=G:w<cr>:!php-cs-fixer -qn fix % --level=all<CR>
+map <M-s> <esc>gg=G:w<cr>:!php-cs-fixer -qn fix %<CR>:e<cr>
 
 "Automatically delete trailing DOS-returns and whitespace
 autocmd BufRead * silent! %s/[\r \t]\+$//
@@ -623,7 +715,7 @@ set scrolljump=5
 let html_no_rendering=0
 let php_sql_query=1
 let php_noShortTags=1
-let php_folding=1
+"let php_folding=1
 let php_htmlInStrings=1
 set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 
