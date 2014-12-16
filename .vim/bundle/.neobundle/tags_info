@@ -1,4 +1,5 @@
 L9
+PHP-Indenting-for-VIm
 ScrollColors
 TabBar
 YankRing.vim
@@ -16,7 +17,6 @@ neocomplete.vim
 nerdcommenter
 nerdtree
 pdv
-php.vim
 phpcomplete.vim
 tagbar
 ultisnips
@@ -36,6 +36,7 @@ vim-project
 vim-snippets
 vim-sparkup
 vim-surround
+vim-syntax-for-PHP
 vim-twig
 vim-unimpaired
 vimproc.vim

@@ -66,7 +66,9 @@ NeoBundle 'elzr/vim-json'
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'arnaud-lb/vim-php-namespace'
 " php 5.5 syntax highlight
-NeoBundle 'joshtronic/php.vim'
+"NeoBundle 'joshtronic/php.vim'
+NeoBundle '2072/vim-syntax-for-PHP'
+NeoBundle '2072/PHP-Indenting-for-VIm'
 
 NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'Shougo/unite.vim'
@@ -717,6 +719,7 @@ let php_sql_query=1
 let php_noShortTags=1
 "let php_folding=1
 let php_htmlInStrings=1
+let g:PHP_default_indenting=0
 set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 
 so ~/.nonpublic-vimprojects
