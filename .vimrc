@@ -26,8 +26,6 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-scripts/TabBar'
 NeoBundle 'henrik/vim-indexed-search'
 NeoBundle 'Shougo/neocomplete.vim'
-"Bundle 'Shougo/neosnippet'
-"Bundle 'Shougo/neosnippet-snippets'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
@@ -49,7 +47,6 @@ NeoBundle 'L9'
 NeoBundle 'mru.vim'
 NeoBundle 'bufkill.vim'
 NeoBundle 'matchit.zip'
-"NeoBundle 'scrooloose/syntastic'
 
 "colorschemes
 NeoBundle 'ScrollColors'
@@ -60,19 +57,15 @@ NeoBundle 'flazz/vim-colorschemes'
 
 NeoBundle 'joonty/vim-phpqa'
 NeoBundle 'evidens/vim-twig'
-"NeoBundle 'tokutake/twig-indent'
 NeoBundle 'elzr/vim-json'
-"NeoBundle 'docteurklein/vim-symfony'
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'arnaud-lb/vim-php-namespace'
 " php 5.5 syntax highlight
-"NeoBundle 'joshtronic/php.vim'
 NeoBundle '2072/vim-syntax-for-PHP'
 NeoBundle '2072/PHP-Indenting-for-VIm'
 
 NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'Shougo/unite.vim'
-"NeoBundle 'm2mdas/phpcomplete-extended'
 
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'jelera/vim-javascript-syntax'
@@ -87,79 +80,6 @@ NeoBundle 'einars/js-beautify'
  " If there are uninstalled bundles found on startup,
  " this will conveniently prompt you to install them.
  NeoBundleCheck
-"" ====================
-"" = Vundle
-"" ====================
-"
-"
-"
-"
-"set nocompatible " be iMproved
-"filetype off " disable temporarily
-"set rtp+=~/.vim/bundle/Vundle.vim/
-"call vundle#begin()
-"
-"" let Vundle manage Vundle
-"" required!
-"Plugin 'gmarik/Vundle.vim'
-"
-"Plugin 'tpope/vim-surround'
-"Plugin 'vim-scripts/TabBar'
-"Plugin 'henrik/vim-indexed-search'
-"Plugin 'Shougo/neocomplete.vim'
-""Bundle 'Shougo/neosnippet'
-""Bundle 'Shougo/neosnippet-snippets'
-"Plugin 'scrooloose/nerdtree'
-"Plugin 'scrooloose/nerdcommenter'
-"Plugin 'majutsushi/tagbar'
-"Plugin 'mileszs/ack.vim'
-"Plugin 'bling/vim-airline'
-"Plugin 'SirVer/ultisnips'
-"Plugin 'honza/vim-snippets'
-"Plugin 'Raimondi/delimitMate'
-"Plugin 'amiorin/vim-project'
-"Plugin 'kien/ctrlp.vim'
-"Plugin 'tpope/vim-fugitive'
-"Plugin 'tpope/vim-unimpaired'
-"Plugin 'tobyS/pdv'
-"Plugin 'tobyS/vmustache'
-"Plugin 'ap/vim-css-color'
-"Plugin 'YankRing.vim'
-"Plugin 'tristen/vim-sparkup'
-"Plugin 'L9'
-"Plugin 'mru.vim'
-"Plugin 'bufkill.vim'
-"Plugin 'matchit.zip'
-""Plugin 'scrooloose/syntastic'
-"
-""colorschemes
-"Plugin 'ScrollColors'
-"Plugin 'sjl/badwolf'
-"Plugin 'twerth/ir_black'
-"Plugin 'flazz/vim-colorschemes'
-"
-"
-"Plugin 'joonty/vim-phpqa'
-"Plugin 'evidens/vim-twig'
-""Plugin 'tokutake/twig-indent'
-"Plugin 'elzr/vim-json'
-""Plugin 'docteurklein/vim-symfony'
-"Plugin 'shawncplus/phpcomplete.vim'
-"Plugin 'arnaud-lb/vim-php-namespace'
-"" php 5.5 syntax highlight
-"Plugin 'joshtronic/php.vim'
-"
-"Plugin 'Shougo/vimproc.vim'
-"Plugin 'Shougo/unite.vim'
-""Plugin 'm2mdas/phpcomplete-extended'
-"
-"Plugin 'pangloss/vim-javascript'
-"Plugin 'jelera/vim-javascript-syntax'
-"Plugin 'maksimr/vim-jsbeautify'
-"Plugin 'einars/js-beautify'
-"
-"call vundle#end()
-"" }
 
 
 
@@ -312,7 +232,9 @@ set diffopt=iwhite
 syntax on
 
 if has("gui_running")
-    colorscheme wombat256mod
+    "colorscheme wombat256mod
+    "colorscheme getafe
+    colorscheme ir_dark
     "set background=light
 
     set guicursor=a:block-Cursor
@@ -346,10 +268,6 @@ let g:UltiSnipsSnippetsDir = '~/.vim/bundle/vim-snippets/UltiSnips/'
 
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
-
-"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-let g:syntastic_javascript_checkers = ['jslint']
-"let g:syntastic_aggregate_errors = 1
 
 let g:PHP_removeCRwhenUnix = 1
 let g:PHP_vintage_case_default_indent = 1
@@ -387,9 +305,7 @@ let NERDTreeShowBookmarks = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-" Don't run codesniffer on save (default = 1)
-let g:phpqa_codesniffer_autorun = 1
-let g:phpqa_codesniffer_args = "--standard=PSR2"
+let g:phpqa_codesniffer_args = "--standard=Symfony2"
 
 
 
@@ -439,7 +355,7 @@ cnoremap <C-N> <End>
 cnoremap <C-P> <Up>
 
 " delete char after cursor in insert mode, same as del key
-inoremap <c-l> <del>
+inoremap <c-l> <c-o>x
 
 " jump to line AND column
 nnoremap ' `
@@ -680,6 +596,23 @@ endfunction
 vmap <leader>em :call ExtractMethod()<cr>
 
 
+function! SymfonySwitchBetweenTestsAndClasses()
+    let f = bufname("%")
+
+    if f =~ '.php'
+        if f =~ '\<tests/'
+            exe ":e ".substitute(substitute(f, 'tests/unit/', '', ''), 'Test', '', '')
+        else
+            exe ":e ".substitute(substitute(f, 'src/', 'tests/unit/src/', ''), '.php', 'Test.php', '')
+        endif
+    endif
+
+    return ""
+endfunction
+
+nmap <leader>t :call SymfonySwitchBetweenTestsAndClasses()<cr>
+
+
 
 " ====================
 " = Auto commands
@@ -687,10 +620,9 @@ vmap <leader>em :call ExtractMethod()<cr>
 
 
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
-autocmd FileType php nmap <buffer> <silent><leader>w :!php-cs-fixer -qn fix %<CR>e:
 map <F8> <esc>:w<cr>:Phpmd<cr>
 map <F9> <esc>:w<cr>:Phpcs<cr>
-map <M-s> <esc>gg=G:w<cr>:!php-cs-fixer -qn fix %<CR>:e<cr>
+map <M-s> <esc>magg=G:w<cr>:!php-cs-fixer -qn --config=sf23 fix %<CR>:e<cr>'a
 
 "Automatically delete trailing DOS-returns and whitespace
 autocmd BufRead * silent! %s/[\r \t]\+$//

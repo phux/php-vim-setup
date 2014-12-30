@@ -43,11 +43,6 @@ snippet php "php tag"
 	$0
 endsnippet
 
-snippet phpi "php inline tag"
-	<?php $0 ?>
-endsnippet
-
-
 snippet new "New class instance" !b
 $$1 = new $1($2);
 $0
@@ -59,7 +54,7 @@ snippet con "constructor"
  */
 public function __construct(${1:$dependencies})
 {
-	${1/\$(\w+)(, )*/\n\t$this->$1 = $$1;/g}
+    ${1/\$(\w+)(, )*/\n\t$this->$1 = $$1;/g}
 }$0
 endsnippet
 
@@ -75,7 +70,7 @@ ${1:protected} $$2;
  */
 public function get${2/\w+\s*/\u$0/}()
 {
-	return $this->$2;
+    return $this->$2;
 }
 
 /**
@@ -84,19 +79,23 @@ public function get${2/\w+\s*/\u$0/}()
  */
 public function set${2/\w+\s*/\u$0/}($$2)
 {
-	$this->$2 = $$2;
+    $this->$2 = $$2;
 }
 $0
 endsnippet
 
 snippet fek "foreach key value"
 foreach ($${1:variable} as $${2:key} => $${3:value}) {
-	${4:// code...}
+    ${4:// code...}
 }
 endsnippet
 
-snippet pr "print"
-print_r( $0 );
+snippet prt "print_r true"
+print_r($0, true);
+endsnippet
+
+snippet pr "print_r"
+print_r($0);
 endsnippet
 
 snippet e "echo"
@@ -114,7 +113,7 @@ endsnippet
 
 ## ARRAYS
 snippet a "array"
-array($1)$0
+[$1]$0
 endsnippet
 
 snippet av
@@ -147,19 +146,19 @@ endsnippet
 
 snippet iff "if false"
 if (false === $${1:what}) {
-	${0:// code}
+    ${0:// code}
 }
 endsnippet
 
 snippet ift "if true"
 if (true === $${1:what}) {
-	${0:// code}
+    ${0:// code}
 }
 endsnippet
 
 snippet ifc "if compare 2 values"
 if ($${1:a} === $${2:b}) {
-	${0:// code}
+    ${0:// code}
 }
 endsnippet
 
@@ -196,7 +195,7 @@ return true;$0
 endsnippet
 
 snippet rn "return null"
-return null;$0
+return;$0
 endsnippet
 
 snippet rf "return false"
@@ -232,10 +231,10 @@ endsnippet
 
 snippet try "try/catch"
 try {
-	$1
+    $1
 } catch (${2:Exception} $e) {
-	error_log('${3:EXCEPTION} in ' . __FILE__ . ' : ' . $e);
-	throw $e;
+    error_log('${3:EXCEPTION} in ' . __FILE__ . ' : ' . $e);
+    throw $e;
 }
 endsnippet
 
@@ -251,55 +250,4 @@ endsnippet
 
 snippet ee
 echo "$1".PHP_EOL;$0
-endsnippet
-
-#######
-# Extbase relevant
-#######
-
-
-### dependency injection
-
-snippet ir "inject repository"
-/**
- * $1Repository
- *
- * @var ${2:Tx_${3:Extension}_Domain_Repository_${1/\w+\s*/\u$0/}Repository}
- */
-protected $${1:name}Repository;
-
-/**
- * @param $2 $$1
- */
-public function inject${1/\w+\s*/\u$0/}Repository($2 $$1Repository)
-{
-	$this->$1Repository = $$1Repository;
-}$0
-endsnippet
-
-snippet nm "new Model"
-<?php
-class Tx_$1_Domain_Model_$2${3: extends Tx_Extbase_DomainObject_AbstractDomainObject}
-{
-	$0
-}
-?>
-endsnippet
-
-snippet nm "new Service"
-<?php
-class Tx_$1_Domain_Services_$2Service
-{
-	$0
-}
-?>
-endsnippet
-
-snippet nm "new Controller"
-<?php
-class Tx_$1_Controller_$2Controller extends Tx_Extbase_MVC_Controller_ActionController
-{
-	$0
-}
-?>
 endsnippet
