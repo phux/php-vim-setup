@@ -355,7 +355,7 @@ cnoremap <C-N> <End>
 cnoremap <C-P> <Up>
 
 " delete char after cursor in insert mode, same as del key
-inoremap <c-l> <c-o>x
+inoremap <c-l> <del>
 
 " jump to line AND column
 nnoremap ' `
@@ -449,8 +449,8 @@ map <space><leader> :CtrlP<cr>
 map <leader>n :NERDTreeToggle<CR>
 map <leader>N :NERDTreeFind<cr>
 
-map <silent> <leader>A :exec "Ack! --ignore-file=is:tags ".expand("<cword>")<cr>
-map <leader>a :Ack! --ignore-file=is:tags<space>
+nnoremap <silent> <leader>F :exec "Ack! --ignore-file=is:tags ".expand("<cword>")<cr>
+nnoremap <silent> <leader>f :Ack! --ignore-file=is:tags<space>
 
 map <leader><enter> :Mru<cr>
 
@@ -486,7 +486,6 @@ let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -506,6 +505,8 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
+nnoremap <leader>a :Align<Space>
+vnoremap <leader>a :Align<Space>
 
 
 let g:phpcomplete_complete_for_unknown_classes = 1
@@ -601,9 +602,19 @@ function! SymfonySwitchBetweenTestsAndClasses()
 
     if f =~ '.php'
         if f =~ '\<tests/'
-            exe ":e ".substitute(substitute(f, 'tests/unit/', '', ''), 'Test', '', '')
+            let filename = substitute(substitute(f, 'tests/unit/', '', ''), 'Test', '', '')
+            if !filereadable(filename)
+                let new_dir = substitute(filename, '/\w\+\.php', '', '')
+                exe ":!mkdir -p ".new_dir
+            endif
+            exe ":e ".filename
         else
-            exe ":e ".substitute(substitute(f, 'src/', 'tests/unit/src/', ''), '.php', 'Test.php', '')
+            let filename = substitute(substitute(f, 'src/', 'tests/unit/src/', ''), '.php', 'Test.php', '')
+            if !filereadable(filename)
+                let new_dir = substitute(filename, '/\w\+Test\.php', '', '')
+                exe ":!mkdir -p ".new_dir
+            endif
+            exe ":e ".filename
         endif
     endif
 
