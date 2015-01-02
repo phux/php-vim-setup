@@ -597,31 +597,47 @@ endfunction
 vmap <leader>em :call ExtractMethod()<cr>
 
 
-function! SymfonySwitchBetweenTestsAndClasses()
-    let f = bufname("%")
+" Parameters:
+"
+" fileExtension: the file extension this script should act on, i.e. 'php'
+" (without dot)
+"
+" firstDirBeginning: a file path that identifies the first type
+" of paths, i.e. 'tests/unit/'
+"
+" secondDirBeginning: a file path pattern that identifies the second type
+" of paths, i.e. 'src/'
+"
+" filenameAddition: string that should be removed from the first filename and
+" added to the second, i.e. 'Test' if your testfile filename has the suffix
+" 'Test' as in /path/MyServiceTest.php
 
-    if f =~ '.php'
-        if f =~ '\<tests/'
-            let filename = substitute(substitute(f, 'tests/unit/', '', ''), 'Test', '', '')
+function! SwitchBetweenFiles(fileExtension, firstDirBeginning, secondDirBeginning, filenameAddition)
+    let f = bufname("%")
+    if f =~ '.'.a:fileExtension
+        if f =~ '\<'.a:firstDirBeginning && f =~ a:filenameAddition.'\.'.a:fileExtension
+            let filename = substitute(substitute(f, a:firstDirBeginning, '', ''), a:filenameAddition, '', '')
             if !filereadable(filename)
-                let new_dir = substitute(filename, '/\w\+\.php', '', '')
+                let new_dir = substitute(filename, '/\w\+\.'.a:fileExtension, '', '')
+                exe ":!mkdir -p ".new_dir
+            endif
+            exe ":e ".filename
+        elseif f =~ '\<'.a:secondDirBeginning && f !~ a:filenameAddition.'\.'.a:fileExtension
+            let filename = substitute(substitute(f, a:secondDirBeginning, a:firstDirBeginning.a:secondDirBeginning, ''), '.'.a:fileExtension, a:filenameAddition.'.'.a:fileExtension, '')
+            if !filereadable(filename)
+                let new_dir = substitute(filename, '/\w\+'.a:filenameAddition.'\.'.a:fileExtension, '', '')
                 exe ":!mkdir -p ".new_dir
             endif
             exe ":e ".filename
         else
-            let filename = substitute(substitute(f, 'src/', 'tests/unit/src/', ''), '.php', 'Test.php', '')
-            if !filereadable(filename)
-                let new_dir = substitute(filename, '/\w\+Test\.php', '', '')
-                exe ":!mkdir -p ".new_dir
-            endif
-            exe ":e ".filename
+            echom "Could not switch because needed patterns not matched."
         endif
     endif
-
-    return ""
 endfunction
 
-nmap <leader>t :call SymfonySwitchBetweenTestsAndClasses()<cr>
+nmap <leader>tu :call SwitchBetweenFiles('php', 'tests/unit/', 'src/', 'Test')<cr>
+nmap <leader>tf :call SwitchBetweenFiles('php', 'tests/functional/', 'src/', 'Test')<cr>
+nmap <leader>ta :call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Test')<cr>
 
 
 
