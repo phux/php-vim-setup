@@ -341,7 +341,7 @@ map <leader>W :set nowrap!<CR>
 
 
 " fast closing of html tags
-imap ;; </<c-x><c-o>
+imap ;; </<c-x><c-o><del>
 
 vmap < <gv
 vmap > >gv
@@ -449,8 +449,8 @@ map <space><leader> :CtrlP<cr>
 map <leader>n :NERDTreeToggle<CR>
 map <leader>N :NERDTreeFind<cr>
 
-nnoremap <silent> <leader>F :exec "Ack! --ignore-file=is:tags ".expand("<cword>")<cr>
-nnoremap <silent> <leader>f :Ack! --ignore-file=is:tags<space>
+nnoremap <silent> <leader>A :exec "Ack! --ignore-file=is:tags ".expand("<cword>")<cr>
+nnoremap <silent> <leader>a :Ack! --ignore-file=is:tags<space>
 
 map <leader><enter> :Mru<cr>
 
@@ -505,8 +505,6 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
-nnoremap <leader>a :Align<Space>
-vnoremap <leader>a :Align<Space>
 
 
 let g:phpcomplete_complete_for_unknown_classes = 1
@@ -636,8 +634,11 @@ function! SwitchBetweenFiles(fileExtension, firstDirBeginning, secondDirBeginnin
 endfunction
 
 nmap <leader>tu :call SwitchBetweenFiles('php', 'tests/unit/', 'src/', 'Test')<cr>
-nmap <leader>tf :call SwitchBetweenFiles('php', 'tests/functional/', 'src/', 'Test')<cr>
-nmap <leader>ta :call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Test')<cr>
+nmap <leader>tf :call SwitchBetweenFiles('php', 'tests/functional/', 'src/', 'Cept')<cr>
+nmap <leader>ta :call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Cept')<cr>
+nmap <leader>tsu <c-w>v:call SwitchBetweenFiles('php', 'tests/unit/', 'src/', 'Test')<cr>
+nmap <leader>tsf <c-w>v:call SwitchBetweenFiles('php', 'tests/functional/', 'src/', 'Cept')<cr>
+nmap <leader>tsa <c-w>v:call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Cept')<cr>
 
 
 
@@ -647,9 +648,10 @@ nmap <leader>ta :call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Te
 
 
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
+autocmd FileType html setfiletype html.twig
 map <F8> <esc>:w<cr>:Phpmd<cr>
 map <F9> <esc>:w<cr>:Phpcs<cr>
-map <M-s> <esc>magg=G:w<cr>:!php-cs-fixer -qn --config=sf23 fix %<CR>:e<cr>'a
+map <M-s> <esc>:w<cr>:!php-cs-fixer -qn --config=sf23 fix %<CR>:e<cr>'a
 
 "Automatically delete trailing DOS-returns and whitespace
 autocmd BufRead * silent! %s/[\r \t]\+$//

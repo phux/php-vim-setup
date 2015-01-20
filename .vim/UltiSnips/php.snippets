@@ -251,3 +251,80 @@ endsnippet
 snippet ee
 echo "$1".PHP_EOL;$0
 endsnippet
+
+snippet cu "codeception unit test of a service"
+<?php
+
+namespace `!p
+abspath = os.path.abspath(path)
+m = re.search(r'[A-Z].+(?=/)', abspath)
+if m:
+	snip.rv = m.group().replace('/', '\\')
+`;
+
+use \Codeception\TestCase;
+
+/**
+ */
+class `!p
+snip.rv = re.match(r'.*(?=\.)', fn).group()
+` extends Test
+{
+    /**
+     * @var \CodeGuy
+     */
+    protected $codeGuy;
+
+    public function test${1}()
+    {
+	${2}
+    }
+
+    protected function _before()
+    {
+    }
+
+    protected function _after()
+    {
+    }
+}
+endsnippet
+
+snippet cf "codeception functional test"
+<?php
+
+namespace `!p
+abspath = os.path.abspath(path)
+m = re.search(r'[A-Z].+(?=/)', abspath)
+if m:
+	snip.rv = m.group().replace('/', '\\')
+`;
+
+use \Codeception\TestCase;
+
+/**
+ */
+class `!p
+snip.rv = re.match(r'.*(?=\.)', fn).group()
+` extends Test
+{
+    /**
+     * @var \CodeGuy
+     */
+    protected $codeGuy;
+
+    public function test${1}()
+    {
+	${2}
+    }
+
+    protected function _before()
+    {
+    }
+
+    protected function _after()
+    {
+    }
+}
+endsnippet
+
