@@ -1,4 +1,4 @@
-set guifont=DejaVu\ Sans\ Mono\ 10
+set guifont=DejaVu\ Sans\ Mono\ 12
 
 " no GUI
 set guioptions-=l " no left scrollbar
