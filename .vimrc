@@ -39,7 +39,7 @@ NeoBundle 'vim-scripts/grep.vim'
 NeoBundle 'bling/vim-airline'
 
 NeoBundle 'SirVer/ultisnips'
-NeoBundle 'honza/vim-snippets'
+NeoBundle 'phux/vim-snippets'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'amiorin/vim-project'
 NeoBundle 'kien/ctrlp.vim'
@@ -75,7 +75,9 @@ NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'joonty/vim-phpqa'
 NeoBundle 'evidens/vim-twig'
 NeoBundle 'elzr/vim-json'
-"NeoBundle 'shawncplus/hpcomplete.vim'
+"NeoBundle 'shawncplus/phpcomplete.vim'
+"NeoBundle 'm2mdas/phpcomplete-extended'
+"autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 NeoBundle 'arnaud-lb/vim-php-namespace'
 " php 5.5 syntax highlight
 NeoBundle '2072/vim-syntax-for-PHP'
@@ -121,7 +123,7 @@ NeoBundle 'editorconfig/editorconfig-vim'
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
 
-set nu " show line numbers
+set nonu " show line numbers
 set enc=utf-8
 set hidden
 " no backups
@@ -258,6 +260,7 @@ if has("gui_running")
     "colorscheme wombat256mod
     "colorscheme getafe
     "colorscheme pyte
+    "colorscheme github
     colorscheme solarized
     "set background=light
     "colorscheme zmrok
@@ -358,6 +361,10 @@ let g:tagbar_phpctags_bin='~/git/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '1024M'
 
 
+let g:phpcomplete_parse_docblock_comments = 1
+let g:phpcomplete_enhance_jump_to_definition = 1
+
+
 let NERDTreeShowBookmarks = 1
 
 
@@ -413,7 +420,7 @@ cmap ,p <C-R>+
 nnoremap <s-bs> G
 nnoremap <BS> gg
 
-nnoremap <leader>m <c-w>c
+nnoremap <leader>x <c-w>c
 
 
 vnoremap <silent> y y`]
@@ -531,6 +538,8 @@ let g:phpqa_messdetector_autorun = 1
 let g:phpqa_codesniffer_autorun = 1
 
 nmap <leader>gg :GitGutterToggle<cr>
+nmap <leader>gn :GitGutterNextHunk<cr>
+nmap <leader>gN :GitGutterPrevHunk<cr>
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
@@ -567,9 +576,9 @@ nmap <leader>N :NERDTreeFind<cr>
 " -t all text files
 " -f follow symlinks
 " -S smart case
-nnoremap <leader>a :Ag! -t -f -S<space>
-nnoremap <leader>A :Ag! -t -f -S -u<space>
-nnoremap <M-a> :exec "Ag! -t -f ".expand("<cword>")<cr>
+nnoremap <leader>a :Ag! --ignore=tags -t -f -S<space>
+nnoremap <leader>A :Ag! --ignore=tags -t -f -S -u<space>
+nnoremap <M-a> :exec "Ag! --ignore=tags -t -f ".expand("<cword>")<cr>
 nnoremap <M-g> :exec "Rgrep ".expand("<cword>")<cr>
 
 map <leader><enter> :Mru<cr>
@@ -652,7 +661,7 @@ let g:easytags_dynamic_files = 1
 let g:easytags_on_cursorhold = 1
 let g:easytags_events = ['BufWritePost']
 "milliseconds
-let g:easytags_updatetime_min = 30000
+let g:easytags_updatetime_min = 60000
 let g:easytags_auto_highlight = 0
 
 "let g:daylight_morning_color_gvim = "Tomorrow"
@@ -673,12 +682,6 @@ let g:easytags_auto_highlight = 0
 let g:ycm_complete_in_comments = 1
 let g:ycm_min_num_of_chars_for_completion = 2
 
-
-let g:phpcomplete_complete_for_unknown_classes = 0
-let g:phpcomplete_search_tags_for_variables = 1
-let g:phpcomplete_parse_docblock_comments = 1
-let g:phpcomplete_cache_taglists = 1
-let g:phpcomplete_enhance_jump_to_definition = 1
 
 
 " Enable omni completion.
@@ -936,8 +939,9 @@ autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
 autocmd FileType html setfiletype html.twig
 nmap <leader><F8> <esc>:w<cr>:Phpmd<cr>
 nmap <leader><F9> <esc>:w<cr>:Phpcs<cr>
-nmap <M-f> <esc>:w<cr>:!phpcbf --standard=Symfony2 %<cr>:e<cr>
-nmap <M-s> <esc>ma:w<cr>:!phpcbf --standard=Symfony2 %<cr>:!php-cs-fixer -qn --config=sf23 fix %<CR>:e<cr>'a:e<CR>
+nmap <M-f> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
+nmap <M-s> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
+nmap <M-s> <esc>ma:w<cr>:!phpcbf --standard=Symfony2 %<cr>:!php-cs-fixer -qn --level=symfony fix %<CR>:e<cr>'a:e<CR>
 nmap <leader>w :let g:phpqa_open_loc = 0<cr>:let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>:let g:phpqa_open_loc = 1<cr>
 
 "Automatically delete trailing DOS-returns and whitespace
@@ -957,7 +961,8 @@ autocmd BufEnter *.php :%s/[ \t\r]\+$//e
 
 
 set nocursorcolumn
-set nocursorline
+"set nocursorline
+set cursorline
 set lazyredraw
 "syntax sync minlines=100
 "set synmaxcol=200
