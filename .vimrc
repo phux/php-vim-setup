@@ -29,7 +29,8 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'Valloric/YouCompleteMe'
+"NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'xolox/vim-easytags'
 NeoBundle 'xolox/vim-misc'
 
@@ -73,6 +74,7 @@ NeoBundle 'flazz/vim-colorschemes'
 
 
 NeoBundle 'joonty/vim-phpqa'
+NeoBundle 'adoy/vim-php-refactoring-toolbox'
 NeoBundle 'evidens/vim-twig'
 NeoBundle 'elzr/vim-json'
 "NeoBundle 'shawncplus/phpcomplete.vim'
@@ -261,12 +263,12 @@ if has("gui_running")
     "colorscheme getafe
     "colorscheme pyte
     "colorscheme github
-    colorscheme solarized
+    "colorscheme solarized
     "set background=light
     "colorscheme zmrok
     "colorscheme vilight
     "colorscheme jellybeans
-    "colorscheme ir_dark
+    colorscheme ir_dark
     "colorscheme abra
     "colorscheme symfony
     "colorscheme sonofobsidian
@@ -338,14 +340,14 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 1
 let g:airline#extensions#hunks#non_zero_only = 0
 let g:airline#extensions#hunks#hunk_symbols = ['+', '~', '-']
-let g:airline#extensions#tagbar#flags = ''
-let g:airline#extensions#tagbar#flags = 'f'
-let g:airline#extensions#tagbar#flags = 's'
-let g:airline#extensions#tagbar#flags = 'p'
+"let g:airline#extensions#tagbar#flags = ''
+"let g:airline#extensions#tagbar#flags = 'f'
+"let g:airline#extensions#tagbar#flags = 's'
+"let g:airline#extensions#tagbar#flags = 'p'
 let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline#extensions#ctrlp#color_template = 'normal'
 let g:airline#extensions#ctrlp#color_template = 'visual'
@@ -619,40 +621,40 @@ let g:sparkupNextMapping = '<m-o>'
 "" Disable AutoComplPop.
 "let g:acp_enableAtStartup = 0
 "" Use neocomplete.
-"let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_at_startup = 1
 "" Use smartcase.
-"let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_smart_case = 1
 "" Set minimum syntax keyword length.
-"let g:neocomplete#sources#syntax#min_keyword_length = 3
-"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-"" Define keyword.
-"if !exists('g:neocomplete#keyword_patterns')
-    "let g:neocomplete#keyword_patterns = {}
-"endif
-"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-"" Plugin key-mappings.
-"inoremap <expr><C-g>     neocomplete#undo_completion()
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
 
-"" Recommended key-mappings.
-"" <CR>: close popup and save indent.
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-  "return neocomplete#close_popup() . "\<CR>"
-  "" For no inserting <CR> key.
-  ""return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-"endfunction
-"" <TAB>: completion.
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><C-y>  neocomplete#close_popup()
-"inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-"
+
 
 
 let g:easytags_by_filetype = ''
@@ -683,6 +685,10 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_min_num_of_chars_for_completion = 2
 
 
+let g:vim_php_refactoring_default_property_visibility = 'private'
+let g:vim_php_refactoring_default_method_visibility = 'private'
+
+let g:vim_php_refactoring_auto_validate_visibility = 1
 
 " Enable omni completion.
 set omnifunc=syntaxcomplete#Complete
@@ -802,7 +808,28 @@ function! ExtractMethod() range
 endfunction
 
 " call function by:
-vmap <leader>em :call ExtractMethod()<cr>
+"vmap <leader>em :call ExtractMethod()<cr>
+
+function! ExtractVoidMethod() range
+    normal gvd
+    exe "normal! ma"
+    let name = inputdialog("name of new method")
+    let params = inputdialog("parameters separated by ,")
+    exe "normal! O$this->" . name . "(" . params . ");"
+    ?function
+    /{
+    %
+    exe "normal! O"
+    exe "normal! oprivate function " . name ."(" . params . ")"
+    exe "normal! mb"
+    exe "normal! o\{"
+    normal kp
+    exe "normal! o\}"
+    'b
+endfunction
+
+" call function by:
+vmap <leader>vem :call ExtractVoidMethod()<cr>
 
 
 " Parameters:
@@ -940,8 +967,7 @@ autocmd FileType html setfiletype html.twig
 nmap <leader><F8> <esc>:w<cr>:Phpmd<cr>
 nmap <leader><F9> <esc>:w<cr>:Phpcs<cr>
 nmap <M-f> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
-nmap <M-s> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
-nmap <M-s> <esc>ma:w<cr>:!phpcbf --standard=Symfony2 %<cr>:!php-cs-fixer -qn --level=symfony fix %<CR>:e<cr>'a:e<CR>
+nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --level=symfony fix %<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
 nmap <leader>w :let g:phpqa_open_loc = 0<cr>:let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>:let g:phpqa_open_loc = 1<cr>
 
 "Automatically delete trailing DOS-returns and whitespace
@@ -961,8 +987,8 @@ autocmd BufEnter *.php :%s/[ \t\r]\+$//e
 
 
 set nocursorcolumn
-"set nocursorline
-set cursorline
+set nocursorline
+"set cursorline
 set lazyredraw
 "syntax sync minlines=100
 "set synmaxcol=200
