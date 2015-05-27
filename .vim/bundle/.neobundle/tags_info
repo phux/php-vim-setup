@@ -3,6 +3,7 @@ PHP-Indenting-for-VIm
 ScrollColors
 TabBar
 YankRing.vim
+YouCompleteMe
 ag.vim
 badwolf
 bufkill.vim
@@ -16,7 +17,6 @@ keepcase.vim
 matchit.zip
 mru.vim
 neobundle.vim
-neocomplete.vim
 nerdcommenter
 nerdtree
 pdv
