@@ -47,15 +47,12 @@ $ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 #### fetch and installing plugins
 
 ```
-$ vim
-:NeoBundleInstall
+$ vim -c 'NeoBundleInstall'
 ```
 
 ##### Compiling YouCompleteMe
 Note: you have to compile the YouCompleteMe plugin manually in order to get it working.
 
-```
-###### YouCompleteMe
 ```
 $ cd ~/git/php-vim-setup/.vim/bundle/YouCompleteMe
 $ ./install.sh
