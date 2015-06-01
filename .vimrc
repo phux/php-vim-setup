@@ -24,7 +24,6 @@
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-scripts/TabBar'
 NeoBundle 'henrik/vim-indexed-search'
-"NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 
@@ -33,7 +32,6 @@ NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'xolox/vim-easytags'
 NeoBundle 'xolox/vim-misc'
 
-"NeoBundle 'mileszs/ack.vim'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'vim-scripts/grep.vim'
 NeoBundle 'bling/vim-airline'
@@ -45,8 +43,6 @@ NeoBundle 'amiorin/vim-project'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
-"NeoBundle 'chrisbra/changesPlugin'
-"NeoBundle 'mhinz/vim-signify'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tobyS/pdv'
@@ -69,16 +65,12 @@ NeoBundle 'ScrollColors'
 NeoBundle 'sjl/badwolf'
 NeoBundle 'twerth/ir_black'
 NeoBundle 'flazz/vim-colorschemes'
-"NeoBundle 'daf-/vim-daylight'
 
 
 NeoBundle 'joonty/vim-phpqa'
 NeoBundle 'adoy/vim-php-refactoring-toolbox'
 NeoBundle 'evidens/vim-twig'
 NeoBundle 'elzr/vim-json'
-"NeoBundle 'shawncplus/phpcomplete.vim'
-"NeoBundle 'm2mdas/phpcomplete-extended'
-"autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 NeoBundle 'arnaud-lb/vim-php-namespace'
 " php 5.5 syntax highlight
 NeoBundle '2072/vim-syntax-for-PHP'
@@ -228,20 +220,6 @@ filetype plugin indent on
 
 " ignore whitespaces when vimdiff'ing
 set diffopt=iwhite
-
-
-" ------
-" - Settings: Folding
-" ------
-
-
-
-
-"set foldnestmax=2      "deepest fold is 10 levels
-"set foldenable        "dont fold by default
-"set foldlevel=2
-
-
 
 
 
@@ -495,21 +473,10 @@ nmap <leader><F4> :call UpdateTags()<cr>
 " unmark search matches
 nmap <silent> ,/ :nohlsearch<CR>
 
-" Refactor names easily (hit <leader>s on the word you'd like to rename
-
-
-
-
+" Refactor names easily (hit <leader>[ or <leader>] with cursor on the word you'd like to rename
 
 nnoremap <Leader>[ :SubstituteCase/\c<c-R><c-w>/<c-r><c-w>/g<left><left>
 nnoremap <Leader>] :%SubstituteCase/\c<c-R><c-w>/<c-r><c-w>/g<left><left>
-
-
-
-
-
-
-
 
 " reformat html -> each tag on own row
 nmap <leader><F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
@@ -518,14 +485,8 @@ inoremap <c-space> <C-x><C-o>
 
 nmap <leader>l :lnext<cr>
 nmap <leader>h :lprevious<cr>
-" ------
-" - Mappings: folding
-" ------
 
 
-" Toggle folds
-"nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>zz
-"vnoremap <Space> zf
 
 
 " ------
@@ -544,19 +505,8 @@ nmap <leader>gN :GitGutterPrevHunk<cr>
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
-"autocmd FileType javascript noremap <buffer> <leader>f :call JsBeautify()<cr>
-"autocmd FileType javascript vnoremap <buffer> <leader>f :call RangeJsBeautify()<cr>
-" for html
-"autocmd FileType html noremap <buffer> <leader>f :call HtmlBeautify()<cr>
-"autocmd FileType html vnoremap <buffer> <leader>f :call RangeHtmlBeautify()<cr>
-" for css or scss
-"autocmd FileType css noremap <buffer> <leader>f :call CSSBeautify()<cr>
-"autocmd FileType css vnoremap <buffer> <leader>f :call RangeCSSBeautify()<cr>
-
 "namespace plugin
-"inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
 noremap <Leader>u :call PhpInsertUse()<CR>
-"inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
 noremap <Leader>e :call PhpExpandClass()<CR>
 
 nmap <leader>; :TagbarToggle<cr>
@@ -590,25 +540,6 @@ inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>
 nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR>
 nnoremap <M-P> :call pdv#DocumentWithSnip()<CR>
 
-let g:vdebug_options = {
-\ 'path_maps': {"/var/www/wirkaufens": "/home/jmollowitz/git/wirkaufens",
-\ "/var/www": "/home/jmollowitz/git/core/application"
-\},
-\ 'server': '0.0.0.0',
-\ 'port': '9000',
-\    "timeout" : 20,
-\    "on_close" : 'detach',
-\    "break_on_open" : 1,
-\    "ide_key" : '',
-\    "debug_window_level" : 0,
-\    "debug_file_level" : 0,
-\    "debug_file" : "",
-\    "watch_window_style" : 'expanded',
-\    "marker_default" : '⬦',
-\    "marker_closed_tree" : '▸',
-\    "marker_open_tree" : '▾'
-\}
-
 let g:UltiSnipsExpandTrigger="<m-j>"
 let g:UltiSnipsJumpForwardTrigger="<m-j>"
 let g:UltiSnipsJumpBackwardTrigger="<m-k>"
@@ -625,21 +556,6 @@ let g:easytags_events = ['BufWritePost']
 let g:easytags_updatetime_min = 60000
 let g:easytags_auto_highlight = 0
 
-"let g:daylight_morning_color_gvim = "Tomorrow"
-"let g:daylight_afternoon_color_gvim = "solarized"
-"let g:daylight_evening_color_gvim = "ir_dark"
-"let g:daylight_late_color_gvim = "jellybeans"
-
-"let g:daylight_morning_color_term = "Tomorrow"
-"let g:daylight_afternoon_color_term = "mayansmoke"
-"let g:daylight_evening_color_term = "Tomorrow-Night"
-"let g:daylight_late_color_term = "jellybeans"
-
-"let g:daylight_morning_hour = 9
-"let g:daylight_afternoon_hour = 12
-"let g:daylight_evening_hour = 16
-"let g:daylight_late_hour = 18
-"
 let g:ycm_complete_in_comments = 1
 let g:ycm_min_num_of_chars_for_completion = 2
 
