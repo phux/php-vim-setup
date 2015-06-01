@@ -36,27 +36,24 @@ $ mkdir ~/git && cd ~/git
 ### Clone this repository
 ```
 $ git clone https://github.com/phux/php-vim-setup.git
+$ cd && ln -s ~/git/php-vim-setup/.vim* && ln -s ~/git/php-vim-setup/.gvimrc
 ```
 
 ### Install plugins
-#### Clone vundle
+#### Clone NeoBundle
 ```
-$ git clone https://github.com/gmarik/Vundle.vim.git ~/git/php-vim-setup/.vim/bundle/Vundle.vim
+$ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 ```
 #### fetch and installing plugins
 
 ```
 $ vim
-:PluginInstall
+:NeoBundleInstall
 ```
 
-##### Compiling Command-T and YouCompleteMe
-Note: you have to compile the Command-T and the YouCompleteMe plugins manually in order to get them working
-###### Command-T
-```
-$ cd ~/git/php-vim-setup/.vim/bundle/Command-T/ruby/command-t/
-$ ruby extconf.rb
-$ make
+##### Compiling YouCompleteMe
+Note: you have to compile the YouCompleteMe plugin manually in order to get it working.
+
 ```
 ###### YouCompleteMe
 ```
