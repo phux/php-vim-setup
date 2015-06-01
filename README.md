@@ -4,7 +4,7 @@ This is my approach to transform vim into a full featured PHP IDE. It's only tes
 ## Included Features (plugins)
 
 * super fast & sexy &intelligent autocompletion (youcompleteme)
-* fuzzy file/buffer finder (command-t)
+* fuzzy file/buffer finder (CtrlP)
 * project based vim configuration (vim-project)
 * enhanced status bar (vim-powerline)
 * tagbar
@@ -17,6 +17,7 @@ This is my approach to transform vim into a full featured PHP IDE. It's only tes
 * cool yank history (yankring)
 * git integration (fugitive)
 * codesniffer & messdetector integration (phpqa)
+* php refactoring
 * ack integration (ack.vim)
 * coding standard fixer (vim-php-cs-fixer)
 * improved php completion (phpcomplete.vim)
@@ -44,7 +45,7 @@ $ cd && ln -s ~/git/php-vim-setup/.vim* && ln -s ~/git/php-vim-setup/.gvimrc
 ```
 $ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 ```
-#### fetch and installing plugins
+#### fetch and install plugins
 
 ```
 $ vim -c 'NeoBundleInstall'
