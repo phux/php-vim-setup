@@ -26,16 +26,13 @@ NeoBundle 'vim-scripts/TabBar'
 NeoBundle 'henrik/vim-indexed-search'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
-
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'xolox/vim-easytags'
 NeoBundle 'xolox/vim-misc'
-
 NeoBundle 'rking/ag.vim'
 NeoBundle 'vim-scripts/grep.vim'
 NeoBundle 'bling/vim-airline'
-
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'phux/vim-snippets'
 NeoBundle 'Raimondi/delimitMate'
@@ -55,10 +52,8 @@ NeoBundle 'mru.vim'
 NeoBundle 'bufkill.vim'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'matchit.zip'
-"NeoBundle 'DBGp-Remote-Debugger-Interface'
-"NeoBundle 'joonty/vdebug
 NeoBundle 'vim-scripts/keepcase.vim'
-
+NeoBundle 'junegunn/vim-easy-align'
 
 "colorschemes
 NeoBundle 'ScrollColors'
@@ -68,6 +63,7 @@ NeoBundle 'flazz/vim-colorschemes'
 
 
 NeoBundle 'joonty/vim-phpqa'
+NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'adoy/vim-php-refactoring-toolbox'
 NeoBundle 'evidens/vim-twig'
 NeoBundle 'elzr/vim-json'
@@ -116,7 +112,7 @@ NeoBundle 'editorconfig/editorconfig-vim'
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
 
-set nonu " show line numbers
+set nu " show line numbers
 set enc=utf-8
 set hidden
 " no backups
@@ -244,7 +240,7 @@ if has("gui_running")
     "set background=light
     "colorscheme zmrok
     "colorscheme vilight
-    "colorscheme jellybeans
+    "colorscheme jelleybeans
     colorscheme ir_dark
     "colorscheme abra
     "colorscheme symfony
@@ -293,7 +289,6 @@ let g:pdv_cfg_Copyright = ""
 
 let g:ag_highlight=1
 
-
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -340,10 +335,6 @@ let g:tagbar_phpctags_bin='~/git/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '1024M'
 
 
-let g:phpcomplete_parse_docblock_comments = 1
-let g:phpcomplete_enhance_jump_to_definition = 1
-
-
 let NERDTreeShowBookmarks = 1
 
 
@@ -351,7 +342,7 @@ let g:ctrlp_use_caching = 1
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
 
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_user_command = 'ag  --ignore tags --ignore /cache/ %s -l --nocolor -g ""'
 else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
   let g:ctrlp_prompt_mappings = {
@@ -361,7 +352,7 @@ endif
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-let g:phpqa_codesniffer_args = "--standard=PSR2"
+let g:phpqa_codesniffer_args = "--standard=Symfony2"
 
 
 
@@ -475,11 +466,12 @@ nmap <silent> ,/ :nohlsearch<CR>
 
 " Refactor names easily (hit <leader>[ or <leader>] with cursor on the word you'd like to rename
 
-nnoremap <Leader>[ :SubstituteCase/\c<c-R><c-w>/<c-r><c-w>/g<left><left>
+nnoremap <Leader>[ :%s/<c-r><c-w>/<c-r><c-w>/g<left><left>
 nnoremap <Leader>] :%SubstituteCase/\c<c-R><c-w>/<c-r><c-w>/g<left><left>
 
 " reformat html -> each tag on own row
 nmap <leader><F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
+vmap <Leader>j !python -m json.tool<CR>
 
 inoremap <c-space> <C-x><C-o>
 
@@ -504,6 +496,10 @@ nmap <leader>gn :GitGutterNextHunk<cr>
 nmap <leader>gN :GitGutterPrevHunk<cr>
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
+let g:gitgutter_max_signs = 1000
+
+
+vmap <Enter> <Plug>(EasyAlign)
 
 "namespace plugin
 noremap <Leader>u :call PhpInsertUse()<CR>
@@ -527,9 +523,9 @@ nmap <leader>N :NERDTreeFind<cr>
 " -t all text files
 " -f follow symlinks
 " -S smart case
-nnoremap <leader>a :Ag! --ignore=tags -t -f -S<space>
-nnoremap <leader>A :Ag! --ignore=tags -t -f -S -u<space>
-nnoremap <M-a> :exec "Ag! --ignore=tags -t -f ".expand("<cword>")<cr>
+nnoremap <leader>a :Ag!  --ignore=tags -t -f -S<space>
+nnoremap <leader>A :Ag!  --ignore=tags -t -f -S -u<space>
+nnoremap <M-a> :exec "Ag! --ignore=tags  -t -f ".expand("<cword>")<cr>
 nnoremap <M-g> :exec "Rgrep ".expand("<cword>")<cr>
 
 map <leader><enter> :Mru<cr>
@@ -551,9 +547,9 @@ let g:easytags_by_filetype = ''
 let g:easytags_async=1
 let g:easytags_dynamic_files = 1
 let g:easytags_on_cursorhold = 1
-let g:easytags_events = ['BufWritePost']
+"let g:easytags_events = ['BufWritePost']
 "milliseconds
-let g:easytags_updatetime_min = 60000
+let g:easytags_updatetime_min = 300000
 let g:easytags_auto_highlight = 0
 
 let g:ycm_complete_in_comments = 1
@@ -561,9 +557,23 @@ let g:ycm_min_num_of_chars_for_completion = 2
 
 
 let g:vim_php_refactoring_default_property_visibility = 'private'
+let g:vim_php_refactoring_use_default_mapping = 0
 let g:vim_php_refactoring_default_method_visibility = 'private'
 
 let g:vim_php_refactoring_auto_validate_visibility = 1
+
+nnoremap <unique> <Leader>rrlv :call PhpRenameLocalVariable()<CR>
+nnoremap <unique> <Leader>rrcv :call PhpRenameClassVariable()<CR>
+nnoremap <unique> <Leader>rrm :call PhpRenameMethod()<CR>
+nnoremap <unique> <Leader>reu :call PhpExtractUse()<CR>
+vnoremap <unique> <Leader>rec :call PhpExtractConst()<CR>
+nnoremap <unique> <Leader>rep :call PhpExtractClassProperty()<CR>
+vnoremap <unique> <Leader>rem :call PhpExtractMethod()<CR>
+nnoremap <unique> <Leader>rnp :call PhpCreateProperty()<CR>
+nnoremap <unique> <Leader>rdu :call PhpDetectUnusedUseStatements()<CR>
+vnoremap <unique> <Leader>r== :call PhpAlignAssigns()<CR>
+nnoremap <unique> <Leader>rsg :call PhpCreateSettersAndGetters()<CR>
+nnoremap <unique> <Leader>rda :call PhpDocAll()<CR>
 
 " Enable omni completion.
 set omnifunc=syntaxcomplete#Complete
@@ -576,7 +586,7 @@ set omnifunc=syntaxcomplete#Complete
 function! UpdateTags()
     let cwd = getcwd()
     let tagfilename = cwd . "/tags"
-    let cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --exclude="*.html" --exclude="*/cache/*" --exclude=".svn" --exclude=".git" --exclude="*t3*" --exclude="*Twig*" --exclude="*typo3*" -f '.tagfilename.' --PHP-kinds=+cf-v --regex-PHP="/abstract\s+class\s+([^ ]+)/\1/c/" --regex-PHP="/interface\s+([^ ]+)/\1/c/" --regex-PHP="/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i" --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
+    let cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --exclude="*.html" --exclude="*/composer/*" --exclude="*/cache/*" --exclude=".svn" --exclude=".git" --exclude="*t3*" --exclude="*Twig*" --exclude="*typo3*" -f '.tagfilename.' --PHP-kinds=+cf-v --regex-PHP="/abstract\s+class\s+([^ ]+)/\1/c/" --regex-PHP="/interface\s+([^ ]+)/\1/c/" --regex-PHP="/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i" --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
     let resp = system(cmd)
     echo resp
 endfunction
@@ -831,23 +841,32 @@ nmap <leader>tsu <c-w>v:call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle
 "nmap <leader>tsa <c-w>v:call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Cept')<cr>
 
 
+function PrependTicketNumber()
+    normal gg
+    let l:branch = system("echo $(git branch | grep '*')")
+    let l:ticketNumber = substitute(l:branch, '\*\s\([A-Z]\+\-\d\+\).*', '\1', '')
+    exe "normal I".l:ticketNumber.": "
+endfunction
 
 " ====================
 " = Auto commands
 " ====================
 
 
+" insert ticket number into commit msg
+autocmd FileType gitcommit autocmd BufWritePre <buffer> :call PrependTicketNumber()
+
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
 autocmd FileType html setfiletype html.twig
 nmap <leader><F8> <esc>:w<cr>:Phpmd<cr>
 nmap <leader><F9> <esc>:w<cr>:Phpcs<cr>
 nmap <M-f> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
-nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --level=symfony fix %<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
+nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --config=sf23 fix % --fixers=align_double_arrow,align_equals,multiline_spaces_before_semicolon,ordered_use,short_array_syntax<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
 nmap <leader>w :let g:phpqa_open_loc = 0<cr>:let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>:let g:phpqa_open_loc = 1<cr>
 
 "Automatically delete trailing DOS-returns and whitespace
-autocmd BufRead * silent! %s/[\r \t]\+$//
-autocmd BufEnter *.php :%s/[ \t\r]\+$//e
+"autocmd BufRead * silent! %s/[\r \t]\+$//
+autocmd BufWrite *.php :%s/[ \t\r]\+$//e
 
 
 
