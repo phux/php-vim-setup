@@ -63,6 +63,7 @@ NeoBundle 'flazz/vim-colorschemes'
 
 
 NeoBundle 'joonty/vim-phpqa'
+NeoBundle 'stephpy/vim-php-cs-fixer'
 "NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'adoy/vim-php-refactoring-toolbox'
 NeoBundle 'evidens/vim-twig'
@@ -495,6 +496,8 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 let g:gitgutter_max_signs = 1000
 
+nnoremap <silent><leader>rcd :call PhpCsFixerFixDirectory()<CR>
+nnoremap <silent><m-s> :call PhpCsFixerFixFile()<CR>
 
 vmap <Enter> <Plug>(EasyAlign)
 
@@ -552,6 +555,9 @@ let g:easytags_auto_highlight = 0
 let g:ycm_complete_in_comments = 1
 let g:ycm_min_num_of_chars_for_completion = 2
 
+let g:php_cs_fixer_enable_default_mapping = 0
+let g:php_cs_fixer_config = "sf23" 
+let g:php_cs_fixer_fixers_list = "align_double_arrow,align_equals,multiline_spaces_before_semicolon,ordered_use,short_array_syntax"
 
 let g:vim_php_refactoring_default_property_visibility = 'private'
 let g:vim_php_refactoring_use_default_mapping = 0
@@ -858,7 +864,7 @@ autocmd FileType html setfiletype html.twig
 nmap <leader><F8> <esc>:w<cr>:Phpmd<cr>
 nmap <leader><F9> <esc>:w<cr>:Phpcs<cr>
 nmap <M-f> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
-nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --config=sf23 fix % --fixers=align_double_arrow,align_equals,multiline_spaces_before_semicolon,ordered_use,short_array_syntax<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
+"nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --config=sf23 fix % --fixers=align_double_arrow,align_equals,multiline_spaces_before_semicolon,ordered_use,short_array_syntax<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
 nmap <leader>w :let g:phpqa_open_loc = 0<cr>:let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>:let g:phpqa_open_loc = 1<cr>
 
 "Automatically delete trailing DOS-returns and whitespace
