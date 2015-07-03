@@ -28,7 +28,7 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'xolox/vim-easytags'
+"NeoBundle 'xolox/vim-easytags'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'vim-scripts/grep.vim'
@@ -63,7 +63,7 @@ NeoBundle 'flazz/vim-colorschemes'
 
 
 NeoBundle 'joonty/vim-phpqa'
-NeoBundle 'shawncplus/phpcomplete.vim'
+"NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'adoy/vim-php-refactoring-toolbox'
 NeoBundle 'evidens/vim-twig'
 NeoBundle 'elzr/vim-json'
@@ -71,9 +71,6 @@ NeoBundle 'arnaud-lb/vim-php-namespace'
 " php 5.5 syntax highlight
 NeoBundle '2072/vim-syntax-for-PHP'
 NeoBundle '2072/PHP-Indenting-for-VIm'
-
-NeoBundle 'Shougo/vimproc.vim'
-NeoBundle 'Shougo/unite.vim'
 
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'jelera/vim-javascript-syntax'
