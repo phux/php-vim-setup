@@ -56,5 +56,6 @@ Note: you have to compile the YouCompleteMe plugin manually in order to get it w
 
 ```
 $ cd ~/git/php-vim-setup/.vim/bundle/YouCompleteMe
+$ git submodule update --init --recursive
 $ ./install.sh
 ```
