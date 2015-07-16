@@ -27,8 +27,9 @@ NeoBundle 'henrik/vim-indexed-search'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'Valloric/YouCompleteMe'
-"NeoBundle 'xolox/vim-easytags'
+NeoBundle 'Shougo/neocomplete.vim'
+"NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'xolox/vim-easytags'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'vim-scripts/grep.vim'
@@ -64,11 +65,13 @@ NeoBundle 'flazz/vim-colorschemes'
 
 NeoBundle 'joonty/vim-phpqa'
 NeoBundle 'stephpy/vim-php-cs-fixer'
-"NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'adoy/vim-php-refactoring-toolbox'
 NeoBundle 'evidens/vim-twig'
 NeoBundle 'elzr/vim-json'
+NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'arnaud-lb/vim-php-namespace'
+NeoBundle 'joonty/vdebug'
 " php 5.5 syntax highlight
 NeoBundle '2072/vim-syntax-for-PHP'
 NeoBundle '2072/PHP-Indenting-for-VIm'
@@ -92,9 +95,9 @@ NeoBundle 'editorconfig/editorconfig-vim'
  NeoBundleCheck
 
 
-
-
-
+let g:vdebug_options = {
+    \"path_maps": {"/var/www": "/home/jmollowitz/git/agan-services/core/application"}
+\}
 
 
 " ====================
@@ -354,6 +357,9 @@ let g:phpqa_codesniffer_args = "--standard=Symfony2"
 
 
 
+
+
+
 " ====================
 " = Mappings
 " ====================
@@ -497,7 +503,7 @@ let g:gitgutter_eager = 0
 let g:gitgutter_max_signs = 1000
 
 nnoremap <silent><leader>rcd :call PhpCsFixerFixDirectory()<CR>
-nnoremap <silent><m-s> :call PhpCsFixerFixFile()<CR>
+nnoremap <silent><m-s> <esc>:w<cr>:call PhpCsFixerFixFile()<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>
 
 vmap <Enter> <Plug>(EasyAlign)
 
@@ -508,6 +514,7 @@ noremap <Leader>e :call PhpExpandClass()<CR>
 nmap <leader>; :TagbarToggle<cr>
 
 nmap <leader>gw :Gwrite<cr>
+nmap <leader>gs :Gstatus<cr>
 nmap <leader>gc :Gcommit<cr>
 nmap <leader>gp :!git push<cr>
 
@@ -554,6 +561,43 @@ let g:easytags_auto_highlight = 0
 
 let g:ycm_complete_in_comments = 1
 let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 let g:php_cs_fixer_enable_default_mapping = 0
 let g:php_cs_fixer_config = "sf23" 
@@ -577,9 +621,6 @@ nnoremap <unique> <Leader>rdu :call PhpDetectUnusedUseStatements()<CR>
 vnoremap <unique> <Leader>r== :call PhpAlignAssigns()<CR>
 nnoremap <unique> <Leader>rsg :call PhpCreateSettersAndGetters()<CR>
 nnoremap <unique> <Leader>rda :call PhpDocAll()<CR>
-
-" Enable omni completion.
-set omnifunc=syntaxcomplete#Complete
 
 
 " ====================
@@ -844,7 +885,7 @@ nmap <leader>tsu <c-w>v:call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle
 "nmap <leader>tsa <c-w>v:call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Cept')<cr>
 
 
-function PrependTicketNumber()
+function! PrependTicketNumber()
     normal gg
     let l:branch = system("echo $(git branch | grep '*')")
     let l:ticketNumber = substitute(l:branch, '\*\s\([A-Z]\+\-\d\+\).*', '\1', '')
@@ -857,7 +898,9 @@ endfunction
 
 
 " insert ticket number into commit msg
-autocmd FileType gitcommit autocmd BufWritePre <buffer> :call PrependTicketNumber()
+autocmd FileType gitcommit nmap <buffer> <leader>w :call PrependTicketNumber()<cr>
+
+autocmd  FileType  php setlocal omnifunc=phpcomplete#CompletePHP
 
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
 autocmd FileType html setfiletype html.twig
