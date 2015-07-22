@@ -105,11 +105,6 @@ NeoBundle 'editorconfig/editorconfig-vim'
  NeoBundleCheck
 
 
-let g:vdebug_options = {
-    \"path_maps": {"/var/www": "/home/jmollowitz/git/agan-services/core/application"}
-\}
-
-
 " ====================
 " = Settings: General
 " ====================
