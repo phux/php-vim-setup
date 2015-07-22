@@ -3,10 +3,10 @@ This is my approach to transform vim into a full featured PHP IDE. It's only tes
 
 ## Included Features (plugins)
 
-* super fast & sexy &intelligent autocompletion (youcompleteme)
+* really working php autocompletion (neocomplete + tags)
 * fuzzy file/buffer finder (CtrlP)
 * project based vim configuration (vim-project)
-* enhanced status bar (vim-powerline)
+* enhanced status bar (vim-airline)
 * tagbar
 * file panel (nerdtree)
 * easy commenting (nerdcommenter)
@@ -14,16 +14,18 @@ This is my approach to transform vim into a full featured PHP IDE. It's only tes
 * autocompletion for brackets,..
 * enhanced buffer/window behaviour (bufkill.vim)
 * most recent used files access (mru.vim)
-* cool yank history (yankring)
+* yank history (yankring)
+* improved navigation (vim-easymotion)
+* namespace handling (vim-php-namespace)
 * git integration (fugitive)
 * codesniffer & messdetector integration (phpqa)
-* php refactoring
-* ack integration (ack.vim)
+* php refactoring (php-refactoring-toolbox)
+* ack/ag integration
 * coding standard fixer (vim-php-cs-fixer)
-* improved php completion (phpcomplete.vim)
 * surrounding words/selections with stuff (vim-surround)
 * autoclosing html tags (closetag.vim)
 * phpdoc generator (pdv)
+* automatic tag-file updates (easytags)
 
 
 ## Basic installation
@@ -49,13 +51,4 @@ $ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
 ```
 $ vim -c 'NeoBundleInstall'
-```
-
-##### Compiling YouCompleteMe
-Note: you have to compile the YouCompleteMe plugin manually in order to get it working.
-
-```
-$ cd ~/git/php-vim-setup/.vim/bundle/YouCompleteMe
-$ git submodule update --init --recursive
-$ ./install.sh
 ```

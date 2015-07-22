@@ -27,9 +27,16 @@ NeoBundle 'henrik/vim-indexed-search'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'Shougo/vimproc'
-"NeoBundle 'Shougo/unite.vim'
-"NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
 NeoBundle 'xolox/vim-easytags'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'rking/ag.vim'
@@ -610,7 +617,7 @@ let g:sparkupNextMapping = '<m-o>'
 let g:easytags_by_filetype = ''
 let g:easytags_async=1
 let g:easytags_dynamic_files = 1
-let g:easytags_on_cursorhold = 0
+let g:easytags_on_cursorhold = 1
 let g:easytags_events = []
 "let g:easytags_events = ['BufWritePost']
 "milliseconds
