@@ -27,7 +27,8 @@ NeoBundle 'henrik/vim-indexed-search'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/vimproc'
+"NeoBundle 'Shougo/unite.vim'
 "NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'xolox/vim-easytags'
 NeoBundle 'xolox/vim-misc'
@@ -36,7 +37,9 @@ NeoBundle 'vim-scripts/grep.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'phux/vim-snippets'
-NeoBundle 'Raimondi/delimitMate'
+"NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'jiangmiao/auto-pairs'
+
 NeoBundle 'amiorin/vim-project'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tpope/vim-fugitive'
@@ -65,11 +68,11 @@ NeoBundle 'flazz/vim-colorschemes'
 
 NeoBundle 'joonty/vim-phpqa'
 NeoBundle 'stephpy/vim-php-cs-fixer'
-NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'adoy/vim-php-refactoring-toolbox'
 NeoBundle 'evidens/vim-twig'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'arnaud-lb/vim-php-namespace'
 NeoBundle 'joonty/vdebug'
 " php 5.5 syntax highlight
@@ -237,12 +240,12 @@ if has("gui_running")
     "colorscheme getafe
     "colorscheme pyte
     "colorscheme github
-    "colorscheme solarized
-    "set background=light
+    colorscheme solarized
+    set background=light
     "colorscheme zmrok
     "colorscheme vilight
     "colorscheme jelleybeans
-    colorscheme ir_dark
+    "colorscheme ir_dark
     "colorscheme abra
     "colorscheme symfony
     "colorscheme sonofobsidian
@@ -287,6 +290,8 @@ let g:pdv_cfg_Package = ""
 let g:pdv_cfg_Version = ""
 let g:pdv_cfg_Author = ""
 let g:pdv_cfg_Copyright = ""
+
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 
 let g:ag_highlight=1
 
@@ -354,6 +359,58 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 let g:phpqa_codesniffer_args = "--standard=Symfony2"
+
+
+
+let g:phpcomplete_complete_for_unknown_classes = 0
+let g:phpcomplete_search_tags_for_variables = 0
+let g:phpcomplete_parse_docblock_comments = 0
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\.\b\u\t\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Close popup by <Space>.
+inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 
 
@@ -553,51 +610,12 @@ let g:sparkupNextMapping = '<m-o>'
 let g:easytags_by_filetype = ''
 let g:easytags_async=1
 let g:easytags_dynamic_files = 1
-let g:easytags_on_cursorhold = 1
+let g:easytags_on_cursorhold = 0
+let g:easytags_events = []
 "let g:easytags_events = ['BufWritePost']
 "milliseconds
-let g:easytags_updatetime_min = 300000
+let g:easytags_updatetime_min = 900000
 let g:easytags_auto_highlight = 0
-
-let g:ycm_complete_in_comments = 1
-let g:ycm_min_num_of_chars_for_completion = 2
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 let g:php_cs_fixer_enable_default_mapping = 0
 let g:php_cs_fixer_config = "sf23" 
@@ -900,7 +918,13 @@ endfunction
 " insert ticket number into commit msg
 autocmd FileType gitcommit nmap <buffer> <leader>w :call PrependTicketNumber()<cr>
 
-autocmd  FileType  php setlocal omnifunc=phpcomplete#CompletePHP
+" Enable omni completion.
+autocmd  FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
 autocmd FileType html setfiletype html.twig
