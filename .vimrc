@@ -287,11 +287,11 @@ let g:php_cs_fixer_verbose = 0                    " Return the output of command
 let g:PHP_removeCRwhenUnix = 1
 let g:PHP_vintage_case_default_indent = 1
 
-let g:pdv_template_dir = $HOME."/.vim/bundle/pdv/templates_snip"
-let g:pdv_cfg_Package = ""
-let g:pdv_cfg_Version = ""
-let g:pdv_cfg_Author = ""
-let g:pdv_cfg_Copyright = ""
+let g:pdv_template_dir = $HOME."/.vim/pdv_templates_snip"
+"let g:pdv_cfg_Package = ""
+"let g:pdv_cfg_Version = ""
+"let g:pdv_cfg_Author = ""
+"let g:pdv_cfg_Copyright = ""
 
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 
@@ -598,8 +598,7 @@ map <leader><enter> :Mru<cr>
 
 nnoremap <silent> <Leader>y :YRShow<CR>
 
-inoremap <M-p> <ESC>:call pdv#DocumentCurrentLine()<CR>
-nnoremap <M-p> :call pdv#DocumentCurrentLine()<CR>
+inoremap <M-p> <ESC>:call pdv#DocumentWithSnip()<CR>
 nnoremap <M-P> :call pdv#DocumentWithSnip()<CR>
 
 let g:UltiSnipsExpandTrigger="<m-j>"
@@ -642,6 +641,7 @@ vnoremap <unique> <Leader>r== :call PhpAlignAssigns()<CR>
 nnoremap <unique> <Leader>rsg :call PhpCreateSettersAndGetters()<CR>
 nnoremap <unique> <Leader>rda :call PhpDocAll()<CR>
 
+"let g:vim_php_refactoring_phpdoc = 'pdv#DocumentCurrentLine'
 
 " ====================
 " = Custom functions
