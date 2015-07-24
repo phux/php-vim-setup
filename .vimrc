@@ -623,25 +623,33 @@ let g:php_cs_fixer_config = "sf23"
 let g:php_cs_fixer_fixers_list = "align_double_arrow,align_equals,multiline_spaces_before_semicolon,ordered_use,short_array_syntax"
 
 let g:vim_php_refactoring_default_property_visibility = 'private'
-let g:vim_php_refactoring_use_default_mapping = 0
 let g:vim_php_refactoring_default_method_visibility = 'private'
 
 let g:vim_php_refactoring_auto_validate_visibility = 1
+let g:vim_php_refactoring_phpdoc = "pdv#DocumentCurrentLine"
 
-nnoremap <unique> <Leader>rrlv :call PhpRenameLocalVariable()<CR>
-nnoremap <unique> <Leader>rrcv :call PhpRenameClassVariable()<CR>
-nnoremap <unique> <Leader>rrm :call PhpRenameMethod()<CR>
-nnoremap <unique> <Leader>reu :call PhpExtractUse()<CR>
-vnoremap <unique> <Leader>rec :call PhpExtractConst()<CR>
-nnoremap <unique> <Leader>rep :call PhpExtractClassProperty()<CR>
-vnoremap <unique> <Leader>rem :call PhpExtractMethod()<CR>
-nnoremap <unique> <Leader>rnp :call PhpCreateProperty()<CR>
-nnoremap <unique> <Leader>rdu :call PhpDetectUnusedUseStatements()<CR>
-vnoremap <unique> <Leader>r== :call PhpAlignAssigns()<CR>
-nnoremap <unique> <Leader>rsg :call PhpCreateSettersAndGetters()<CR>
-nnoremap <unique> <Leader>rda :call PhpDocAll()<CR>
+let g:vim_php_refactoring_use_default_mapping = 0
+nnoremap <Leader>rrlv :call PhpRenameLocalVariable()<CR>
+nnoremap <Leader>rrcv :call PhpRenameClassVariable()<CR>
+nnoremap <Leader>rrm :call PhpRenameMethod()<CR>
+nnoremap <Leader>reu :call PhpExtractUse()<CR>
+vnoremap <Leader>reco :call PhpExtractConst()<CR>
+nnoremap <Leader>rep :call PhpExtractClassProperty()<CR>
+vnoremap <Leader>rem :call PhpExtractMethod()<CR>
+nnoremap <Leader>rnp :call PhpCreateProperty()<CR>
+nnoremap <Leader>rdu :call PhpDetectUnusedUseStatements()<CR>
+vnoremap <Leader>r== :call PhpAlignAssigns()<CR>
+nnoremap <Leader>rsg :call PhpCreateSettersAndGetters()<CR>
+nnoremap <Leader>rda :call PhpDocAllWithoutSnippets()<CR>
+function! PhpDocAllWithoutSnippets()
+    let l:tempDir = g:pdv_template_dir
+    let g:pdv_template_dir = $HOME."/.vim/pdv_templates"
+    let g:vim_php_refactoring_phpdoc = 'pdv#DocumentCurrentLine'
 
-"let g:vim_php_refactoring_phpdoc = 'pdv#DocumentCurrentLine'
+    :call PhpDocAll()
+    let g:pdv_template_dir = l:tempDir
+endfunction
+
 
 " ====================
 " = Custom functions
@@ -986,5 +994,38 @@ if !exists("my_auto_commands_loaded")
   endif
 
 
+nnoremap <leader>rei :call ExtractInterface()<cr>
+"nnoremap <leader>recl :call ExtractClass()<cr>
+
+function! ExtractInterface()
+    let l:file_path = expand('%:p:h')
+    let l:baseFile = expand('%')
+    let l:name = inputdialog("Name of new interface:")
+    exe "normal Gointerface " . name . "\<Cr>{}\<c-o>i\<cr>"
+    :g/const/ :normal yyGP
+    :g/public \$/ :normal yyGP
+    :g/public function \(__construct\)\@!/ :normal yyGP$a;
+    exe "normal! G?{\<cr>"
+    normal "adGdd
+    exe ":e ".l:file_path."/".l:name.".php"
+    exe ":w"
+    exe "normal iinterfacen\<m-j>\<cr>"
+    exe "normal! ?interface\<cr>jdG"
+    normal "ap
+    exe ":e ".l:baseFile
+    exe "normal! gg/class \<cr>"
+    if getline('.') =~ ' implements '
+        let l:interfaceImplementation = "A, ".l:name
+    else
+        let l:interfaceImplementation = "implements ".l:name
+    endif
+    exe "normal! ".l:interfaceImplementation
+    exe ":w"
+endfunction
 
 so ~/.nonpublic-vimprojects
+
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }

@@ -1,5 +1,3 @@
 /**
- * ${1:{{name}}}
- *
- * @var ${2:{{type}}{{^type}}mixed{{/type}}}
+ * @var ${1:{{type}}{{^type}}mixed{{/type}}}
  */
