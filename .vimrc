@@ -242,12 +242,12 @@ if has("gui_running")
     "colorscheme getafe
     "colorscheme pyte
     "colorscheme github
-    colorscheme solarized
-    set background=light
+    "colorscheme solarized
+    "set background=light
     "colorscheme zmrok
     "colorscheme vilight
     "colorscheme jelleybeans
-    "colorscheme ir_dark
+    colorscheme ir_dark
     "colorscheme abra
     "colorscheme symfony
     "colorscheme sonofobsidian
@@ -1013,11 +1013,11 @@ function! ExtractInterface()
     exe "normal! ?interface\<cr>jdG"
     normal "ap
     exe ":e ".l:baseFile
-    exe "normal! gg/class \<cr>"
+    exe "normal! gg/{\<cr>k"
     if getline('.') =~ ' implements '
         let l:interfaceImplementation = "A, ".l:name
     else
-        let l:interfaceImplementation = "implements ".l:name
+        let l:interfaceImplementation = "$a implements ".l:name
     endif
     exe "normal! ".l:interfaceImplementation
     exe ":w"
