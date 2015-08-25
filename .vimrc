@@ -66,6 +66,8 @@ NeoBundle 'matchit.zip'
 NeoBundle 'vim-scripts/keepcase.vim'
 NeoBundle 'junegunn/vim-easy-align'
 
+NeoBundle 'nelstrom/vim-qargs'
+
 "colorschemes
 NeoBundle 'ScrollColors'
 NeoBundle 'sjl/badwolf'
@@ -94,6 +96,8 @@ NeoBundle 'einars/js-beautify'
 NeoBundle 'rodjek/vim-puppet'
 
 NeoBundle 'editorconfig/editorconfig-vim'
+
+NeoBundle 'wakatime/vim-wakatime'
 
  call neobundle#end()
 
@@ -562,7 +566,7 @@ let g:gitgutter_eager = 0
 let g:gitgutter_max_signs = 1000
 
 nnoremap <silent><leader>rcd :call PhpCsFixerFixDirectory()<CR>
-nnoremap <silent><m-s> <esc>:w<cr>:call PhpCsFixerFixFile()<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>
+"nnoremap <silent><m-s> <esc>:w<cr>:call PhpCsFixerFixFile()<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>
 
 vmap <Enter> <Plug>(EasyAlign)
 
@@ -613,14 +617,17 @@ let g:easytags_async=1
 let g:easytags_dynamic_files = 1
 let g:easytags_on_cursorhold = 1
 let g:easytags_events = []
+let g:easytags_cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --exclude="*.html" --exclude="*/composer/*" --exclude="*/cache/*" --exclude=".svn" --exclude=".git" --exclude="*t3*" --exclude="*Twig*" --exclude="*typo3*" --PHP-kinds=+cf-v --regex-PHP="/abstract\s+class\s+([^ ]+)/\1/c/" --regex-PHP="/interface\s+([^ ]+)/\1/c/" --regex-PHP="/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i" --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
 "let g:easytags_events = ['BufWritePost']
 "milliseconds
 let g:easytags_updatetime_min = 900000
 let g:easytags_auto_highlight = 0
 
 let g:php_cs_fixer_enable_default_mapping = 0
-let g:php_cs_fixer_config = "sf23" 
-let g:php_cs_fixer_fixers_list = "align_double_arrow,align_equals,multiline_spaces_before_semicolon,ordered_use,short_array_syntax"
+"let g:php_cs_fixer_config = "sf23"
+"let g:php_cs_fixer_fixers_list = "align_double_arrow,align_equals,multiline_spaces_before_semicolon,ordered_use,short_array_syntax,extra_empty_lines"
+"let g:php_cs_fixer_level = 'symfony'
+"let g:php_cs_fixer_path = "php-cs-fixer" " define the path to the php-cs-fixer.phar
 
 let g:vim_php_refactoring_default_property_visibility = 'private'
 let g:vim_php_refactoring_default_method_visibility = 'private'
@@ -941,7 +948,7 @@ autocmd FileType html setfiletype html.twig
 nmap <leader><F8> <esc>:w<cr>:Phpmd<cr>
 nmap <leader><F9> <esc>:w<cr>:Phpcs<cr>
 nmap <M-f> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
-"nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --config=sf23 fix % --fixers=align_double_arrow,align_equals,multiline_spaces_before_semicolon,ordered_use,short_array_syntax<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
+nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --level=symfony --config=sf23 fix % --fixers=align_double_arrow,multiline_spaces_before_semicolon,ordered_use,short_array_syntax<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
 nmap <leader>w :let g:phpqa_open_loc = 0<cr>:let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>:let g:phpqa_open_loc = 1<cr>
 
 "Automatically delete trailing DOS-returns and whitespace
@@ -1022,6 +1029,20 @@ function! ExtractInterface()
     exe "normal! ".l:interfaceImplementation
     exe ":w"
 endfunction
+
+function! Replace(bang, replace)
+    let search = '\<' . escape(expand('<cword>'), '/\.*$^~[') . '\>'
+    execute 'Ag '.expand('<cword>')
+    execute 'Qargs'
+    let replace = escape(a:replace, '/\&~')
+    let flag = 'ge'
+    if !a:bang
+        let flag .= 'c'
+    endif
+    execute 'argdo %s/' . search . '/' . replace . '/' . flag
+endfunction
+command! -nargs=1 -bang Replace :call Replace(<bang>0, <q-args>)
+nnoremap <Leader>rip :call Replace(0, input('Replace '.expand('<cword>').' with: '))<CR>
 
 so ~/.nonpublic-vimprojects
 
