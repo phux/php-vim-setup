@@ -48,13 +48,33 @@ $${1/\w+\s*/\l$0/g}->attach($1);
 endsnippet
 
 snippet tdp "test data provider"
+/*
+ * @return array
+ */
 public function ${1:name}Provider() {
-    return array(
-	array(${2:param1}),
-    );
+    return [
+	[${2:param1}],
+    ];
 }
 endsnippet
 
+snippet tmbe "mockbuilder with expects"
+$${1:my}Mock = $this->getMockBuilder('$2')
+    ->disableOriginalConstructor()
+    ->getMock();
+$$1Mock->expects($this->${3:once}())
+    ->method('${4}')$0;
+endsnippet
+
+snippet tmb "mockbuilder"
+$${1:my}Mock = $this->getMockBuilder('$2')
+    ->disableOriginalConstructor()
+    ->getMock();
+endsnippet
+
+snippet dp "dataProvider"
+@dataProvider 
+endsnippet
 
 ### ASSERT
 
@@ -62,7 +82,7 @@ snippet ta "test assert" b
 $this->assert($1);
 endsnippet
 
-snippet taeq "assert equals" b
+snippet tae "assert equals" b
 $this->assertEquals(${1:value}, ${2:mock});$0
 endsnippet
 
@@ -119,46 +139,4 @@ endsnippet
 
 snippet teor "test: expect output regex" b
 $this->expectOutputRegex(${1:regex});
-endsnippet
-
-###################
-#   EXTBASE RELATED
-###################
-snippet tmc "test: mock Controller" b
-$mockController = $this->getMock(
-    $this->buildAccessibleProxy('${1:ControllerClass}'),
-    array('dummy'),array(), '', FALSE);
-endsnippet
-
-snippet tmr "test: initialize mock repository" b
-$mock${1:NAME}Repository = $this->getMock(
-    '${2:Classname',
-    array('${3:methodToMock}'), array(), '', FALSE, FALSE, FALSE);
-endsnippet
-
-snippet tcr "test: controller set repository" b
-$mockController->_set('${1:name}Repository', $$1RepositoryStub);
-endsnippet
-
-snippet tcv "test: controller set view" b
-$mockController->_set('view', $mockView);
-$mockController->${1:name}Action();
-endsnippet
-
-snippet tmre "test: mock repository expects"
-$mock${1:name}Repository->expects($this->once())
-    ->method('${2:methodName}')
-    ->will($this->returnValue(${3:fakedDBContent}));
-endsnippet
-
-snippet tmv "test: initialize mock view"
-$mockView = $this->getMock(
-    'Tx_Fluid_Core_View_TemplateView',
-    array('assign'), array(), '', FALSE);
-endsnippet
-
-snippet tmve "test mock view expects"
-$mockView->expects($this->once())
-    ->method('${1:name}')
-    ->with('${2:templateVariable}', ${3:variableValue});
 endsnippet

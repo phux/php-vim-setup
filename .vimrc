@@ -44,7 +44,6 @@ NeoBundle 'vim-scripts/grep.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'phux/vim-snippets'
-"NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'jiangmiao/auto-pairs'
 
 NeoBundle 'amiorin/vim-project'
@@ -75,10 +74,13 @@ NeoBundle 'twerth/ir_black'
 NeoBundle 'flazz/vim-colorschemes'
 
 
-NeoBundle 'joonty/vim-phpqa'
+"NeoBundle 'joonty/vim-phpqa'
+NeoBundle 'scrooloose/syntastic'
 NeoBundle 'stephpy/vim-php-cs-fixer'
 NeoBundle 'adoy/vim-php-refactoring-toolbox'
+NeoBundle 'mitsuhiko/vim-jinja'
 NeoBundle 'evidens/vim-twig'
+"NeoBundle 'tokutake/twig-indent'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'Shougo/neocomplete.vim'
@@ -96,6 +98,8 @@ NeoBundle 'einars/js-beautify'
 NeoBundle 'rodjek/vim-puppet'
 
 NeoBundle 'editorconfig/editorconfig-vim'
+
+NeoBundle 'suan/vim-instant-markdown'
 
 NeoBundle 'wakatime/vim-wakatime'
 
@@ -366,6 +370,14 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 let g:phpqa_codesniffer_args = "--standard=Symfony2"
 
+let g:syntastic_aggregate_errors = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+
+let g:syntastic_php_phpcs_args='--standard=Symfony2'
 
 
 let g:phpcomplete_complete_for_unknown_classes = 0
@@ -593,9 +605,11 @@ nmap <leader>N :NERDTreeFind<cr>
 " -t all text files
 " -f follow symlinks
 " -S smart case
-nnoremap <leader>a :Ag!  --ignore=tags -t -f -S<space>
-nnoremap <leader>A :Ag!  --ignore=tags -t -f -S -u<space>
-nnoremap <M-a> :exec "Ag! --ignore=tags  -t -f ".expand("<cword>")<cr>
+nnoremap <leader>a :Ag!  --ignore tags -t -f -S<space>
+nnoremap <leader>A :Ag!  --ignore tags -t -f -S -u<space>
+
+let g:ag_prg="ag --vimgrep --smart-case --ignore-dir=app/cache"
+nnoremap <M-a> :exec "Ag!  -t -f ".expand("<cword>")<cr>
 nnoremap <M-g> :exec "Rgrep ".expand("<cword>")<cr>
 
 map <leader><enter> :Mru<cr>
@@ -636,8 +650,8 @@ let g:vim_php_refactoring_auto_validate_visibility = 1
 let g:vim_php_refactoring_phpdoc = "pdv#DocumentCurrentLine"
 
 let g:vim_php_refactoring_use_default_mapping = 0
-nnoremap <Leader>rrlv :call PhpRenameLocalVariable()<CR>
-nnoremap <Leader>rrcv :call PhpRenameClassVariable()<CR>
+nnoremap <Leader>rlv :call PhpRenameLocalVariable()<CR>
+nnoremap <Leader>rcv :call PhpRenameClassVariable()<CR>
 nnoremap <Leader>rrm :call PhpRenameMethod()<CR>
 nnoremap <Leader>reu :call PhpExtractUse()<CR>
 vnoremap <Leader>reco :call PhpExtractConst()<CR>
@@ -944,16 +958,19 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
-autocmd FileType html setfiletype html.twig
-nmap <leader><F8> <esc>:w<cr>:Phpmd<cr>
-nmap <leader><F9> <esc>:w<cr>:Phpcs<cr>
+
 nmap <M-f> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
 nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --level=symfony --config=sf23 fix % --fixers=align_double_arrow,multiline_spaces_before_semicolon,ordered_use,short_array_syntax<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
-nmap <leader>w :let g:phpqa_open_loc = 0<cr>:let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>:let g:phpqa_open_loc = 1<cr>
+"nmap <leader>w :let g:phpqa_open_loc = 0<cr>:let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>:let g:phpqa_open_loc = 1<cr>
+nmap <leader>w :w<cr>
 
 "Automatically delete trailing DOS-returns and whitespace
 "autocmd BufRead * silent! %s/[\r \t]\+$//
 autocmd BufWrite *.php :%s/[ \t\r]\+$//e
+
+
+"au BufRead,BufNewFile *.twig set syntax=jinja
+au BufNewFile,BufRead *.html, *.html.twig,*.htm,*.shtml,*.stm set ft=jinja 
 
 
 
@@ -1035,14 +1052,11 @@ function! Replace(bang, replace)
     execute 'Ag '.expand('<cword>')
     execute 'Qargs'
     let replace = escape(a:replace, '/\&~')
-    let flag = 'ge'
-    if !a:bang
-        let flag .= 'c'
-    endif
+    let flag = 'cge'
     execute 'argdo %s/' . search . '/' . replace . '/' . flag
 endfunction
 command! -nargs=1 -bang Replace :call Replace(<bang>0, <q-args>)
-nnoremap <Leader>rip :call Replace(0, input('Replace '.expand('<cword>').' with: '))<CR>
+nnoremap <Leader>rip :call Replace(0, input('Replace '.expand('<cword>').' with: ', expand('<cword>')))<CR>
 
 so ~/.nonpublic-vimprojects
 
