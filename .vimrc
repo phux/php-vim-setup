@@ -27,7 +27,6 @@ NeoBundle 'henrik/vim-indexed-search'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'majutsushi/tagbar'
 NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
 \     'windows' : 'tools\\update-dll-mingw',
@@ -59,7 +58,7 @@ NeoBundle 'YankRing.vim'
 NeoBundle 'tristen/vim-sparkup'
 NeoBundle 'L9'
 NeoBundle 'mru.vim'
-NeoBundle 'bufkill.vim'
+NeoBundle 'moll/vim-bbye'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'matchit.zip'
 NeoBundle 'vim-scripts/keepcase.vim'
@@ -671,6 +670,7 @@ function! PhpDocAllWithoutSnippets()
     let g:pdv_template_dir = l:tempDir
 endfunction
 
+nmap <leader>b :Bdelete<cr>
 
 " ====================
 " = Custom functions
