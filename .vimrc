@@ -73,8 +73,8 @@ NeoBundle 'twerth/ir_black'
 NeoBundle 'flazz/vim-colorschemes'
 
 
-"NeoBundle 'joonty/vim-phpqa'
-NeoBundle 'scrooloose/syntastic'
+NeoBundle 'joonty/vim-phpqa'
+"NeoBundle 'scrooloose/syntastic'
 NeoBundle 'stephpy/vim-php-cs-fixer'
 NeoBundle 'adoy/vim-php-refactoring-toolbox'
 NeoBundle 'mitsuhiko/vim-jinja'
@@ -83,6 +83,7 @@ NeoBundle 'evidens/vim-twig'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'Shougo/neocomplete.vim'
+"NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'arnaud-lb/vim-php-namespace'
 NeoBundle 'joonty/vdebug'
 " php 5.5 syntax highlight
@@ -101,6 +102,8 @@ NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'suan/vim-instant-markdown'
 
 NeoBundle 'wakatime/vim-wakatime'
+
+"NeoBundle 'daf-/vim-daylight'
 
  call neobundle#end()
 
@@ -221,7 +224,7 @@ set wildignore+=*.pyc,*.zip,*.gz,*.bz,*.tar,*.jpg,*.png,*.gif,*.avi,*.wmv,*.ogg,
 set wildmode=list:longest
 
 set errorformat+=%*[\"]%f%*[\"]\\,\ line\ %l:\ %m
-set completeopt=menuone,longest
+set completeopt=longest
 " Limit popup menu height
 set pumheight=15
 
@@ -245,28 +248,45 @@ set diffopt=iwhite
 syntax on
 
 if has("gui_running")
+    set background=light
+    colorscheme solarized
+    "colorscheme zenburn
+    "
     "colorscheme wombat256mod
     "colorscheme getafe
     "colorscheme pyte
     "colorscheme github
-    "colorscheme solarized
-    "set background=light
+    "colorscheme grb256
     "colorscheme zmrok
     "colorscheme vilight
     "colorscheme jelleybeans
-    colorscheme ir_dark
+    "colorscheme ir_dark
     "colorscheme abra
     "colorscheme symfony
     "colorscheme sonofobsidian
 
     set guicursor=a:block-Cursor
-    "cursors dont blink!
+    ""cursors dont blink!
     set guicursor+=n-v:blinkon0
-else
-    set background=dark
-    colorscheme slate
+"else
+    "set background=dark
+    "colorscheme slate
 endif
+"
+"let g:daylight_morning_color_gvim = "solarized"
+"let g:daylight_afternoon_color_gvim = "solarized"
+"let g:daylight_evening_color_gvim = "ir_dark"
+"let g:daylight_late_color_gvim = "ir_dark"
 
+"let g:daylight_morning_color_term = "mayansmoke"
+"let g:daylight_afternoon_color_term = "mayansmoke"
+"let g:daylight_evening_color_term = "mayansmoke"
+"let g:daylight_late_color_term = "mayansmoke"
+
+"let g:daylight_morning_hour = 8
+"let g:daylight_afternoon_hour = 12
+"let g:daylight_evening_hour = 16
+"let g:daylight_late_hour = 22
 
 
 
@@ -366,8 +386,9 @@ else
 endif
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:40'
 
-let g:phpqa_codesniffer_args = "--standard=Symfony2"
+"let g:phpqa_codesniffer_args = "--standard=Symfony2"
 
 let g:syntastic_aggregate_errors = 0
 let g:syntastic_always_populate_loc_list = 1
@@ -379,8 +400,8 @@ let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
 let g:syntastic_php_phpcs_args='--standard=Symfony2'
 
 
-let g:phpcomplete_complete_for_unknown_classes = 0
-let g:phpcomplete_search_tags_for_variables = 0
+let g:phpcomplete_complete_for_unknown_classes = 1
+let g:phpcomplete_search_tags_for_variables = 1
 let g:phpcomplete_parse_docblock_comments = 0
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
@@ -416,20 +437,30 @@ endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
 inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
 let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+"if !exists('g:neocomplete#sources')
+    "let g:neocomplete#sources = {}
+"endif
+"let g:neocomplete#sources.php = ['buffer', 'dictionary']
 
 
+" Search from neocomplete, omni candidates, vim keywords.
+let g:neocomplete#fallback_mappings =
+		\ ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
+
+nnoremap <leader>m :NeoCompleteToggle<cr>
 
 
 
@@ -604,11 +635,11 @@ nmap <leader>N :NERDTreeFind<cr>
 " -t all text files
 " -f follow symlinks
 " -S smart case
-nnoremap <leader>a :Ag!  --ignore tags -t -f -S<space>
-nnoremap <leader>A :Ag!  --ignore tags -t -f -S -u<space>
+nnoremap <leader>a :Ag!  --ignore tags -f -S<space>
+nnoremap <leader>A :Ag!  --ignore tags -f -S -u<space>
 
 let g:ag_prg="ag --vimgrep --smart-case --ignore-dir=app/cache"
-nnoremap <M-a> :exec "Ag!  -t -f ".expand("<cword>")<cr>
+nnoremap <M-a> :exec "Ag!  --ignore=./tags -f ".expand("<cword>")<cr>
 nnoremap <M-g> :exec "Rgrep ".expand("<cword>")<cr>
 
 map <leader><enter> :Mru<cr>
@@ -624,6 +655,8 @@ let g:UltiSnipsJumpBackwardTrigger="<m-k>"
 
 let g:sparkupExecuteMapping='<m-i>'
 let g:sparkupNextMapping = '<m-o>'
+
+let g:gitgutter_realtime = 0
 
 let g:easytags_by_filetype = ''
 let g:easytags_async=1
@@ -670,7 +703,18 @@ function! PhpDocAllWithoutSnippets()
     let g:pdv_template_dir = l:tempDir
 endfunction
 
-nmap <leader>b :Bdelete<cr>
+nmap <leader>bd :Bdelete<cr>
+nmap <Leader>bg :call SwitchLightAndDarkTheme()<cr>
+
+function! SwitchLightAndDarkTheme()
+    if &background == "dark"
+        :colorscheme solarized
+        :let &background =  "light"
+    else
+        :colorscheme ir_dark
+        :let &background =  "dark"
+    endif
+endfunction
 
 " ====================
 " = Custom functions
@@ -926,10 +970,12 @@ function! SwitchBetweenFiles1(fileExtension, firstDirBeginning, secondDirBeginni
 endfunction
 
 "nmap <leader>tu :call SwitchBetweenPhpunitAndClasses()<cr>
-nmap <leader>tu :call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
+"nmap <leader>tu :call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
+nmap <leader>tu :call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
 "nmap <leader>tf :call SwitchBetweenFiles('php', 'tests/functional/', 'src/', 'Cept')<cr>
 "nmap <leader>ta :call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Cept')<cr>
-nmap <leader>tsu <c-w>v:call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
+"nmap <leader>tsu <c-w>v:call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
+nmap <leader>tsu <c-w>v:call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
 "nmap <leader>tsf <c-w>v:call SwitchBetweenFiles('php', 'tests/functional/', 'src/', 'Cept')<cr>
 "nmap <leader>tsa <c-w>v:call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Cept')<cr>
 
@@ -937,8 +983,10 @@ nmap <leader>tsu <c-w>v:call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle
 function! PrependTicketNumber()
     normal gg
     let l:branch = system("echo $(git branch | grep '*')")
-    let l:ticketNumber = substitute(l:branch, '\*\s\([A-Z]\+\-\d\+\).*', '\1', '')
-    exe "normal I".l:ticketNumber.": "
+    let l:ticketNumber = '['.substitute(l:branch, '\* \(.*\)', '\1', '').'] '
+    exe "normal I".l:ticketNumber
+    exe "normal ggJx"
+    :startinsert!
 endfunction
 
 " ====================
@@ -960,9 +1008,8 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
 
 nmap <M-f> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
-nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --level=symfony --config=sf23 fix % --fixers=align_double_arrow,multiline_spaces_before_semicolon,ordered_use,short_array_syntax<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
-"nmap <leader>w :let g:phpqa_open_loc = 0<cr>:let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>:let g:phpqa_open_loc = 1<cr>
-nmap <leader>w :w<cr>
+"nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --level=symfony --config=sf23 fix % --fixers=align_double_arrow,multiline_spaces_before_semicolon,ordered_use,short_array_syntax<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
+nmap <leader>w :let g:phpqa_open_loc = 0<cr>:let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>:let g:phpqa_open_loc = 1<cr>
 
 "Automatically delete trailing DOS-returns and whitespace
 "autocmd BufRead * silent! %s/[\r \t]\+$//

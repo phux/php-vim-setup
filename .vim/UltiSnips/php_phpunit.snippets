@@ -2,10 +2,11 @@ snippet tc "TestClass"
 /*
  * Class ${1:`!p snip.rv=snip.fn.split('.')[0]`} 
  */
-class $1 extends ${3:PHPUnit_Framework_TestCase} {
-	protected function setUp() {
-		${0:code ...}
-	}
+class $1 extends ${3:PHPUnit_Framework_TestCase}
+{
+    protected function setUp() {
+	${0:code ...}
+    }
 }
 endsnippet
 
@@ -16,14 +17,16 @@ protected function setUp() {
 endsnippet
 
 snippet teardown "teardown method" !b
-protected function tearDown() {
-	${0:code ...}
+protected function tearDown()
+{
+    ${0:code ...}
 }
 endsnippet
 
 snippet tm "testMethod sceleton" b
-function test${1:MethodToTest}_Given${2:Scenario}_Should${3:ExpectedOutcome}() {
-	$0
+public function test${1:MethodToTest}Given${2:Scenario}Should${3:ExpectedOutcome}()
+{
+    $0
 }
 endsnippet
 
@@ -51,7 +54,8 @@ snippet tdp "test data provider"
 /*
  * @return array
  */
-public function ${1:name}Provider() {
+public function ${1:name}Provider()
+{
     return [
 	[${2:param1}],
     ];
