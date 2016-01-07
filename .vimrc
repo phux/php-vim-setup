@@ -1,118 +1,96 @@
 " Note: Skip initialization for vim-tiny or vim-small.
  if !1 | finish | endif
 
- if has('vim_starting')
-   if &compatible
-     set nocompatible               " Be iMproved
-   endif
+if &compatible
+    set nocompatible               " Be iMproved
+endif
 
-   " Required:
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
- endif
+call plug#begin('~/.vim/plugged')
 
- " Required:
- call neobundle#begin(expand('~/.vim/bundle/'))
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/TabBar'
+Plug 'henrik/vim-indexed-search'
+Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'majutsushi/tagbar'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
+Plug 'rking/ag.vim'
+Plug 'vim-scripts/grep.vim'
+Plug 'bling/vim-airline'
+Plug 'SirVer/ultisnips' | Plug 'phux/vim-snippets'
 
- " Let NeoBundle manage NeoBundle
- " Required:
- NeoBundleFetch 'Shougo/neobundle.vim'
+Plug 'jiangmiao/auto-pairs'
 
- " My Bundles here:
- " Refer to |:NeoBundle-examples|.
- " Note: You don't set neobundle setting in .gvimrc!
+Plug 'amiorin/vim-project'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-endwise'
+Plug 'tobyS/pdv'
+Plug 'tobyS/vmustache'
+Plug 'ap/vim-css-color', { 'for': ['html', 'php', 'css'] }
+Plug 'YankRing.vim'
+Plug 'tristen/vim-sparkup'
+Plug 'L9'
+Plug 'mru.vim'
+Plug 'moll/vim-bbye'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'matchit.zip'
+Plug 'vim-scripts/keepcase.vim'
+Plug 'junegunn/vim-easy-align'
 
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'vim-scripts/TabBar'
-NeoBundle 'henrik/vim-indexed-search'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
-NeoBundle 'xolox/vim-easytags'
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'rking/ag.vim'
-NeoBundle 'vim-scripts/grep.vim'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'phux/vim-snippets'
-NeoBundle 'jiangmiao/auto-pairs'
-
-NeoBundle 'amiorin/vim-project'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'tobyS/pdv'
-NeoBundle 'tobyS/vmustache'
-NeoBundle 'ap/vim-css-color'
-NeoBundle 'YankRing.vim'
-NeoBundle 'tristen/vim-sparkup'
-NeoBundle 'L9'
-NeoBundle 'mru.vim'
-NeoBundle 'moll/vim-bbye'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'matchit.zip'
-NeoBundle 'vim-scripts/keepcase.vim'
-NeoBundle 'junegunn/vim-easy-align'
-
-NeoBundle 'nelstrom/vim-qargs'
+Plug 'nelstrom/vim-qargs'
 
 "colorschemes
-NeoBundle 'ScrollColors'
-NeoBundle 'sjl/badwolf'
-NeoBundle 'twerth/ir_black'
-NeoBundle 'flazz/vim-colorschemes'
+Plug 'ScrollColors'
+Plug 'sjl/badwolf'
+Plug 'twerth/ir_black'
+Plug 'flazz/vim-colorschemes'
 
+Plug 'Shougo/neocomplete.vim'
 
-NeoBundle 'joonty/vim-phpqa'
-"NeoBundle 'scrooloose/syntastic'
-NeoBundle 'stephpy/vim-php-cs-fixer'
-NeoBundle 'adoy/vim-php-refactoring-toolbox'
-NeoBundle 'mitsuhiko/vim-jinja'
-NeoBundle 'evidens/vim-twig'
-"NeoBundle 'tokutake/twig-indent'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'Shougo/neocomplete.vim'
-"NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'arnaud-lb/vim-php-namespace'
-NeoBundle 'joonty/vdebug'
+Plug 'joonty/vim-phpqa'
+"Plug 'scrooloose/syntastic'
+Plug 'stephpy/vim-php-cs-fixer'
+Plug 'adoy/vim-php-refactoring-toolbox'
+Plug 'shawncplus/phpcomplete.vim'
+Plug 'arnaud-lb/vim-php-namespace'
+Plug 'joonty/vdebug'
 " php 5.5 syntax highlight
-NeoBundle '2072/vim-syntax-for-PHP'
-NeoBundle '2072/PHP-Indenting-for-VIm'
+Plug '2072/vim-syntax-for-PHP'
+Plug '2072/PHP-Indenting-for-VIm'
 
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'maksimr/vim-jsbeautify'
-NeoBundle 'einars/js-beautify'
+Plug 'mitsuhiko/vim-jinja'
+Plug 'evidens/vim-twig'
 
-NeoBundle 'rodjek/vim-puppet'
+Plug 'elzr/vim-json' , { 'for': ['html', 'twig'] }
 
-NeoBundle 'editorconfig/editorconfig-vim'
+Plug 'pangloss/vim-javascript' , { 'for': ['javascript', 'html'] }
+Plug 'nathanaelkane/vim-indent-guides' , { 'for': ['javascript', 'html'] }
+Plug 'jelera/vim-javascript-syntax' , { 'for': ['javascript', 'html'] }
+Plug 'maksimr/vim-jsbeautify' , { 'for': ['javascript', 'html'] }
+Plug 'einars/js-beautify' , { 'for': ['javascript', 'html'] }
 
-NeoBundle 'suan/vim-instant-markdown'
+Plug 'Chiel92/vim-autoformat'
 
-NeoBundle 'wakatime/vim-wakatime'
+Plug 'rodjek/vim-puppet'
 
-"NeoBundle 'daf-/vim-daylight'
+Plug 'editorconfig/editorconfig-vim'
 
- call neobundle#end()
+Plug 'suan/vim-instant-markdown' , { 'for': 'markdown' }
+
+Plug 'wakatime/vim-wakatime'
+call plug#end()
 
  " Required:
  filetype plugin indent on
 
  " If there are uninstalled bundles found on startup,
  " this will conveniently prompt you to install them.
- NeoBundleCheck
+ "NeoBundleCheck
 
 
 " ====================
@@ -137,6 +115,7 @@ set nowritebackup
 set noswapfile
 " automatically read file changed outside of Vim
 set autoread
+au FocusLost * silent! wa
 
 
 " Instead of failing a command because of unsaved changes, instead raise a
@@ -244,12 +223,11 @@ set diffopt=iwhite
 
 
 
-
 syntax on
 
 if has("gui_running")
-    set background=light
-    colorscheme solarized
+    "set background=light
+    "colorscheme solarized
     "colorscheme zenburn
     "
     "colorscheme wombat256mod
@@ -257,10 +235,11 @@ if has("gui_running")
     "colorscheme pyte
     "colorscheme github
     "colorscheme grb256
+    "colorscheme distinguished
+    colorscheme ir_dark
     "colorscheme zmrok
     "colorscheme vilight
     "colorscheme jelleybeans
-    "colorscheme ir_dark
     "colorscheme abra
     "colorscheme symfony
     "colorscheme sonofobsidian
@@ -268,9 +247,9 @@ if has("gui_running")
     set guicursor=a:block-Cursor
     ""cursors dont blink!
     set guicursor+=n-v:blinkon0
-"else
-    "set background=dark
-    "colorscheme slate
+else
+    set background=dark
+    colorscheme slate
 endif
 "
 "let g:daylight_morning_color_gvim = "solarized"
@@ -377,14 +356,16 @@ let g:ctrlp_use_caching = 1
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
 
-    let g:ctrlp_user_command = 'ag  --ignore tags --ignore /cache/ %s -l --nocolor -g ""'
+    "let g:ctrlp_user_command = 'ag  --ignore tags --ignore /cache/ %s -l --nocolor -g ""'
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
   let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
     \ }
 endif
-let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:40'
 
@@ -402,7 +383,7 @@ let g:syntastic_php_phpcs_args='--standard=Symfony2'
 
 let g:phpcomplete_complete_for_unknown_classes = 1
 let g:phpcomplete_search_tags_for_variables = 1
-let g:phpcomplete_parse_docblock_comments = 0
+let g:phpcomplete_parse_docblock_comments = 1
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -462,7 +443,12 @@ let g:neocomplete#fallback_mappings =
 
 nnoremap <leader>m :NeoCompleteToggle<cr>
 
+" vdebug
+highlight DbgBreakptLine ctermbg=none ctermfg=none
+"highlight DbgBreakptSign ctermbg=none ctermfg=10
 
+"highlight DbgCurrentLine ctermbg=none ctermfg=none
+"highlight DbgCurrentSign ctermbg=none ctermfg=red
 
 
 " ====================
@@ -569,6 +555,7 @@ nnoremap <m-;> A;<esc>
 
 
 nmap <leader><F4> :call UpdateTags()<cr>
+nmap <leader><F6> :call UpdateTagsJs()<cr>
 
 " unmark search matches
 nmap <silent> ,/ :nohlsearch<CR>
@@ -581,13 +568,12 @@ nnoremap <Leader>] :%SubstituteCase/\c<c-R><c-w>/<c-r><c-w>/g<left><left>
 " reformat html -> each tag on own row
 nmap <leader><F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
 vmap <Leader>j !python -m json.tool<CR>
+"noremap <leader>j :Autoformat<CR>
 
 inoremap <c-space> <C-x><C-o>
 
 nmap <leader>l :lnext<cr>
 nmap <leader>h :lprevious<cr>
-
-
 
 
 " ------
@@ -621,6 +607,7 @@ nmap <leader>; :TagbarToggle<cr>
 nmap <leader>gw :Gwrite<cr>
 nmap <leader>gs :Gstatus<cr>
 nmap <leader>gc :Gcommit<cr>
+nmap <leader>gb :Gbrowse<cr>
 nmap <leader>gp :!git push<cr>
 
 nmap <leader>f :CtrlPMixed<cr>
@@ -635,8 +622,8 @@ nmap <leader>N :NERDTreeFind<cr>
 " -t all text files
 " -f follow symlinks
 " -S smart case
-nnoremap <leader>a :Ag!  --ignore tags -f -S<space>
-nnoremap <leader>A :Ag!  --ignore tags -f -S -u<space>
+nnoremap <leader>a :Ag! --ignore=./tags<space>
+nnoremap <leader>A :Ag! --ignore=./tags -u<space>
 
 let g:ag_prg="ag --vimgrep --smart-case --ignore-dir=app/cache"
 nnoremap <M-a> :exec "Ag!  --ignore=./tags -f ".expand("<cword>")<cr>
@@ -662,9 +649,10 @@ let g:easytags_by_filetype = ''
 let g:easytags_async=1
 let g:easytags_dynamic_files = 1
 let g:easytags_on_cursorhold = 1
-let g:easytags_events = []
-let g:easytags_cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --exclude="*.html" --exclude="*/composer/*" --exclude="*/cache/*" --exclude=".svn" --exclude=".git" --exclude="*t3*" --exclude="*Twig*" --exclude="*typo3*" --PHP-kinds=+cf-v --regex-PHP="/abstract\s+class\s+([^ ]+)/\1/c/" --regex-PHP="/interface\s+([^ ]+)/\1/c/" --regex-PHP="/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i" --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
-"let g:easytags_events = ['BufWritePost']
+"let g:easytags_events = []
+"let g:easytags_cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP="/abstract\s+class\s+([^ ]+)/\1/c/" --regex-PHP="/interface\s+([^ ]+)/\1/c/" --regex-PHP="/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i" --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
+let g:easytags_cmd = 'ctags  --languages=php -R --tag-relative=yes'
+let g:easytags_events = ['BufWritePost']
 "milliseconds
 let g:easytags_updatetime_min = 900000
 let g:easytags_auto_highlight = 0
@@ -711,7 +699,7 @@ function! SwitchLightAndDarkTheme()
         :colorscheme solarized
         :let &background =  "light"
     else
-        :colorscheme ir_dark
+        :colorscheme grb256
         :let &background =  "dark"
     endif
 endfunction
@@ -728,6 +716,13 @@ function! UpdateTags()
     echo resp
 endfunction
 
+function! UpdateTagsJs()
+    let cwd = getcwd()
+    let tagfilename = cwd . "/tags"
+    let cmd = 'ctags -R -f '.tagfilename
+    let resp = system(cmd)
+    echo resp
+endfunction
 
 function! FormatPHPLineLength()
     let l:currentLine = getline('.')
@@ -998,7 +993,7 @@ endfunction
 autocmd FileType gitcommit nmap <buffer> <leader>w :call PrependTicketNumber()<cr>
 
 " Enable omni completion.
-autocmd  FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -1017,7 +1012,7 @@ autocmd BufWrite *.php :%s/[ \t\r]\+$//e
 
 
 "au BufRead,BufNewFile *.twig set syntax=jinja
-au BufNewFile,BufRead *.html, *.html.twig,*.htm,*.shtml,*.stm set ft=jinja 
+au BufNewFile,BufRead *.html,*.html.twig,*.htm,*.shtml,*.stm,*.phtml set ft=html.php.javascript
 
 
 
@@ -1105,9 +1100,13 @@ endfunction
 command! -nargs=1 -bang Replace :call Replace(<bang>0, <q-args>)
 nnoremap <Leader>rip :call Replace(0, input('Replace '.expand('<cword>').' with: ', expand('<cword>')))<CR>
 
+"let g:vdebug_options['port'] = 9005
+
 so ~/.nonpublic-vimprojects
 
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
+
+
