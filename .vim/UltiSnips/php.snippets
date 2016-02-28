@@ -1,3 +1,5 @@
+priority -51
+
 ## CLASS RELATED
 
 snippet io "instanceof"
@@ -252,3 +254,8 @@ endsnippet
 snippet ee
 echo "$1".PHP_EOL;$0
 endsnippet
+
+snippet array "array" b
+$${1:arrayName} = ['${2}' => ${3}];$0
+endsnippet
+

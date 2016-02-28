@@ -8,7 +8,9 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/TabBar'
+
+Plug 'vim-scripts/tabbar'
+
 Plug 'henrik/vim-indexed-search'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
@@ -25,12 +27,14 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'amiorin/vim-project'
 Plug 'kien/ctrlp.vim'
+
 Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
 Plug 'airblade/vim-gitgutter'
+
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-endwise'
-Plug 'tobyS/pdv'
-Plug 'tobyS/vmustache'
+Plug 'tobyS/pdv' | Plug 'tobyS/vmustache'
 Plug 'ap/vim-css-color', { 'for': ['html', 'php', 'css'] }
 Plug 'YankRing.vim'
 Plug 'tristen/vim-sparkup'
@@ -51,8 +55,10 @@ Plug 'twerth/ir_black'
 Plug 'flazz/vim-colorschemes'
 
 Plug 'Shougo/neocomplete.vim'
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
-Plug 'joonty/vim-phpqa'
+Plug 'phux/vim-phpqa'
+"Plug 'vim-scripts/vawa.vim'
 "Plug 'scrooloose/syntastic'
 Plug 'stephpy/vim-php-cs-fixer'
 Plug 'adoy/vim-php-refactoring-toolbox'
@@ -62,19 +68,44 @@ Plug 'joonty/vdebug'
 " php 5.5 syntax highlight
 Plug '2072/vim-syntax-for-PHP'
 Plug '2072/PHP-Indenting-for-VIm'
+Plug 'alvan/vim-php-manual'
+
 
 Plug 'mitsuhiko/vim-jinja'
 Plug 'evidens/vim-twig'
 
 Plug 'elzr/vim-json' , { 'for': ['html', 'twig'] }
 
+"Plug 'Yggdroot/indentLine'
+
 Plug 'pangloss/vim-javascript' , { 'for': ['javascript', 'html'] }
-Plug 'nathanaelkane/vim-indent-guides' , { 'for': ['javascript', 'html'] }
 Plug 'jelera/vim-javascript-syntax' , { 'for': ['javascript', 'html'] }
 Plug 'maksimr/vim-jsbeautify' , { 'for': ['javascript', 'html'] }
 Plug 'einars/js-beautify' , { 'for': ['javascript', 'html'] }
+Plug 'ternjs/tern_for_vim' , { 'for': ['javascript', 'html'] }
+Plug 'moll/vim-node' , { 'for': ['javascript', 'html'] }
+set runtimepath^=~/.vim/bundle/node
+nnoremap <silent> <leader>e :call JSFormat()<cr>
 
-Plug 'Chiel92/vim-autoformat'
+function! JSFormat()
+  " Preparation: save last search, and cursor position.
+  let l:win_view = winsaveview()
+  let l:last_search = getreg('/')
+  let fileWorkingDirectory = expand('%:p:h')
+  let currentWorkingDirectory = getcwd()
+  execute ':lcd' . fileWorkingDirectory
+  execute ':silent' . '%!esformatter'
+  if v:shell_error
+    undo
+    "echo "esformatter error, using builtin vim formatter"
+    " use internal formatting command
+    execute ":silent normal! gg=G<cr>"
+  endif
+  " Clean up: restore previous search history, and cursor position
+  execute ':lcd' . currentWorkingDirectory
+  call winrestview(l:win_view)
+  call setreg('/', l:last_search)
+endfunction
 
 Plug 'rodjek/vim-puppet'
 
@@ -83,6 +114,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'suan/vim-instant-markdown' , { 'for': 'markdown' }
 
 Plug 'wakatime/vim-wakatime'
+
+Plug 'vim-scripts/indentpython.vim'
+
 call plug#end()
 
  " Required:
@@ -141,12 +175,15 @@ set showbreak=↪
 
 " split new window at the right of current
 set spr
+" Maps Alt-[s.v] to horizontal and vertical split respectively
+map <silent> <m-s> :split<CR>
+map <silent> <m-v> :vsplit<CR>
 
 " Set the command window height to 1 lines
 set cmdheight=1
 
 " This makes more sense than the default of 1
-set winminheight=0
+set winminheight=1
 
 " no welcome screen
 set shortmess+=filmnrxoOtT
@@ -157,24 +194,26 @@ set laststatus=2
 set t_Co=256
 
 " highlight current line
-set cursorline
+"set cuc cul
+
 
 set autoindent
 set smartindent
 set smarttab
 set softtabstop=4
+set nojoinspaces
+set tabstop=4
 set shiftround
 set shiftwidth=4
 set expandtab
-set list
 
 set formatoptions+=or
 
-"set listchars=eol:¬,nbsp:⋅,tab:\|\ ,trail:⋅,extends:>,precedes:<
-set listchars=nbsp:⋅,tab:\|\ ,trail:⋅,extends:>,precedes:<
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. 
 
 set whichwrap+=<,>,[,],h,l
-set nostartofline
+"set nostartofline
 set backspace=indent,eol,start
 
 " ------
@@ -200,10 +239,11 @@ set undoreload=10000
 " Better command-line completion
 set wildmenu
 set wildignore+=*.pyc,*.zip,*.gz,*.bz,*.tar,*.jpg,*.png,*.gif,*.avi,*.wmv,*.ogg,*.mp3,*.mov,.git,.svn
-set wildmode=list:longest
+set wildmode=list:longest,full
 
 set errorformat+=%*[\"]%f%*[\"]\\,\ line\ %l:\ %m
 set completeopt=longest
+"set complete=.,w,b,u,t,i
 " Limit popup menu height
 set pumheight=15
 
@@ -228,19 +268,19 @@ syntax on
 if has("gui_running")
     "set background=light
     "colorscheme solarized
+    "colorscheme grb256
+
     "colorscheme zenburn
-    "
     "colorscheme wombat256mod
     "colorscheme getafe
     "colorscheme pyte
     "colorscheme github
-    "colorscheme grb256
     "colorscheme distinguished
     colorscheme ir_dark
-    "colorscheme zmrok
+    "colorscheme busybee
     "colorscheme vilight
     "colorscheme jelleybeans
-    "colorscheme abra
+    "colorscheme caramel
     "colorscheme symfony
     "colorscheme sonofobsidian
 
@@ -285,7 +325,7 @@ let g:project_enable_welcome = 1
 set rtp+=~/.vim/bundle/vim-project/
 call project#rc("~/git")
 
-let g:UltiSnipsSnippetsDir = '~/.vim/bundle/vim-snippets/UltiSnips/'
+let g:UltiSnipsSnippetsDir = '~/.vim/plugged/vim-snippets/UltiSnips/'
 
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
@@ -321,7 +361,6 @@ let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
-
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#branch#displayed_head_limit = 10
@@ -348,16 +387,15 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/cache/*     " MacOSX/Linux
 let g:tagbar_phpctags_bin='~/git/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '1024M'
 
-
 let NERDTreeShowBookmarks = 1
-
+let NERDTreeQuitOnOpen=1
 
 let g:ctrlp_use_caching = 1
 if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
+    set grepprg=ag\ --nogroup\ --nocolor\ --ignore=./tags
 
     "let g:ctrlp_user_command = 'ag  --ignore tags --ignore /cache/ %s -l --nocolor -g ""'
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_user_command = 'ag %s --ignore=./tags -l --nocolor -g ""'
 else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
   let g:ctrlp_prompt_mappings = {
@@ -369,79 +407,67 @@ let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:40'
 
-"let g:phpqa_codesniffer_args = "--standard=Symfony2"
-
-let g:syntastic_aggregate_errors = 0
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-
-let g:syntastic_php_phpcs_args='--standard=Symfony2'
+let g:phpqa_codesniffer_args = "--standard=Symfony2"
 
 
-let g:phpcomplete_complete_for_unknown_classes = 1
-let g:phpcomplete_search_tags_for_variables = 1
+let g:phpcomplete_complete_for_unknown_classes = 0
+let g:phpcomplete_search_tags_for_variables = 0
 let g:phpcomplete_parse_docblock_comments = 1
+let g:phpcomplete_enhance_jump_to_definition = 1
+
+"let g:ycm_complete_in_comments = 0
+
+
+
+
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 2
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+"let g:neocomplete#sources#syntax#min_keyword_length = 2
+"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+
+"let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_auto_delimiter = 1
+let g:neocomplete#max_list = 15
+let g:neocomplete#force_overwrite_completefunc = 1
+
+" Plugin key-mappings.
+"inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function()
+  "return neocomplete#close_popup() . "\<CR>"
+"endfunction
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-y>  neocomplete#close_popup()
+"inoremap <expr><C-e>  neocomplete#cancel_popup()
+inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+" Enable heavy omni completion.
+
 
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
 endif
-let g:neocomplete#keyword_patterns['default'] = '\.\b\u\t\h\w*'
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Close popup by <Space>.
-inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
 " Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-
-"if !exists('g:neocomplete#sources')
-    "let g:neocomplete#sources = {}
+"if !exists('g:neocomplete#sources#omni#input_patterns')
+    "let g:neocomplete#sources#omni#input_patterns = {}
 "endif
-"let g:neocomplete#sources.php = ['buffer', 'dictionary']
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 
-
-" Search from neocomplete, omni candidates, vim keywords.
-let g:neocomplete#fallback_mappings =
-		\ ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
-
-nnoremap <leader>m :NeoCompleteToggle<cr>
+"nnoremap <leader>m :NeoCompleteToggle<cr>
 
 " vdebug
 highlight DbgBreakptLine ctermbg=none ctermfg=none
@@ -499,7 +525,7 @@ nmap <leader>W :set nowrap!<CR>
 
 
 " fast closing of html tags
-imap ;; </<c-x><c-o><del>
+imap ;; </<c-x><c-o>
 
 vmap < <gv
 vmap > >gv
@@ -525,21 +551,26 @@ noremap <silent> <m-j> <c-w>j
 noremap <silent> <m-k> <c-w>k
 noremap <silent> <m-h> <c-w>h
 
-noremap <silent> <m-s-l> :bn<cr>
-noremap <silent> <m-s-j> :tabp<cr>
-noremap <silent> <m-s-k> :tabn<cr>
-noremap <silent> <m-s-h> :bp<cr>
-
-noremap <silent> <leader>tc :tabc<cr>
-noremap <silent> <leader>tn :tabnew<cr>
+noremap <silent> <leader>tn :ptn<cr>
+noremap <silent> <leader>tp :ptp<cr>
+noremap <silent> <leader>tc :pc<cr>
 
 
 
 " window resizing
-map <c-j> <C-W>10-
-map <c-k> <C-W>10+
-map <c-l> <c-w>10<
-map <c-h> <c-w>10>
+"map <c-s-j> <C-W>10-
+"map <c-s-k> <C-W>10+
+"map <c-s-l> <c-w>10<
+"map <c-s-h> <c-w>10>
+"noremap <silent> <m-s-j> :tabp<cr>
+"noremap <silent> <m-s-k> :tabn<cr>
+"noremap <silent> <m-s-h> :bp<cr>
+"noremap <silent> <m-s-l> :bn<cr>
+set winheight=30
+nnoremap <silent> <c-k> :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <c-j> :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <c-h> :exe "vertical resize " . (winwidth(0) * 4/5)<CR>
+nnoremap <silent> <c-l> :exe "vertical resize " . (winwidth(0) * 5/4)<CR>
 
 " tag bindings
 nmap <leader>o <c-w>g}
@@ -553,6 +584,14 @@ inoremap <c-s-l> <c-o>dw
 inoremap <m-;> <esc>A;<esc>
 nnoremap <m-;> A;<esc>
 
+nnoremap <f9> /\v^[<\|=>]{7}( .*\|$)<CR>
+
+" Adjust viewports to the same size
+map <Leader>= <C-w>=
+
+" Allow using the repeat operator with a visual selection (!)
+" http://stackoverflow.com/a/8064607/127816
+vnoremap . :normal .<CR>
 
 nmap <leader><F4> :call UpdateTags()<cr>
 nmap <leader><F6> :call UpdateTagsJs()<cr>
@@ -568,13 +607,16 @@ nnoremap <Leader>] :%SubstituteCase/\c<c-R><c-w>/<c-r><c-w>/g<left><left>
 " reformat html -> each tag on own row
 nmap <leader><F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
 vmap <Leader>j !python -m json.tool<CR>
-"noremap <leader>j :Autoformat<CR>
 
 inoremap <c-space> <C-x><C-o>
 
 nmap <leader>l :lnext<cr>
 nmap <leader>h :lprevious<cr>
 
+nnoremap <Tab> :bnext<CR>:redraw<cr>
+nnoremap <S-Tab> :bprevious<CR>:redraw<cr>
+
+nnoremap <c-tab> :b#<cr>
 
 " ------
 " - Mappings: Plugins
@@ -598,6 +640,8 @@ nnoremap <silent><leader>rcd :call PhpCsFixerFixDirectory()<CR>
 
 vmap <Enter> <Plug>(EasyAlign)
 
+nmap <leader>tt :TbToggle<cr>
+
 "namespace plugin
 noremap <Leader>u :call PhpInsertUse()<CR>
 noremap <Leader>e :call PhpExpandClass()<CR>
@@ -609,6 +653,8 @@ nmap <leader>gs :Gstatus<cr>
 nmap <leader>gc :Gcommit<cr>
 nmap <leader>gb :Gbrowse<cr>
 nmap <leader>gp :!git push<cr>
+
+nmap <leader>gv :Gitv<cr>
 
 nmap <leader>f :CtrlPMixed<cr>
 nmap <leader>d :CtrlPBuffer<cr>
@@ -622,11 +668,11 @@ nmap <leader>N :NERDTreeFind<cr>
 " -t all text files
 " -f follow symlinks
 " -S smart case
-nnoremap <leader>a :Ag! --ignore=./tags<space>
-nnoremap <leader>A :Ag! --ignore=./tags -u<space>
+nnoremap <leader>a :Ag! --php<space>
+nnoremap <leader>A :Ag! -u --php<space>
 
-let g:ag_prg="ag --vimgrep --smart-case --ignore-dir=app/cache"
-nnoremap <M-a> :exec "Ag!  --ignore=./tags -f ".expand("<cword>")<cr>
+let g:ag_prg="ag --vimgrep --smart-case --ignore-dir=app/cache --ignore=./tags"
+nnoremap <M-a> :exec "Ag! -f ".expand("<cword>")." --php"
 nnoremap <M-g> :exec "Rgrep ".expand("<cword>")<cr>
 
 map <leader><enter> :Mru<cr>
@@ -645,17 +691,33 @@ let g:sparkupNextMapping = '<m-o>'
 
 let g:gitgutter_realtime = 0
 
-let g:easytags_by_filetype = ''
+"let g:easytags_by_filetype = ''
 let g:easytags_async=1
 let g:easytags_dynamic_files = 1
 let g:easytags_on_cursorhold = 1
+
+set tags=tags;/
+" write to working dir instead of buffer dir.
+set cpo+=d
 "let g:easytags_events = []
 "let g:easytags_cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP="/abstract\s+class\s+([^ ]+)/\1/c/" --regex-PHP="/interface\s+([^ ]+)/\1/c/" --regex-PHP="/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i" --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
-let g:easytags_cmd = 'ctags  --languages=php -R --tag-relative=yes'
+"let g:easytags_cmd = 'ctags --fields=+aimS --PHP-kinds=+cf --languages=php -R  --totals=yes --tag-relative=yes'
+"let g:easytags_languages = {
+"\   'php': {
+"\     'cmd': 'ctags --fields=+aimS --PHP-kinds=+cf --languages=php -R  --totals=yes --tag-relative=yes',
+"\     'args': [],
+"\     'fileoutput_opt': '-f',
+"\     'stdout_opt': '-f-'
+"\   }
+"\}
+"let g:easytags_cmd = 'ctags --languages=php -R  --totals=yes --tag-relative=yes'
+"let g:easytags_cmd = 'phpctags  --recurse=yes '
 let g:easytags_events = ['BufWritePost']
+let g:easytags_syntax_keyword = 'always'
 "milliseconds
-let g:easytags_updatetime_min = 900000
+let g:easytags_updatetime_min = 60000
 let g:easytags_auto_highlight = 0
+nmap @@x !%xmllint --format --recover -
 
 let g:php_cs_fixer_enable_default_mapping = 0
 "let g:php_cs_fixer_config = "sf23"
@@ -711,9 +773,11 @@ endfunction
 function! UpdateTags()
     let cwd = getcwd()
     let tagfilename = cwd . "/tags"
-    let cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --exclude="*.html" --exclude="*/composer/*" --exclude="*/cache/*" --exclude=".svn" --exclude=".git" --exclude="*t3*" --exclude="*Twig*" --exclude="*typo3*" -f '.tagfilename.' --PHP-kinds=+cf-v --regex-PHP="/abstract\s+class\s+([^ ]+)/\1/c/" --regex-PHP="/interface\s+([^ ]+)/\1/c/" --regex-PHP="/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i" --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
+
+    let cmd = 'ctags --fields=+aimS  --PHP-kinds=+cf --languages=php -R  --tag-relative=yes --exclude=.svn --exclude=.git --exclude="*/_*cache/*" --exclude="*/_*logs{0,1}/*" -f '.tagfilename
+    "let cmd = 'ctags --recurse --languages=PHP --exclude=.svn --exclude=.git --exclude="*/_*cache/*" --exclude="*/_*logs{0,1}/*" --exclude="*/_*data/*" --totals=yes --tag-relative=yes --PHP-kinds=+cf --regex-PHP=/abstract class ([^ ]*)/\1/c/    --regex-PHP=/interface ([^ ]*)/\1/c/ --regex-PHP=/trait ([^ ]*)/\1/c/ --regex-PHP=/(public |static |abstract |protected |private )+ function +([^ \(]*)/\2/f/ -f '.tagfilename
     let resp = system(cmd)
-    echo resp
+    echo 'done'
 endfunction
 
 function! UpdateTagsJs()
@@ -769,7 +833,8 @@ function! OpenPHPManual(keyword)
     let url = 'http://ro.php.net/' . a:keyword
     silent exec '!' . browser . ' "' . url . '" &'
 endfunction
-noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
+"noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
+let g:php_manual_online_search_shortcut = '<leader>k'
 
 
 " toggles the quickfix window.
@@ -991,24 +1056,38 @@ endfunction
 
 " insert ticket number into commit msg
 autocmd FileType gitcommit nmap <buffer> <leader>w :call PrependTicketNumber()<cr>
+au BufEnter * if &ft ==# 'gitcommit' | :call PrependTicketNumber() | endif
 
 " Enable omni completion.
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal tabstop=4
+autocmd FileType python setlocal softtabstop=4
+autocmd FileType python setlocal shiftwidth=4
+autocmd FileType python setlocal textwidth=79
+autocmd FileType python setlocal expandtab
+autocmd FileType python setlocal autoindent
+autocmd FileType python setlocal fileformat=unix
+
+let python_highlight_all=1
 
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
 
-nmap <M-f> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
+"nmap <M-f> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
+nmap <M-f> <esc>:w<cr>:silent !fmt.phar --psr2 --smart_linebreak_after_curly %<cr>
 "nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --level=symfony --config=sf23 fix % --fixers=align_double_arrow,multiline_spaces_before_semicolon,ordered_use,short_array_syntax<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
-nmap <leader>w :let g:phpqa_open_loc = 0<cr>:let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>:let g:phpqa_open_loc = 1<cr>
+"
+nmap <leader>w :w<cr>
+autocmd FileType php nmap <buffer> <leader>w :let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>
 
-"Automatically delete trailing DOS-returns and whitespace
-"autocmd BufRead * silent! %s/[\r \t]\+$//
-autocmd BufWrite *.php :%s/[ \t\r]\+$//e
+" delete trailing DOS-returns and whitespace
+"autocmd FileType php nmap <leader><s-w> :%s/[ \t\r]\+$//e
 
 
 "au BufRead,BufNewFile *.twig set syntax=jinja
@@ -1025,39 +1104,11 @@ au BufNewFile,BufRead *.html,*.html.twig,*.htm,*.shtml,*.stm,*.phtml set ft=html
 
 
 
-
 set nocursorcolumn
-set nocursorline
-"set cursorline
 set lazyredraw
-"syntax sync minlines=100
-"set synmaxcol=200
 set scrolljump=5
-let html_no_rendering=0
-"let php_sql_query=1
-let php_noShortTags=1
-"let php_folding=1
-"let php_htmlInStrings=1
+set scrolloff=5
 let g:PHP_default_indenting=0
-set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
-
-" Protect large files from sourcing and other overhead.
-" Files become read only
-if !exists("my_auto_commands_loaded")
-  let my_auto_commands_loaded = 1
-  " Large files are > 10M
-  " Set options:
-  " eventignore+=FileType (no syntax highlighting etc
-  " assumes FileType always on)
-  " noswapfile (save copy of file)
-  " bufhidden=unload (save memory when other file is viewed)
-  " buftype=nowritefile (is read-only)
-  " undolevels=-1 (no undo possible)
-  let g:LargeFile = 1024 * 1024 * 10
-  augroup LargeFile
-    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
-    augroup END
-  endif
 
 
 nnoremap <leader>rei :call ExtractInterface()<cr>
@@ -1108,5 +1159,7 @@ augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
+
+hi SpecialKey       guifg=#343434     guibg=NONE     gui=NONE      ctermfg=NONE        ctermbg=NONE        cterm=NONE
 
 

@@ -23,8 +23,34 @@ protected function tearDown()
 }
 endsnippet
 
-snippet tm "testMethod sceleton" b
-public function test${1:MethodToTest}Given${2:Scenario}Should${3:ExpectedOutcome}()
+snippet tmi "test mark incomplete" b
+$this->markTestIncomplete('Test is incomplete.');
+endsnippet
+
+snippet tms "test mark skipped" b
+$this->markTestSkipped('This test has not been implemented yet.');
+endsnippet
+
+#snippet tm "testMethod sceleton" b
+#public function test${1:MethodToTest}Given${2:Scenario}Should${3:ExpectedOutcome}()
+#{
+    #$0
+#}
+#endsnippet
+
+snippet g "@group"
+@group $0
+endsnippet
+
+snippet ex "@expectedException "
+@expectedException $0
+endsnippet
+
+snippet tm "test method annotated" b
+/**
+ * @test
+ */
+public function ${1:methodToTest}Should${2:Expected}Given${3:Scenario}()
 {
     $0
 }
@@ -38,42 +64,41 @@ $$1Stub->expects($this->any())
 	 ->will($this->returnValue(${3:fakeReturnValue}));
 endsnippet
 
-snippet tgm "getMock" b
-$mock${1/\w+\s*/\u$0/g} = $this->getMock('${1:TheClassToMock}'${2:, array('${3:methodToMock',$4})});
-endsnippet
-
-snippet tem "test: expect mock to" b
-$${1:mock}->expects($this->once())
-                 ->method('update')
-                 ->with($this->equalTo('something'));
-$${1/\w+\s*/\l$0/g} = new $1{Subject};
-$${1/\w+\s*/\l$0/g}->attach($1);
-endsnippet
-
 snippet tdp "test data provider"
 /*
  * @return array
  */
-public function ${1:name}Provider()
+public function ${1:name}DataProvider()
 {
     return [
-	[${2:param1}],
+		[${2:param1}],
     ];
 }
 endsnippet
 
 snippet tmbe "mockbuilder with expects"
-$${1:my}Mock = $this->getMockBuilder('$2')
+$${1:obj} = $this->getMockBuilder('$2')
     ->disableOriginalConstructor()
     ->getMock();
-$$1Mock->expects($this->${3:once}())
+$$1->expects($3)
     ->method('${4}')$0;
 endsnippet
 
-snippet tmb "mockbuilder"
-$${1:my}Mock = $this->getMockBuilder('$2')
+snippet tmbm "mockbuilder with expects"
+$${1:obj}= $this->getMockBuilder('$2')
     ->disableOriginalConstructor()
     ->getMock();
+$$1->method('${3}')$0;
+endsnippet
+
+snippet tmb "mockbuilder"
+$${1:obj} = $this->getMockBuilder('$2')
+    ->disableOriginalConstructor()
+    ->getMock();
+endsnippet
+
+snippet wr "willReturn"
+->willReturn($1)$0
 endsnippet
 
 snippet dp "dataProvider"
@@ -87,7 +112,7 @@ $this->assert($1);
 endsnippet
 
 snippet tae "assert equals" b
-$this->assertEquals(${1:value}, ${2:mock});$0
+$this->assertEquals(${1:expected}, ${2:result});$0
 endsnippet
 
 snippet tac "assert contains" b
