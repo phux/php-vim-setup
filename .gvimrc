@@ -1,4 +1,4 @@
-set guifont=Hack\ Regular\ 11
+"set guifont=Hack\ Regular\ 11
 
 " no GUI
 set guioptions-=l " no left scrollbar

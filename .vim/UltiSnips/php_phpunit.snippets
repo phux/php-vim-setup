@@ -1,13 +1,26 @@
 snippet tc "TestClass"
+<?php
+
+namespace ${1:`!p
+abspath = os.path.abspath(path)
+m = re.search(r'[A-Z].+(?=/)', abspath)
+if m:
+	snip.rv = m.group().replace('/', '\\')
+`};
+
 /*
  * Class ${1:`!p snip.rv=snip.fn.split('.')[0]`} 
  */
-class $1 extends ${3:PHPUnit_Framework_TestCase}
+class $1 extends ${3:\PHPUnit_Framework_TestCase}
 {
     protected function setUp() {
 	${0:code ...}
     }
 }
+endsnippet
+
+snippet p "Phake::"
+Phake::$0;
 endsnippet
 
 snippet setup "setup method" !b
@@ -31,13 +44,6 @@ snippet tms "test mark skipped" b
 $this->markTestSkipped('This test has not been implemented yet.');
 endsnippet
 
-#snippet tm "testMethod sceleton" b
-#public function test${1:MethodToTest}Given${2:Scenario}Should${3:ExpectedOutcome}()
-#{
-    #$0
-#}
-#endsnippet
-
 snippet g "@group"
 @group $0
 endsnippet
@@ -50,7 +56,7 @@ snippet tm "test method annotated" b
 /**
  * @test
  */
-public function ${1:methodToTest}Should${2:Expected}Given${3:Scenario}()
+public function should$1()
 {
     $0
 }

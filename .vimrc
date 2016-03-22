@@ -8,9 +8,9 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-surround'
-
+"
 Plug 'vim-scripts/tabbar'
-
+"
 Plug 'henrik/vim-indexed-search'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
@@ -19,12 +19,14 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'rking/ag.vim'
+Plug 'Chun-Yang/vim-action-ag'
 Plug 'vim-scripts/grep.vim'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'SirVer/ultisnips' | Plug 'phux/vim-snippets'
-
+"
 Plug 'jiangmiao/auto-pairs'
-
+"
 Plug 'amiorin/vim-project'
 Plug 'kien/ctrlp.vim'
 
@@ -45,24 +47,25 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'matchit.zip'
 Plug 'vim-scripts/keepcase.vim'
 Plug 'junegunn/vim-easy-align'
-
+"
 Plug 'nelstrom/vim-qargs'
-
-"colorschemes
+"
+""colorschemes
 Plug 'ScrollColors'
 Plug 'sjl/badwolf'
 Plug 'twerth/ir_black'
 Plug 'flazz/vim-colorschemes'
 
 Plug 'Shougo/neocomplete.vim'
+
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
-Plug 'phux/vim-phpqa'
-"Plug 'vim-scripts/vawa.vim'
 "Plug 'scrooloose/syntastic'
+Plug 'phux/vim-phpqa'
 Plug 'stephpy/vim-php-cs-fixer'
 Plug 'adoy/vim-php-refactoring-toolbox'
 Plug 'shawncplus/phpcomplete.vim'
+Plug 'nishigori/vim-php-dictionary'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'joonty/vdebug'
 " php 5.5 syntax highlight
@@ -74,57 +77,18 @@ Plug 'alvan/vim-php-manual'
 Plug 'mitsuhiko/vim-jinja'
 Plug 'evidens/vim-twig'
 
-Plug 'elzr/vim-json' , { 'for': ['html', 'twig'] }
-
-"Plug 'Yggdroot/indentLine'
-
-Plug 'pangloss/vim-javascript' , { 'for': ['javascript', 'html'] }
-Plug 'jelera/vim-javascript-syntax' , { 'for': ['javascript', 'html'] }
-Plug 'maksimr/vim-jsbeautify' , { 'for': ['javascript', 'html'] }
-Plug 'einars/js-beautify' , { 'for': ['javascript', 'html'] }
-Plug 'ternjs/tern_for_vim' , { 'for': ['javascript', 'html'] }
-Plug 'moll/vim-node' , { 'for': ['javascript', 'html'] }
-set runtimepath^=~/.vim/bundle/node
-nnoremap <silent> <leader>e :call JSFormat()<cr>
-
-function! JSFormat()
-  " Preparation: save last search, and cursor position.
-  let l:win_view = winsaveview()
-  let l:last_search = getreg('/')
-  let fileWorkingDirectory = expand('%:p:h')
-  let currentWorkingDirectory = getcwd()
-  execute ':lcd' . fileWorkingDirectory
-  execute ':silent' . '%!esformatter'
-  if v:shell_error
-    undo
-    "echo "esformatter error, using builtin vim formatter"
-    " use internal formatting command
-    execute ":silent normal! gg=G<cr>"
-  endif
-  " Clean up: restore previous search history, and cursor position
-  execute ':lcd' . currentWorkingDirectory
-  call winrestview(l:win_view)
-  call setreg('/', l:last_search)
-endfunction
-
-Plug 'rodjek/vim-puppet'
-
+"Plug 'elzr/vim-json' , { 'for': ['html', 'twig'] }
 Plug 'editorconfig/editorconfig-vim'
-
-Plug 'suan/vim-instant-markdown' , { 'for': 'markdown' }
-
+Plug 'suan/vim-instant-markdown'
 Plug 'wakatime/vim-wakatime'
-
 Plug 'vim-scripts/indentpython.vim'
+Plug 'phux/scratch.vim'
+Plug 'vitalk/vim-simple-todo'
 
 call plug#end()
 
  " Required:
  filetype plugin indent on
-
- " If there are uninstalled bundles found on startup,
- " this will conveniently prompt you to install them.
- "NeoBundleCheck
 
 
 " ====================
@@ -133,6 +97,10 @@ call plug#end()
 
 
 
+"set foldenable
+"set foldmethod=syntax
+"nnoremap <silent> <s-Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+"vnoremap <s-Space> zf
 
 
 
@@ -176,7 +144,7 @@ set showbreak=↪
 " split new window at the right of current
 set spr
 " Maps Alt-[s.v] to horizontal and vertical split respectively
-map <silent> <m-s> :split<CR>
+map <silent> <m-c> :split<CR>
 map <silent> <m-v> :vsplit<CR>
 
 " Set the command window height to 1 lines
@@ -194,20 +162,21 @@ set laststatus=2
 set t_Co=256
 
 " highlight current line
-"set cuc cul
+set cuc cul
 
 
 set autoindent
+set copyindent
 set smartindent
 set smarttab
-set softtabstop=4
 set nojoinspaces
 set tabstop=4
-set shiftround
 set shiftwidth=4
+set shiftround
 set expandtab
 
-set formatoptions+=or
+"set formatoptions+=or
+set formatoptions+=jtcqlr
 
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. 
@@ -239,11 +208,12 @@ set undoreload=10000
 " Better command-line completion
 set wildmenu
 set wildignore+=*.pyc,*.zip,*.gz,*.bz,*.tar,*.jpg,*.png,*.gif,*.avi,*.wmv,*.ogg,*.mp3,*.mov,.git,.svn
+set wildignore+=*/tmp/*,*.so,*.swp,*/cache/*
 set wildmode=list:longest,full
 
 set errorformat+=%*[\"]%f%*[\"]\\,\ line\ %l:\ %m
 set completeopt=longest
-"set complete=.,w,b,u,t,i
+set complete=.,w,b,u,t
 " Limit popup menu height
 set pumheight=15
 
@@ -266,8 +236,10 @@ set diffopt=iwhite
 syntax on
 
 if has("gui_running")
+    "set background=dark
     "set background=light
     "colorscheme solarized
+    "colorscheme mustang
     "colorscheme grb256
 
     "colorscheme zenburn
@@ -289,7 +261,8 @@ if has("gui_running")
     set guicursor+=n-v:blinkon0
 else
     set background=dark
-    colorscheme slate
+    let g:solarized_termcolors=16
+    colorscheme solarized
 endif
 "
 "let g:daylight_morning_color_gvim = "solarized"
@@ -340,39 +313,40 @@ let g:pdv_template_dir = $HOME."/.vim/pdv_templates_snip"
 "let g:pdv_cfg_Copyright = ""
 
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+let g:AutoPairsFlyMode = 0
 
-let g:ag_highlight=1
 
+set guifont=Hack\ Regular\ 11
+"set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 11
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
+let g:airline_theme = 'cool'
+
 let g:airline_power_line_fonts = 1
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
+  " unicode symbols
+  let g:airline_left_sep = '»'
+  let g:airline_left_sep = '▶'
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = '◀'
+  let g:airline_symbols.linenr = '␊'
+  let g:airline_symbols.linenr = '␤'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.paste = 'Þ'
+  let g:airline_symbols.paste = '∥'
+  let g:airline_symbols.whitespace = 'Ξ'
 
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#branch#displayed_head_limit = 10
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#tagbar#enabled = 0
+"let g:airline#extensions#syntastic#enabled = 1
+"let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 1
 let g:airline#extensions#hunks#non_zero_only = 0
 let g:airline#extensions#hunks#hunk_symbols = ['+', '~', '-']
-"let g:airline#extensions#tagbar#flags = ''
-"let g:airline#extensions#tagbar#flags = 'f'
-"let g:airline#extensions#tagbar#flags = 's'
-"let g:airline#extensions#tagbar#flags = 'p'
 let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline#extensions#ctrlp#color_template = 'normal'
 let g:airline#extensions#ctrlp#color_template = 'visual'
@@ -380,15 +354,18 @@ let g:airline#extensions#ctrlp#color_template = 'replace'
 
 let g:vim_debug_disable_mappings = 1
 
-set completeopt-=preview
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/cache/*     " MacOSX/Linux
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+let g:syntastic_aggregate_errors = 1
 
 let g:tagbar_phpctags_bin='~/git/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '1024M'
 
 let NERDTreeShowBookmarks = 1
-let NERDTreeQuitOnOpen=1
+let NERDTreeQuitOnOpen=0
 
 let g:ctrlp_use_caching = 1
 if executable('ag')
@@ -407,12 +384,13 @@ let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:40'
 
-let g:phpqa_codesniffer_args = "--standard=Symfony2"
+"let g:phpqa_codesniffer_args = "--standard=Symfony2"
 
 
 let g:phpcomplete_complete_for_unknown_classes = 0
+let g:phpcomplete_relax_static_constraint=0
 let g:phpcomplete_search_tags_for_variables = 0
-let g:phpcomplete_parse_docblock_comments = 1
+let g:phpcomplete_parse_docblock_comments = 0
 let g:phpcomplete_enhance_jump_to_definition = 1
 
 "let g:ycm_complete_in_comments = 0
@@ -422,8 +400,8 @@ let g:phpcomplete_enhance_jump_to_definition = 1
 
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Set minimum syntax keyword length.
-"let g:neocomplete#sources#syntax#min_keyword_length = 2
-"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 
 "let g:acp_enableAtStartup = 0
@@ -431,19 +409,20 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#max_list = 15
-let g:neocomplete#force_overwrite_completefunc = 1
+"let g:neocomplete#force_overwrite_completefunc = 1
 
 " Plugin key-mappings.
-"inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-  "return neocomplete#close_popup() . "\<CR>"
-"endfunction
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><C-y>  neocomplete#close_popup()
-"inoremap <expr><C-e>  neocomplete#cancel_popup()
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
 inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
 " Enable heavy omni completion.
@@ -454,20 +433,23 @@ inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
 endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
+"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+let g:neocomplete#keyword_patterns['default'] = '\.,\h,\w,\b,\u,\t,\k'
+"let g:neocomplete#keyword_patterns['php'] = '\.,\h,\w,\b,\u,\t'
+autocmd FileType php setlocal dictionary+=~/.vim/plugged/vim-php-dictionary/dict/PHP.dict
 
 " Enable heavy omni completion.
-"if !exists('g:neocomplete#sources#omni#input_patterns')
-    "let g:neocomplete#sources#omni#input_patterns = {}
-"endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.php =  '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+"let g:neocomplete#sources#omni#input_patterns.phpunit = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.phpunit = '\.,\h,\w,\b,\u,\k'
+"let g:neocomplete#sources#omni#input_patterns.phpunit = '[^. \t]->\h\w*\|\h\w*::'
 "let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 
-"nnoremap <leader>m :NeoCompleteToggle<cr>
+noremap <leader>m :NeoCompleteToggle<cr>
 
 " vdebug
 highlight DbgBreakptLine ctermbg=none ctermfg=none
@@ -491,7 +473,7 @@ highlight DbgBreakptLine ctermbg=none ctermfg=none
 let mapleader = "\<Space>"
 
 " Edit the vimrc file
-nmap <silent> <leader>z :e $MYVIMRC<CR>
+nmap <silent> <leader><f5> :e $MYVIMRC<CR>
 
 inoremap jk <esc>
 
@@ -518,6 +500,7 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
+
 "  select pasted text
 noremap gV `[v`]
 
@@ -529,6 +512,8 @@ imap ;; </<c-x><c-o>
 
 vmap < <gv
 vmap > >gv
+vmap <c-k> [egv
+vmap <c-j> ]egv
 
 " command line bash behavior
 cnoremap <C-A> <Home>
@@ -551,6 +536,19 @@ noremap <silent> <m-j> <c-w>j
 noremap <silent> <m-k> <c-w>k
 noremap <silent> <m-h> <c-w>h
 
+nnoremap c<C-j> :bel sp<cr>
+nnoremap c<C-k> :abo sp<cr>
+nnoremap c<C-h> :lefta vsp<cr>
+nnoremap c<C-l> :rightb vsp<cr>
+nnoremap g<C-j> <C-w>j<C-w>_
+nnoremap g<C-k> <C-w>k<C-w>_
+nnoremap g<C-h> <C-w>h<C-w>_
+nnoremap g<C-l> <C-w>l<C-w>_
+nnoremap d<C-j> <C-w>j<C-w>c
+nnoremap d<C-k> <C-w>k<C-w>c
+nnoremap d<C-h> <C-w>h<C-w>c
+nnoremap d<C-l> <C-w>l<C-w>c
+
 noremap <silent> <leader>tn :ptn<cr>
 noremap <silent> <leader>tp :ptp<cr>
 noremap <silent> <leader>tc :pc<cr>
@@ -566,17 +564,16 @@ noremap <silent> <leader>tc :pc<cr>
 "noremap <silent> <m-s-k> :tabn<cr>
 "noremap <silent> <m-s-h> :bp<cr>
 "noremap <silent> <m-s-l> :bn<cr>
-set winheight=30
+"set winheight=30
 nnoremap <silent> <c-k> :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <c-j> :exe "resize " . (winheight(0) * 2/3)<CR>
-nnoremap <silent> <c-h> :exe "vertical resize " . (winwidth(0) * 4/5)<CR>
-nnoremap <silent> <c-l> :exe "vertical resize " . (winwidth(0) * 5/4)<CR>
+"nnoremap <silent> <c-h> :exe "vertical resize " . (winwidth(0) * 19/20)<CR>
+"nnoremap <silent> <c-l> :exe "vertical resize " . (winwidth(0) * 20/19)<CR>
+nnoremap <silent> <c-h> :exe "vertical resize -5"<CR>
+nnoremap <silent> <c-l> :exe "vertical resize +5"<CR>
 
 " tag bindings
 nmap <leader>o <c-w>g}
-
-map <c-s> <esc>:w<cr>
-imap <c-s> <esc>:w<cr>a
 
 " delete word after cursor in insert mode
 inoremap <c-s-l> <c-o>dw
@@ -594,7 +591,6 @@ map <Leader>= <C-w>=
 vnoremap . :normal .<CR>
 
 nmap <leader><F4> :call UpdateTags()<cr>
-nmap <leader><F6> :call UpdateTagsJs()<cr>
 
 " unmark search matches
 nmap <silent> ,/ :nohlsearch<CR>
@@ -623,10 +619,10 @@ nnoremap <c-tab> :b#<cr>
 " ------
 
 " Don't run messdetector on save (default = 1)
-let g:phpqa_messdetector_autorun = 1
+"let g:phpqa_messdetector_autorun = 1
 
 " Don't run codesniffer on save (default = 1)
-let g:phpqa_codesniffer_autorun = 1
+"let g:phpqa_codesniffer_autorun = 1
 
 nmap <leader>gg :GitGutterToggle<cr>
 nmap <leader>gn :GitGutterNextHunk<cr>
@@ -636,7 +632,6 @@ let g:gitgutter_eager = 0
 let g:gitgutter_max_signs = 1000
 
 nnoremap <silent><leader>rcd :call PhpCsFixerFixDirectory()<CR>
-"nnoremap <silent><m-s> <esc>:w<cr>:call PhpCsFixerFixFile()<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>
 
 vmap <Enter> <Plug>(EasyAlign)
 
@@ -645,6 +640,8 @@ nmap <leader>tt :TbToggle<cr>
 "namespace plugin
 noremap <Leader>u :call PhpInsertUse()<CR>
 noremap <Leader>e :call PhpExpandClass()<CR>
+
+nmap <leader>z :Scratch<cr>
 
 nmap <leader>; :TagbarToggle<cr>
 
@@ -671,13 +668,37 @@ nmap <leader>N :NERDTreeFind<cr>
 nnoremap <leader>a :Ag! --php<space>
 nnoremap <leader>A :Ag! -u --php<space>
 
-let g:ag_prg="ag --vimgrep --smart-case --ignore-dir=app/cache --ignore=./tags"
-nnoremap <M-a> :exec "Ag! -f ".expand("<cword>")." --php"
+let g:ag_prg="ag --vimgrep --smart-case"
+let g:ag_mapping_message=0
+let g:ag_highlight=1
+let g:vim_action_ag_escape_chars = '#%.^$*+?()[{\\|'
+nnoremap <M-a> :exec "Ag! -f --php ".expand("<cword>")<cr>
+nnoremap <M-S-a> :exec "Ag! -f ".expand("<cword>")<cr>
 nnoremap <M-g> :exec "Rgrep ".expand("<cword>")<cr>
 
 map <leader><enter> :Mru<cr>
 
 nnoremap <silent> <Leader>y :YRShow<CR>
+
+let g:scratch_top = 1
+let g:scratch_persistence_file = '.scratch.vim'
+"au FileType scratch setl ts=2 sw=2 fo+=n2a
+
+let g:simple_todo_map_keys = 0
+nmap ,i <Plug>(simple-todo-new)
+imap ,i <Plug>(simple-todo-new)
+nmap ,I <Plug>(simple-todo-new-start-of-line)
+imap ,I <Plug>(simple-todo-new-start-of-line)
+nmap ,o <Plug>(simple-todo-below)
+imap ,o <Plug>(simple-todo-below)
+nmap ,O <Plug>(simple-todo-above)
+imap ,O <Plug>(simple-todo-above)
+nmap ,x <Plug>(simple-todo-mark-as-done)
+imap ,x <Plug>(simple-todo-mark-as-done)
+nmap ,X <Plug>(simple-todo-mark-as-undone)
+imap ,X <Plug>(simple-todo-mark-as-undone)
+nmap ,s <Plug>(simple-todo-new-list-item)
+imap ,s <Plug>(simple-todo-new-list-item)
 
 inoremap <M-p> <ESC>:call pdv#DocumentWithSnip()<CR>
 nnoremap <M-P> :call pdv#DocumentWithSnip()<CR>
@@ -761,8 +782,8 @@ function! SwitchLightAndDarkTheme()
         :colorscheme solarized
         :let &background =  "light"
     else
-        :colorscheme grb256
-        :let &background =  "dark"
+        :colorscheme solarized
+        :let &background = "dark"
     endif
 endfunction
 
@@ -775,18 +796,11 @@ function! UpdateTags()
     let tagfilename = cwd . "/tags"
 
     let cmd = 'ctags --fields=+aimS  --PHP-kinds=+cf --languages=php -R  --tag-relative=yes --exclude=.svn --exclude=.git --exclude="*/_*cache/*" --exclude="*/_*logs{0,1}/*" -f '.tagfilename
-    "let cmd = 'ctags --recurse --languages=PHP --exclude=.svn --exclude=.git --exclude="*/_*cache/*" --exclude="*/_*logs{0,1}/*" --exclude="*/_*data/*" --totals=yes --tag-relative=yes --PHP-kinds=+cf --regex-PHP=/abstract class ([^ ]*)/\1/c/    --regex-PHP=/interface ([^ ]*)/\1/c/ --regex-PHP=/trait ([^ ]*)/\1/c/ --regex-PHP=/(public |static |abstract |protected |private )+ function +([^ \(]*)/\2/f/ -f '.tagfilename
+    "let cmd = 'ctags --recurse --languages=PHP --exclude=.svn --exclude=.git --exclude="*/_*cache/*" --exclude="*/_*logs{0,1}/*" --exclude="*/_*data/*" --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP=/abstract class ([^ ]*)/\1/c/    --regex-PHP=/interface ([^ ]*)/\1/c/ --regex-PHP=/trait ([^ ]*)/\1/c/ --regex-PHP=/(public |static |abstract |protected |private )+ function +([^ \(]*)/\2/f/ -f '.tagfilename
     let resp = system(cmd)
     echo 'done'
 endfunction
 
-function! UpdateTagsJs()
-    let cwd = getcwd()
-    let tagfilename = cwd . "/tags"
-    let cmd = 'ctags -R -f '.tagfilename
-    let resp = system(cmd)
-    echo resp
-endfunction
 
 function! FormatPHPLineLength()
     let l:currentLine = getline('.')
@@ -1030,12 +1044,14 @@ function! SwitchBetweenFiles1(fileExtension, firstDirBeginning, secondDirBeginni
 endfunction
 
 "nmap <leader>tu :call SwitchBetweenPhpunitAndClasses()<cr>
-"nmap <leader>tu :call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
-nmap <leader>tu :call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
+nmap <leader>tu :call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
+
+"nmap <leader>tu :call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
+
 "nmap <leader>tf :call SwitchBetweenFiles('php', 'tests/functional/', 'src/', 'Cept')<cr>
 "nmap <leader>ta :call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Cept')<cr>
-"nmap <leader>tsu <c-w>v:call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
-nmap <leader>tsu <c-w>v:call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
+nmap <leader>tsu <c-w>v:call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
+"nmap <leader>tsu <c-w>v:call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
 "nmap <leader>tsf <c-w>v:call SwitchBetweenFiles('php', 'tests/functional/', 'src/', 'Cept')<cr>
 "nmap <leader>tsa <c-w>v:call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Cept')<cr>
 
@@ -1060,11 +1076,15 @@ au BufEnter * if &ft ==# 'gitcommit' | :call PrependTicketNumber() | endif
 
 " Enable omni completion.
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+"autocmd FileType php setlocal ft=php.phpunit
+au BufNewFile,BufRead *Test.php setlocal ft=php.phpunit
+au BufNewFile,BufRead,BufWinEnter *Test.php exe ":let g:neocomplete#sources#omni#input_patterns.php = '\\.,\\h,\\w,\\b,\\u,\\t,\\k'"
+au BufWinLeave,BufLeave *Test.php exe ":let g:neocomplete#sources#omni#input_patterns.php = '[^. \\t]->\\%(\\h\\w*\\)\\?\\|\\h\\w*::\\%(\\h\\w*\\)\\?'"
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+"au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
 
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType python setlocal tabstop=4
@@ -1079,12 +1099,11 @@ let python_highlight_all=1
 
 autocmd FileType php map <buffer> <c-s> <esc>:w<cr>
 
-"nmap <M-f> <esc>:w<cr>:silent !phpcbf --standard=Symfony2 %<cr>:e<cr>
-nmap <M-f> <esc>:w<cr>:silent !fmt.phar --psr2 --smart_linebreak_after_curly %<cr>
-"nmap <M-s> <esc>ma:w<cr>:!php-cs-fixer -qn --level=symfony --config=sf23 fix % --fixers=align_double_arrow,multiline_spaces_before_semicolon,ordered_use,short_array_syntax<CR>:!phpcbf --standard=Symfony2 %<cr>:e<cr>'a:e<CR>
-"
 nmap <leader>w :w<cr>
 autocmd FileType php nmap <buffer> <leader>w :let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>
+
+" PHP executable (default = "php")
+"let g:phpqa_php_cmd='/usr/local/php7/bin/php'
 
 " delete trailing DOS-returns and whitespace
 "autocmd FileType php nmap <leader><s-w> :%s/[ \t\r]\+$//e
@@ -1120,13 +1139,13 @@ function! ExtractInterface()
     let l:name = inputdialog("Name of new interface:")
     exe "normal Gointerface " . name . "\<Cr>{}\<c-o>i\<cr>"
     :g/const/ :normal yyGP
-    :g/public \$/ :normal yyGP
+    ":g/public \$/ :normal yyGP
     :g/public function \(__construct\)\@!/ :normal yyGP$a;
     exe "normal! G?{\<cr>"
     normal "adGdd
     exe ":e ".l:file_path."/".l:name.".php"
     exe ":w"
-    exe "normal iinterfacen\<m-j>\<cr>"
+    exe "normal i<?php\<cr>\<cr>interface ".l:name
     exe "normal! ?interface\<cr>jdG"
     normal "ap
     exe ":e ".l:baseFile
