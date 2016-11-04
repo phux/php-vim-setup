@@ -43,12 +43,13 @@ $ cd && ln -s ~/git/php-vim-setup/.vim* && ln -s ~/git/php-vim-setup/.gvimrc
 ```
 
 ### Install plugins
-#### Clone NeoBundle
+#### Install vim-plug
 ```
-$ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+$ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 #### fetch and install plugins
 
 ```
-$ vim -c 'NeoBundleInstall'
+$ vim -c 'PlugInstall'
 ```

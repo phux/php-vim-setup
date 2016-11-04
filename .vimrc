@@ -52,17 +52,13 @@ Plug 'nelstrom/vim-qargs'
 "
 ""colorschemes
 Plug 'ScrollColors'
-Plug 'sjl/badwolf'
 Plug 'twerth/ir_black'
 Plug 'flazz/vim-colorschemes'
 
 Plug 'Shougo/neocomplete.vim'
 
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-
 "Plug 'scrooloose/syntastic'
 Plug 'phux/vim-phpqa'
-Plug 'stephpy/vim-php-cs-fixer'
 Plug 'adoy/vim-php-refactoring-toolbox'
 Plug 'shawncplus/phpcomplete.vim'
 Plug 'nishigori/vim-php-dictionary'
@@ -73,15 +69,10 @@ Plug '2072/vim-syntax-for-PHP'
 Plug '2072/PHP-Indenting-for-VIm'
 Plug 'alvan/vim-php-manual'
 
-
-Plug 'mitsuhiko/vim-jinja'
 Plug 'evidens/vim-twig'
 
-"Plug 'elzr/vim-json' , { 'for': ['html', 'twig'] }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'suan/vim-instant-markdown'
-Plug 'wakatime/vim-wakatime'
-Plug 'vim-scripts/indentpython.vim'
 Plug 'phux/scratch.vim'
 Plug 'vitalk/vim-simple-todo'
 
@@ -94,15 +85,6 @@ call plug#end()
 " ====================
 " = Settings: General
 " ====================
-
-
-
-"set foldenable
-"set foldmethod=syntax
-"nnoremap <silent> <s-Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-"vnoremap <s-Space> zf
-
-
 
 
 " Quickly time out on keycodes, but never time out on mappings
@@ -175,7 +157,6 @@ set shiftwidth=4
 set shiftround
 set expandtab
 
-"set formatoptions+=or
 set formatoptions+=jtcqlr
 
 set list
@@ -264,21 +245,6 @@ else
     let g:solarized_termcolors=16
     colorscheme solarized
 endif
-"
-"let g:daylight_morning_color_gvim = "solarized"
-"let g:daylight_afternoon_color_gvim = "solarized"
-"let g:daylight_evening_color_gvim = "ir_dark"
-"let g:daylight_late_color_gvim = "ir_dark"
-
-"let g:daylight_morning_color_term = "mayansmoke"
-"let g:daylight_afternoon_color_term = "mayansmoke"
-"let g:daylight_evening_color_term = "mayansmoke"
-"let g:daylight_late_color_term = "mayansmoke"
-
-"let g:daylight_morning_hour = 8
-"let g:daylight_afternoon_hour = 12
-"let g:daylight_evening_hour = 16
-"let g:daylight_late_hour = 22
 
 
 
@@ -288,36 +254,24 @@ endif
 " = Settings: Plugins
 " ====================
 
-
-
-
-
 let g:vim_json_syntax_conceal = 0
 let g:project_use_nerdtree = 1
 let g:project_enable_welcome = 1
 set rtp+=~/.vim/bundle/vim-project/
-call project#rc("~/git")
+call project#rc("~/code")
 
 let g:UltiSnipsSnippetsDir = '~/.vim/plugged/vim-snippets/UltiSnips/'
-
-let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
-let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
 
 let g:PHP_removeCRwhenUnix = 1
 let g:PHP_vintage_case_default_indent = 1
 
 let g:pdv_template_dir = $HOME."/.vim/pdv_templates_snip"
-"let g:pdv_cfg_Package = ""
-"let g:pdv_cfg_Version = ""
-"let g:pdv_cfg_Author = ""
-"let g:pdv_cfg_Copyright = ""
 
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 let g:AutoPairsFlyMode = 0
 
 
-set guifont=Hack\ Regular\ 11
-"set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 11
+set guifont=Dejavu\ Sans\ Mono\ 11
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -325,19 +279,19 @@ endif
 let g:airline_theme = 'cool'
 
 let g:airline_power_line_fonts = 1
-  " unicode symbols
-  let g:airline_left_sep = '»'
-  let g:airline_left_sep = '▶'
-  let g:airline_right_sep = '«'
-  let g:airline_right_sep = '◀'
-  let g:airline_symbols.linenr = '␊'
-  let g:airline_symbols.linenr = '␤'
-  let g:airline_symbols.linenr = '¶'
-  let g:airline_symbols.branch = '⎇'
-  let g:airline_symbols.paste = 'ρ'
-  let g:airline_symbols.paste = 'Þ'
-  let g:airline_symbols.paste = '∥'
-  let g:airline_symbols.whitespace = 'Ξ'
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
 
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
@@ -374,17 +328,16 @@ if executable('ag')
     "let g:ctrlp_user_command = 'ag  --ignore tags --ignore /cache/ %s -l --nocolor -g ""'
     let g:ctrlp_user_command = 'ag %s --ignore=./tags -l --nocolor -g ""'
 else
-  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-  let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-    \ }
+    let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+    let g:ctrlp_prompt_mappings = {
+                \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+                \ }
 endif
 "let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:40'
 
-"let g:phpqa_codesniffer_args = "--standard=Symfony2"
 
 
 let g:phpcomplete_complete_for_unknown_classes = 0
@@ -393,10 +346,6 @@ let g:phpcomplete_search_tags_for_variables = 0
 let g:phpcomplete_parse_docblock_comments = 0
 let g:phpcomplete_enhance_jump_to_definition = 1
 
-"let g:ycm_complete_in_comments = 0
-
-
-
 
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Set minimum syntax keyword length.
@@ -404,7 +353,6 @@ let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 
-"let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#enable_auto_delimiter = 1
@@ -416,7 +364,7 @@ inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
+    return neocomplete#close_popup() . "\<CR>"
 endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
@@ -631,8 +579,6 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 let g:gitgutter_max_signs = 1000
 
-nnoremap <silent><leader>rcd :call PhpCsFixerFixDirectory()<CR>
-
 vmap <Enter> <Plug>(EasyAlign)
 
 nmap <leader>tt :TbToggle<cr>
@@ -676,6 +622,8 @@ nnoremap <M-a> :exec "Ag! -f --php ".expand("<cword>")<cr>
 nnoremap <M-S-a> :exec "Ag! -f ".expand("<cword>")<cr>
 nnoremap <M-g> :exec "Rgrep ".expand("<cword>")<cr>
 
+:command! -nargs=1 Silent execute ':silent !'.<q-args> | execute ':redraw!'
+
 map <leader><enter> :Mru<cr>
 
 nnoremap <silent> <Leader>y :YRShow<CR>
@@ -712,39 +660,20 @@ let g:sparkupNextMapping = '<m-o>'
 
 let g:gitgutter_realtime = 0
 
-"let g:easytags_by_filetype = ''
 let g:easytags_async=1
 let g:easytags_dynamic_files = 1
 let g:easytags_on_cursorhold = 1
 
 set tags=tags;/
+
 " write to working dir instead of buffer dir.
 set cpo+=d
-"let g:easytags_events = []
-"let g:easytags_cmd = 'ctags --fields=+aimS --languages=php -R  --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP="/abstract\s+class\s+([^ ]+)/\1/c/" --regex-PHP="/interface\s+([^ ]+)/\1/c/" --regex-PHP="/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i" --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
-"let g:easytags_cmd = 'ctags --fields=+aimS --PHP-kinds=+cf --languages=php -R  --totals=yes --tag-relative=yes'
-"let g:easytags_languages = {
-"\   'php': {
-"\     'cmd': 'ctags --fields=+aimS --PHP-kinds=+cf --languages=php -R  --totals=yes --tag-relative=yes',
-"\     'args': [],
-"\     'fileoutput_opt': '-f',
-"\     'stdout_opt': '-f-'
-"\   }
-"\}
-"let g:easytags_cmd = 'ctags --languages=php -R  --totals=yes --tag-relative=yes'
-"let g:easytags_cmd = 'phpctags  --recurse=yes '
+
 let g:easytags_events = ['BufWritePost']
 let g:easytags_syntax_keyword = 'always'
 "milliseconds
 let g:easytags_updatetime_min = 60000
 let g:easytags_auto_highlight = 0
-nmap @@x !%xmllint --format --recover -
-
-let g:php_cs_fixer_enable_default_mapping = 0
-"let g:php_cs_fixer_config = "sf23"
-"let g:php_cs_fixer_fixers_list = "align_double_arrow,align_equals,multiline_spaces_before_semicolon,ordered_use,short_array_syntax,extra_empty_lines"
-"let g:php_cs_fixer_level = 'symfony'
-"let g:php_cs_fixer_path = "php-cs-fixer" " define the path to the php-cs-fixer.phar
 
 let g:vim_php_refactoring_default_property_visibility = 'private'
 let g:vim_php_refactoring_default_method_visibility = 'private'
@@ -796,7 +725,6 @@ function! UpdateTags()
     let tagfilename = cwd . "/tags"
 
     let cmd = 'ctags --fields=+aimS  --PHP-kinds=+cf --languages=php -R  --tag-relative=yes --exclude=.svn --exclude=.git --exclude="*/_*cache/*" --exclude="*/_*logs{0,1}/*" -f '.tagfilename
-    "let cmd = 'ctags --recurse --languages=PHP --exclude=.svn --exclude=.git --exclude="*/_*cache/*" --exclude="*/_*logs{0,1}/*" --exclude="*/_*data/*" --totals=yes --tag-relative=yes --PHP-kinds=+cf-v --regex-PHP=/abstract class ([^ ]*)/\1/c/    --regex-PHP=/interface ([^ ]*)/\1/c/ --regex-PHP=/trait ([^ ]*)/\1/c/ --regex-PHP=/(public |static |abstract |protected |private )+ function +([^ \(]*)/\2/f/ -f '.tagfilename
     let resp = system(cmd)
     echo 'done'
 endfunction
@@ -839,14 +767,11 @@ endfunction
 
 nmap <leader>i :call FormatPHPLineLength()<cr>
 
-
-
-function! OpenPHPManual(keyword)
-    "let browser = '/usr/bin/firefox'
-    let browser = '/usr/bin/chromium-browser'
-    let url = 'http://ro.php.net/' . a:keyword
-    silent exec '!' . browser . ' "' . url . '" &'
-endfunction
+"function! OpenPHPManual(keyword)
+"    let browser = '/usr/bin/chromium-browser'
+"    let url = 'http://ro.php.net/' . a:keyword
+"    silent exec '!' . browser . ' "' . url . '" &'
+"endfunction
 "noremap <silent> <leader>k :call OpenPHPManual(expand('<cword>'))<CR>
 let g:php_manual_online_search_shortcut = '<leader>k'
 
@@ -869,8 +794,6 @@ function! QFixToggle(forced)
         execute "copen " . g:jah_Quickfix_Win_Height
     endif
 endfunction
-
-
 
 " jump to last cursor position when opening files
 function! ResCur()
@@ -1043,17 +966,11 @@ function! SwitchBetweenFiles1(fileExtension, firstDirBeginning, secondDirBeginni
     endif
 endfunction
 
-"nmap <leader>tu :call SwitchBetweenPhpunitAndClasses()<cr>
 nmap <leader>tu :call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
-
 "nmap <leader>tu :call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
 
-"nmap <leader>tf :call SwitchBetweenFiles('php', 'tests/functional/', 'src/', 'Cept')<cr>
-"nmap <leader>ta :call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Cept')<cr>
 nmap <leader>tsu <c-w>v:call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
 "nmap <leader>tsu <c-w>v:call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
-"nmap <leader>tsf <c-w>v:call SwitchBetweenFiles('php', 'tests/functional/', 'src/', 'Cept')<cr>
-"nmap <leader>tsa <c-w>v:call SwitchBetweenFiles('php', 'tests/acceptance/', 'src/', 'Cept')<cr>
 
 
 function! PrependTicketNumber()
@@ -1105,11 +1022,6 @@ autocmd FileType php nmap <buffer> <leader>w :let g:phpqa_messdetector_autorun =
 " PHP executable (default = "php")
 "let g:phpqa_php_cmd='/usr/local/php7/bin/php'
 
-" delete trailing DOS-returns and whitespace
-"autocmd FileType php nmap <leader><s-w> :%s/[ \t\r]\+$//e
-
-
-"au BufRead,BufNewFile *.twig set syntax=jinja
 au BufNewFile,BufRead *.html,*.html.twig,*.htm,*.shtml,*.stm,*.phtml set ft=html.php.javascript
 
 
@@ -1131,7 +1043,6 @@ let g:PHP_default_indenting=0
 
 
 nnoremap <leader>rei :call ExtractInterface()<cr>
-"nnoremap <leader>recl :call ExtractClass()<cr>
 
 function! ExtractInterface()
     let l:file_path = expand('%:p:h')
@@ -1170,9 +1081,8 @@ endfunction
 command! -nargs=1 -bang Replace :call Replace(<bang>0, <q-args>)
 nnoremap <Leader>rip :call Replace(0, input('Replace '.expand('<cword>').' with: ', expand('<cword>')))<CR>
 
-"let g:vdebug_options['port'] = 9005
-
-so ~/.nonpublic-vimprojects
+so ~/dotfiles/vimprojects
+nmap <leader><F2> :e ~/dotfiles/vimprojects<cr>
 
 augroup reload_vimrc " {
     autocmd!
