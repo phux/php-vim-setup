@@ -13,7 +13,7 @@ Plug 'vim-scripts/tabbar'
 "
 Plug 'henrik/vim-indexed-search'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
-Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 Plug 'majutsushi/tagbar'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'xolox/vim-easytags'
@@ -217,11 +217,11 @@ set diffopt=iwhite
 syntax on
 
 if has("gui_running")
-    "set background=dark
+    set background=dark
     "set background=light
-    "colorscheme solarized
+    colorscheme solarized
     "colorscheme mustang
-    "colorscheme grb256
+    " colorscheme grb256
 
     "colorscheme zenburn
     "colorscheme wombat256mod
@@ -229,7 +229,7 @@ if has("gui_running")
     "colorscheme pyte
     "colorscheme github
     "colorscheme distinguished
-    colorscheme ir_dark
+    " colorscheme ir_dark
     "colorscheme busybee
     "colorscheme vilight
     "colorscheme jelleybeans
@@ -324,21 +324,16 @@ let NERDTreeQuitOnOpen=0
 let g:ctrlp_use_caching = 1
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor\ --ignore=./tags
-
-    "let g:ctrlp_user_command = 'ag  --ignore tags --ignore /cache/ %s -l --nocolor -g ""'
     let g:ctrlp_user_command = 'ag %s --ignore=./tags -l --nocolor -g ""'
 else
     let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
     let g:ctrlp_prompt_mappings = {
-                \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-                \ }
+        \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+    \ }
 endif
-"let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:40'
-
-
 
 let g:phpcomplete_complete_for_unknown_classes = 0
 let g:phpcomplete_relax_static_constraint=0
@@ -346,19 +341,14 @@ let g:phpcomplete_search_tags_for_variables = 0
 let g:phpcomplete_parse_docblock_comments = 0
 let g:phpcomplete_enhance_jump_to_definition = 1
 
-
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#max_list = 15
-"let g:neocomplete#force_overwrite_completefunc = 1
-
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
@@ -372,9 +362,7 @@ inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
 " Enable heavy omni completion.
-
 
 
 " Define keyword.
@@ -401,10 +389,6 @@ noremap <leader>m :NeoCompleteToggle<cr>
 
 " vdebug
 highlight DbgBreakptLine ctermbg=none ctermfg=none
-"highlight DbgBreakptSign ctermbg=none ctermfg=10
-
-"highlight DbgCurrentLine ctermbg=none ctermfg=none
-"highlight DbgCurrentSign ctermbg=none ctermfg=red
 
 
 " ====================
@@ -566,12 +550,6 @@ nnoremap <c-tab> :b#<cr>
 " - Mappings: Plugins
 " ------
 
-" Don't run messdetector on save (default = 1)
-"let g:phpqa_messdetector_autorun = 1
-
-" Don't run codesniffer on save (default = 1)
-"let g:phpqa_codesniffer_autorun = 1
-
 nmap <leader>gg :GitGutterToggle<cr>
 nmap <leader>gn :GitGutterNextHunk<cr>
 nmap <leader>gN :GitGutterPrevHunk<cr>
@@ -651,6 +629,10 @@ imap ,s <Plug>(simple-todo-new-list-item)
 inoremap <M-p> <ESC>:call pdv#DocumentWithSnip()<CR>
 nnoremap <M-P> :call pdv#DocumentWithSnip()<CR>
 
+
+let g:sqlutil_load_default_maps = 0
+vnoremap <silent><leader>s <Plug>SQLU_Formatter<CR>
+
 let g:UltiSnipsExpandTrigger="<m-j>"
 let g:UltiSnipsJumpForwardTrigger="<m-j>"
 let g:UltiSnipsJumpBackwardTrigger="<m-k>"
@@ -702,6 +684,9 @@ function! PhpDocAllWithoutSnippets()
     :call PhpDocAll()
     let g:pdv_template_dir = l:tempDir
 endfunction
+
+nnoremap <leader>c :Commentary<cr>
+vnoremap <leader>c :Commentary<cr>
 
 nmap <leader>bd :Bdelete<cr>
 nmap <Leader>bg :call SwitchLightAndDarkTheme()<cr>
@@ -966,11 +951,11 @@ function! SwitchBetweenFiles1(fileExtension, firstDirBeginning, secondDirBeginni
     endif
 endfunction
 
-nmap <leader>tu :call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
-"nmap <leader>tu :call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
+" nmap <leader>tu :call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
+nmap <leader>tu :call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
 
-nmap <leader>tsu <c-w>v:call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
-"nmap <leader>tsu <c-w>v:call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
+" nmap <leader>tsu <c-w>v:call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
+nmap <leader>tsu <c-w>v:call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
 
 
 function! PrependTicketNumber()
