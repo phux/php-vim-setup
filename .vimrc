@@ -47,9 +47,10 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'matchit.zip'
 Plug 'vim-scripts/keepcase.vim'
 Plug 'junegunn/vim-easy-align'
-"
+Plug 'godlygeek/tabular'
+
 Plug 'nelstrom/vim-qargs'
-"
+
 ""colorschemes
 Plug 'ScrollColors'
 Plug 'twerth/ir_black'
@@ -324,7 +325,7 @@ let NERDTreeQuitOnOpen=0
 let g:ctrlp_use_caching = 1
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor\ --ignore=./tags
-    let g:ctrlp_user_command = 'ag %s --ignore=./tags -l --nocolor -g ""'
+    let g:ctrlp_user_command = 'ag %s --ignore=./tags --ignore=./tests -l --nocolor -g ""'
 else
     let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
     let g:ctrlp_prompt_mappings = {
@@ -379,9 +380,9 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
 endif
 "let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.php =  '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 "let g:neocomplete#sources#omni#input_patterns.phpunit = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.phpunit = '\.,\h,\w,\b,\u,\k'
+let g:neocomplete#sources#omni#input_patterns.phpunit = '\.,\h,\w,\b,\u,\k'
 "let g:neocomplete#sources#omni#input_patterns.phpunit = '[^. \t]->\h\w*\|\h\w*::'
 "let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 
@@ -589,16 +590,17 @@ nmap <leader>N :NERDTreeFind<cr>
 " -t all text files
 " -f follow symlinks
 " -S smart case
-nnoremap <leader>a :Ag! --php<space>
-nnoremap <leader>A :Ag! -u --php<space>
+nnoremap <leader>a :Ag! <space>
+nnoremap <leader>A :Ag! -u <space>
 
-let g:ag_prg="ag --vimgrep --smart-case"
+let g:ag_prg="ag --vimgrep --smart-case --ignore=./tags --ignore=./tests"
 let g:ag_mapping_message=0
 let g:ag_highlight=1
 let g:vim_action_ag_escape_chars = '#%.^$*+?()[{\\|'
-nnoremap <M-a> :exec "Ag! -f --php ".expand("<cword>")<cr>
+nnoremap <M-a> :exec "Ag! -f ".expand("<cword>")<cr>
 nnoremap <M-S-a> :exec "Ag! -f ".expand("<cword>")<cr>
 nnoremap <M-g> :exec "Rgrep ".expand("<cword>")<cr>
+
 
 :command! -nargs=1 Silent execute ':silent !'.<q-args> | execute ':redraw!'
 
@@ -709,7 +711,7 @@ function! UpdateTags()
     let cwd = getcwd()
     let tagfilename = cwd . "/tags"
 
-    let cmd = 'ctags --fields=+aimS  --PHP-kinds=+cf --languages=php -R  --tag-relative=yes --exclude=.svn --exclude=.git --exclude="*/_*cache/*" --exclude="*/_*logs{0,1}/*" -f '.tagfilename
+    let cmd = 'ctags --PHP-kinds=+cf-av --languages=php -R --tag-relative=yes --exclude=.svn --exclude=.git --exclude="*/_*cache/*" --exclude="*/_*logs{0,1}/* --regex-PHP=/abstract class ([^ ]*)/\1/c/    --regex-PHP=/interface ([^ ]*)/\1/c/ --regex-PHP=/trait ([^ ]*)/\1/c/ --regex-PHP=/(public |static |abstract |protected |private )+ function +([^ \(]*)/\2/f/ " -f '.tagfilename
     let resp = system(cmd)
     echo 'done'
 endfunction
@@ -1069,6 +1071,25 @@ nnoremap <Leader>rip :call Replace(0, input('Replace '.expand('<cword>').' with:
 so ~/dotfiles/vimprojects
 nmap <leader><F2> :e ~/dotfiles/vimprojects<cr>
 
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
+
+nmap <Leader>ga :Tabularize /\|<cr>
+vmap <Leader>ga :Tabularize /\|<cr>
+
+au FileType cucumber setl sw=2 sts=2 et
+au FileType ruby setl sw=2 sts=2 et
+
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -1077,3 +1098,4 @@ augroup END " }
 hi SpecialKey       guifg=#343434     guibg=NONE     gui=NONE      ctermfg=NONE        ctermbg=NONE        cterm=NONE
 
 
+let g:easytags_suppress_ctags_warning = 1

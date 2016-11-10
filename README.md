@@ -30,6 +30,10 @@ This is my approach to transform vim into a full featured PHP IDE. It's only tes
 
 ## Basic installation
 
+### Dependencies
+* instant markdown: npm -g install instant-markdown-d
+* easytags: exuberant ctags -> https://github.com/universal-ctags/ctags
+
 ### (optional) create a separate dir to organize git repositories
 
 ```
@@ -39,7 +43,7 @@ $ mkdir ~/git && cd ~/git
 ### Clone this repository
 ```
 $ git clone https://github.com/phux/php-vim-setup.git
-$ cd && ln -s ~/git/php-vim-setup/.vim* && ln -s ~/git/php-vim-setup/.gvimrc
+$ cd && ln -s ~/git/php-vim-setup/.vim* . && ln -s ~/git/php-vim-setup/.gvimrc .
 ```
 
 ### Install plugins
