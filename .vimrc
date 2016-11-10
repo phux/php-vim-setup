@@ -77,6 +77,8 @@ Plug 'suan/vim-instant-markdown'
 Plug 'phux/scratch.vim'
 Plug 'vitalk/vim-simple-todo'
 
+Plug 'fatih/vim-go'
+
 call plug#end()
 
  " Required:
@@ -1099,3 +1101,12 @@ hi SpecialKey       guifg=#343434     guibg=NONE     gui=NONE      ctermfg=NONE 
 
 
 let g:easytags_suppress_ctags_warning = 1
+
+let g:go_bin_path = expand("~/.gvm/gos/go1.7.3/bin")
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
