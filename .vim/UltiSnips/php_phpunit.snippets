@@ -8,14 +8,14 @@ if m:
 	snip.rv = m.group().replace('/', '\\')
 `};
 
-/*
- * Class ${1:`!p snip.rv=snip.fn.split('.')[0]`} 
+/**
+ * Class ${1:`!p snip.rv=snip.fn.split('.')[0]`}
+ *
+ * @see \PHPUnit_Framework_TestCase
  */
-class $1 extends ${3:\PHPUnit_Framework_TestCase}
+class $1 extends \PHPUnit_Framework_TestCase
 {
-    protected function setUp() {
-	${0:code ...}
-    }
+    $0
 }
 endsnippet
 
@@ -23,9 +23,29 @@ snippet p "Phake::"
 Phake::$0;
 endsnippet
 
+snippet pm "Phake::mock"
+$${1:var} = Phake::mock(${2:class}${3:::class});$0
+endsnippet
+
+snippet pv "Phake::verify"
+Phake::verify($${1:mock})->${2:method};$0
+endsnippet
+
+snippet pw "Phake::when"
+Phake::when($${1:mock})->$3->thenReturn(${2:value});$0
+endsnippet
+
+snippet pa "Phake::anyParameters()"
+Phake::anyParameters()$0
+endsnippet
+
+snippet pc "Phake::capture()"
+Phake::capture($${1:object})$0
+endsnippet
+
 snippet setup "setup method" !b
 protected function setUp() {
-	${0:code ...}
+    ${0:code ...}
 }
 endsnippet
 
@@ -77,7 +97,7 @@ snippet tdp "test data provider"
 public function ${1:name}DataProvider()
 {
     return [
-		[${2:param1}],
+        [${2:param1}],
     ];
 }
 endsnippet
