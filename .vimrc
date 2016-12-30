@@ -1,5 +1,5 @@
 " Note: Skip initialization for vim-tiny or vim-small.
- if !1 | finish | endif
+if !1 | finish | endif
 
 if &compatible
     set nocompatible
@@ -8,9 +8,10 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-surround'
-"
+Plug 'tpope/vim-sensible'
+
 Plug 'vim-scripts/tabbar'
-"
+
 Plug 'henrik/vim-indexed-search'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-commentary'
@@ -18,25 +19,19 @@ Plug 'majutsushi/tagbar'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'rking/ag.vim'
 Plug 'Chun-Yang/vim-action-ag'
-Plug 'vim-scripts/grep.vim'
-" Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-Plug 'itchyny/lightline.vim'
-Plug 'SirVer/ultisnips' | Plug 'phux/vim-snippets'
-"
 Plug 'jiangmiao/auto-pairs'
-"
+Plug 'itchyny/lightline.vim'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+Plug 'Townk/vim-autoclose'
+
 Plug 'amiorin/vim-project'
 Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'tpope/vim-fugitive'
-Plug 'gregsexton/gitv'
-Plug 'airblade/vim-gitgutter'
 
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-endwise'
-Plug 'ap/vim-css-color', { 'for': ['html', 'php', 'css'] }
 Plug 'YankRing.vim'
-Plug 'tristen/vim-sparkup'
 Plug 'L9'
 Plug 'mru.vim'
 Plug 'moll/vim-bbye'
@@ -47,19 +42,14 @@ Plug 'godlygeek/tabular'
 
 Plug 'nelstrom/vim-qargs'
 
-""colorschemes
-Plug 'ScrollColors'
-Plug 'flazz/vim-colorschemes'
-
+Plug 'altercation/vim-colors-solarized'
 
 Plug 'phux/vim-phpqa'
 Plug 'adoy/vim-php-refactoring-toolbox'
 Plug 'shawncplus/phpcomplete.vim'
 Plug 'Shougo/neocomplete.vim'
 
-Plug 'xolox/vim-easytags'
 Plug 'tobyS/pdv' | Plug 'tobyS/vmustache'
-Plug 'xolox/vim-misc'
 Plug 'nishigori/vim-php-dictionary'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'joonty/vdebug'
@@ -71,19 +61,18 @@ Plug 'alvan/vim-php-manual'
 
 Plug 'evidens/vim-twig'
 
-Plug 'editorconfig/editorconfig-vim'
+" Plug 'editorconfig/editorconfig-vim'
 Plug 'suan/vim-instant-markdown'
 Plug 'phux/scratch.vim'
 Plug 'vitalk/vim-simple-todo'
 
 Plug 'fatih/vim-go'
 
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tmux-plugins/vim-tmux'
+
 call plug#end()
-
-filetype plugin indent on
-syntax on
-set encoding=utf8
-
 
 
 " ====================
@@ -97,8 +86,6 @@ set hidden
 set nobackup
 set nowritebackup
 set noswapfile
-" automatically read file changed outside of Vim
-set autoread
 
 " write on focus loss
 au FocusLost * silent! wa
@@ -137,24 +124,17 @@ set winminheight=1
 " no welcome screen
 set shortmess+=filmnrxoOtT
 
-" Always display the status line, even if only one window is displayed
-set laststatus=2
-
 " highlight current line
 set cul
 
 " indentation
-set autoindent
-set copyindent
-set smartindent
-set smarttab
 set nojoinspaces
 set tabstop=4
 set shiftwidth=4
 set shiftround
 set expandtab
 
-set formatoptions+=jtcqlr
+set formatoptions+=tcqlr
 
 " highlight chars
 set list
@@ -162,7 +142,6 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 
 " move over lines with following keys
 set whichwrap+=<,>,[,],h,l
-set backspace=indent,eol,start
 
 " ------
 " - Search settings
@@ -175,9 +154,6 @@ set hlsearch
 set ignorecase
 set smartcase
 
-" " do highlight as you type your search phrase
-set incsearch
-
 " undo
 set undofile                " Save undo's after file closes
 set undodir=~/.undovim " where to save undo histories
@@ -186,8 +162,7 @@ set undoreload=10000
 
 " Better command-line completion
 set wildmenu
-set wildignore+=*.pyc,*.zip,*.gz,*.bz,*.tar,*.jpg,*.png,*.gif,*.avi,*.wmv,*.ogg,*.mp3,*.mov,.git,.svn
-set wildignore+=*/tmp/*,*.so,*.swp,*/cache/*
+" set wildignore+=*.pyc,*.zip,*.gz,*.bz,*.tar,*.jpg,*.png,*.gif,*.avi,*.wmv,*.ogg,*.mp3,*.mov
 set wildmode=list:longest,full
 
 " Limit popup menu height
@@ -219,9 +194,8 @@ if has("gui_running")
     ""cursors dont blink!
     set guicursor+=n-v:blinkon0
 else
-    set t_Co=256
     set background=dark
-    let g:solarized_termcolors=16
+    " let g:solarized_termcolors=256
     colorscheme solarized
 endif
 
@@ -239,15 +213,14 @@ let g:project_enable_welcome = 1
 set rtp+=~/.vim/bundle/vim-project/
 call project#rc("~/code")
 
-let g:UltiSnipsSnippetsDir = '~/.vim/plugged/vim-snippets/UltiSnips/'
-
 let g:PHP_removeCRwhenUnix = 1
 let g:PHP_vintage_case_default_indent = 1
 
 let g:pdv_template_dir = $HOME."/.vim/pdv_templates_snip"
 
-let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+" let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutBackInsert = '<c-h>'
 
 let g:vim_debug_disable_mappings = 1
 
@@ -256,8 +229,8 @@ let NERDTreeQuitOnOpen=1
 
 let g:ctrlp_use_caching = 1
 if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor\ --ignore=./tags
-    let g:ctrlp_user_command = 'ag %s --ignore=./tags --ignore=./tests -l --nocolor -g ""'
+    set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag %s --ignore=./tests -l --nocolor -g ""'
 else
     let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
     let g:ctrlp_prompt_mappings = {
@@ -266,7 +239,8 @@ else
 endif
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:20'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:50'
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 let g:phpcomplete_complete_for_unknown_classes = 0
 let g:phpcomplete_relax_static_constraint=0
@@ -276,7 +250,7 @@ let g:phpcomplete_enhance_jump_to_definition = 1
 
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#enable_auto_delimiter = 1
@@ -284,7 +258,6 @@ let g:neocomplete#max_list = 15
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
 
-" Enable heavy omni completion.
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
@@ -295,26 +268,27 @@ let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
 endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 noremap <leader>m :NeoCompleteToggle<cr>
 
 " vdebug
 highlight DbgBreakptLine ctermbg=none ctermfg=none
 
-
+let g:vdebug_options = {}
+let g:vdebug_options["port"] = 9000
 let g:vdebug_keymap = {
 \    "run" : "<F5>",
-\    "run_to_cursor" : "<Up>",
-\    "step_over" : "<Down>",
-\    "step_into" : "<Right>",
-\    "step_out" : "<Left>",
+\    "run_to_cursor" : "<F9>",
+\    "step_over" : "<F2>",
+\    "step_into" : "<F3>",
+\    "step_out" : "<F4>",
 \    "close" : "<F6>",
 \    "detach" : "<F7>",
-\    "set_breakpoint" : "<s-enter>",
+\    "set_breakpoint" : "<F10>",
 \    "get_context" : "<F11>",
 \    "eval_under_cursor" : "<F12>",
-\    "eval_visual" : "<Leader>e",
+\    "eval_visual" : "<F8>",
 \}
 
 " ====================
@@ -370,8 +344,8 @@ imap ;; </<c-x><c-o>
 
 vmap < <gv
 vmap > >gv
-vmap <c-k> [egv
-vmap <c-j> ]egv
+" vmap <c-k> [egv
+" vmap <c-j> ]egv
 
 " command line bash behavior
 cnoremap <C-A> <Home>
@@ -381,10 +355,6 @@ cnoremap <C-F> <Right>
 cnoremap <C-N> <End>
 cnoremap <C-P> <Up>
 
-" Maps Alt-[s.v] to horizontal and vertical split respectively
-map <silent> <m-c> :split<CR>
-map <silent> <m-v> :vsplit<CR>
-
 " delete char after cursor in insert mode, same as del key
 inoremap <c-l> <del>
 
@@ -393,10 +363,15 @@ nnoremap ' `
 nnoremap ` '
 
 " window switching
-noremap <silent> <m-l> <c-w>l
-noremap <silent> <m-j> <c-w>j
-noremap <silent> <m-k> <c-w>k
-noremap <silent> <m-h> <c-w>h
+noremap <silent> <c-l> <c-w>l
+noremap <silent> <c-j> <c-w>j
+noremap <silent> <c-k> <c-w>k
+noremap <silent> <c-h> <c-w>h
+
+nnoremap <silent> <leader>K :exe "resize " . (winheight(0) * 5/4)<CR>
+nnoremap <silent> <leader>J :exe "resize " . (winheight(0) * 4/5)<CR>
+nnoremap <silent> <leader>H :exe "vertical resize -15"<CR>
+nnoremap <silent> <leader>L :exe "vertical resize +15"<CR>
 
 nnoremap c<C-j> :bel sp<cr>
 nnoremap c<C-k> :abo sp<cr>
@@ -416,34 +391,11 @@ noremap <silent> <leader>tp :ptp<cr>
 noremap <silent> <leader>tc :pc<cr>
 
 
-
-" window resizing
-"map <c-s-j> <C-W>10-
-"map <c-s-k> <C-W>10+
-"map <c-s-l> <c-w>10<
-"map <c-s-h> <c-w>10>
-"noremap <silent> <m-s-j> :tabp<cr>
-"noremap <silent> <m-s-k> :tabn<cr>
-"noremap <silent> <m-s-h> :bp<cr>
-"noremap <silent> <m-s-l> :bn<cr>
-"set winheight=30
-nnoremap <silent> <c-k> :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <c-j> :exe "resize " . (winheight(0) * 2/3)<CR>
-"nnoremap <silent> <c-h> :exe "vertical resize " . (winwidth(0) * 19/20)<CR>
-"nnoremap <silent> <c-l> :exe "vertical resize " . (winwidth(0) * 20/19)<CR>
-nnoremap <silent> <c-h> :exe "vertical resize -5"<CR>
-nnoremap <silent> <c-l> :exe "vertical resize +5"<CR>
-
 " tag bindings
 nmap <leader>o <c-w>g}
 
 " delete word after cursor in insert mode
 inoremap <c-s-l> <c-o>dw
-
-inoremap <m-;> <esc>A;<esc>
-nnoremap <m-;> A;<esc>
-
-nnoremap <f9> /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " Adjust viewports to the same size
 map <Leader>= <C-w>=
@@ -462,12 +414,6 @@ nnoremap <Leader>] :%SubstituteCase/\c<c-R><c-w>/<c-r><c-w>/g<left><left>
 
 " reformat html -> each tag on own row
 nmap <leader><F3> :%s/<[^>]*>/\r&\r/g<cr>gg=G:g/^$/d<cr><leader>/
-vmap <Leader>j !python -m json.tool<CR>
-
-inoremap <c-space> <C-x><C-o>
-
-nmap <leader>l :lnext<cr>
-nmap <leader>h :lprevious<cr>
 
 nnoremap <Tab> :bnext<CR>:redraw<cr>
 nnoremap <S-Tab> :bprevious<CR>:redraw<cr>
@@ -478,18 +424,13 @@ nnoremap <c-tab> :b#<cr>
 " - Mappings: Plugins
 " ------
 
-nmap <leader>gg :GitGutterToggle<cr>
-nmap <leader>gn :GitGutterNextHunk<cr>
-nmap <leader>gN :GitGutterPrevHunk<cr>
-let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
-let g:gitgutter_max_signs = 1000
 
 vmap <Enter> <Plug>(EasyAlign)
 
 nmap <leader>tt :TbToggle<cr>
 
 "namespace plugin
+let g:php_namespace_sort_after_insert = 1
 noremap <Leader>u :call PhpInsertUse()<CR>
 noremap <Leader>e :call PhpExpandClass()<CR>
 
@@ -517,17 +458,14 @@ nmap <leader>N :NERDTreeFind<cr>
 " -t all text files
 " -f follow symlinks
 " -S smart case
-nnoremap <leader>a :Ag! <space>
-nnoremap <leader>A :Ag! -u <space>
+nnoremap <leader>a :Ag!<space>
 
-let g:ag_prg="ag --vimgrep --smart-case --ignore=./tags --ignore=./tests"
+let g:ag_prg="ag --vimgrep --smart-case --ignore=composer.phar"
 let g:ag_mapping_message=0
 let g:ag_highlight=1
 let g:vim_action_ag_escape_chars = '#%.^$*+?()[{\\|'
-nnoremap <M-a> :exec "Ag! -f ".expand("<cword>")<cr>
-nnoremap <M-S-a> :exec "Ag! -f ".expand("<cword>")<cr>
-nnoremap <M-g> :exec "Rgrep ".expand("<cword>")<cr>
 
+nnoremap <leader>A :exec "Ag! -f ".expand("<cword>")<cr>
 
 command! -nargs=1 Silent execute ':silent !'.<q-args> | execute ':redraw!'
 
@@ -555,33 +493,18 @@ imap ,X <Plug>(simple-todo-mark-as-undone)
 nmap ,s <Plug>(simple-todo-new-list-item)
 imap ,s <Plug>(simple-todo-new-list-item)
 
-inoremap <M-p> <ESC>:call pdv#DocumentWithSnip()<CR>
-nnoremap <M-P> :call pdv#DocumentWithSnip()<CR>
+nnoremap <leader>h :call pdv#DocumentWithSnip()<CR>
 
 
 let g:sqlutil_load_default_maps = 0
 vnoremap <silent><leader>s <Plug>SQLU_Formatter<CR>
 
-let g:UltiSnipsExpandTrigger="<m-j>"
-let g:UltiSnipsJumpForwardTrigger="<m-j>"
-let g:UltiSnipsJumpBackwardTrigger="<m-k>"
+let g:ultisnips_php_scalar_types = 1
+let g:UltiSnipsSnippetsDir = '~/.vim/plugged/vim-snippets/UltiSnips/'
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
-let g:sparkupExecuteMapping='<m-i>'
-let g:sparkupNextMapping = '<m-o>'
-
-let g:gitgutter_realtime = 0
-
-let g:easytags_async=1
-let g:easytags_dynamic_files = 1
-let g:easytags_on_cursorhold = 1
-let g:easytags_suppress_ctags_warning = 1
-let g:easytags_events = ['BufWritePost']
-let g:easytags_syntax_keyword = 'always'
-let g:easytags_updatetime_min = 60000 " ms
-let g:easytags_auto_highlight = 0
-set tags=tags;/
-" write to working dir instead of buffer dir.
-set cpo+=d
 
 let g:vim_php_refactoring_default_property_visibility = 'private'
 let g:vim_php_refactoring_default_method_visibility = 'private'
@@ -593,7 +516,7 @@ nnoremap <Leader>rlv :call PhpRenameLocalVariable()<CR>
 nnoremap <Leader>rcv :call PhpRenameClassVariable()<CR>
 nnoremap <Leader>rrm :call PhpRenameMethod()<CR>
 nnoremap <Leader>reu :call PhpExtractUse()<CR>
-vnoremap <Leader>reco :call PhpExtractConst()<CR>
+vnoremap <Leader>rec :call PhpExtractConst()<CR>
 nnoremap <Leader>rep :call PhpExtractClassProperty()<CR>
 vnoremap <Leader>rem :call PhpExtractMethod()<CR>
 nnoremap <Leader>rnp :call PhpCreateProperty()<CR>
@@ -621,12 +544,19 @@ endfunction
 " = Custom functions
 " ====================
 nmap <silent> <leader>jd :CtrlPTag<cr><c-\>w
-nmap <leader><F4> :call UpdateTags()<cr>
-function! UpdateTags()
+function! GetCtagsCommand()
     let cwd = getcwd()
-    let tagfilename = cwd . "/tags"
+    let tagfilename = cwd . "/.git/tags"
 
     let cmd = 'ctags --PHP-kinds=+cf-v --languages=php -R --tag-relative=yes --exclude=.svn --exclude=composer.phar --exclude=.git --exclude="*/_*cache/*" --exclude="*/_*logs{0,1}/* --regex-PHP=/abstract class ([^ ]*)/\1/c/    --regex-PHP=/interface ([^ ]*)/\1/c/ --regex-PHP=/trait ([^ ]*)/\1/c/ --regex-PHP=/(public |static |abstract |protected |private )+ function +([^ \(]*)/\2/f/ " -f '.tagfilename
+endfunction
+
+function! UpdateTagsPHP()
+    let cwd = getcwd()
+    let tagfilename = cwd . "/.git/tags"
+
+    " let cmd = 'ctags --PHP-kinds=+cf-v --languages=php -R --tag-relative=yes --exclude=.svn --exclude=composer.phar --exclude=.git --exclude="*/_*cache/*" --exclude="*/_*logs{0,1}/* --regex-PHP=/abstract class ([^ ]*)/\1/c/    --regex-PHP=/interface ([^ ]*)/\1/c/ --regex-PHP=/trait ([^ ]*)/\1/c/ --regex-PHP=/(public |static |abstract |protected |private )+ function +([^ \(]*)/\2/f/ " -f '.tagfilename
+    let cmd = 'ctags -R --fields=+aimlS --languages=php,-javascript,-sql --PHP-kinds=+cf-v -f '.tagfilename
     let resp = system(cmd)
     echo 'done'
 endfunction
@@ -874,11 +804,44 @@ function! SwitchBetweenFiles1(fileExtension, firstDirBeginning, secondDirBeginni
     endif
 endfunction
 
-" nmap <leader>tu :call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
-nmap <leader>tu :call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
+nmap <leader>ta :call SymfonySwitchToAlternateFile()<cr>
+nmap <leader>tsa <c-w>v:call SymfonySwitchToAlternateFile()<cr>
+function! SymfonySwitchToAlternateFile()
+  let l:f = expand('%')
+  let l:preceedingDirsToKeep = 2
+  let l:is_test = expand('%:t') =~ "Test\."
+  if l:is_test
+    " remove phpunit_testroot
+    let l:f = substitute(l:f, 'Tests/','','')
+    " remove 'Test.' from filename
+    let l:f = substitute(l:f,'Test\.','.','')
+  else
+      let l:pathParts = split(expand('%:r'), '/')
+    let l:startingPath = l:pathParts[0:l:preceedingDirsToKeep]
+    let l:endPath = l:pathParts[(l:preceedingDirsToKeep+1):]
+    let l:combinedPath = l:startingPath + ['Tests'] + l:endPath
+    let l:f = join(l:combinedPath, '/') . 'Test.php'
+    if !filereadable(l:f)
+        let l:new_dir = substitute(l:f, '/\w\+\.php', '', '')
+        exe ":!mkdir -p ".l:new_dir
+    endif
+  endif
+  " is there window with complent file open?
+  let win = bufwinnr(l:f)
+  if l:win > 0
+    execute l:win . "wincmd w"
+  else
+    execute ":e " . l:f
+  endif
 
+endfunction
+
+
+" set by vim-project
+" nmap <leader>tu :call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
 " nmap <leader>tsu <c-w>v:call SwitchBetweenFiles1('php', 'Bundle/Tests/', 'Bundle/', 'Test')<cr>
-nmap <leader>tsu <c-w>v:call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
+" nmap <leader>tu :call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
+" nmap <leader>tsu <c-w>v:call SwitchBetweenFiles('php', 'tests/', 'library/', 'Test')<cr>
 
 
 function! PrependTicketNumber()
@@ -886,7 +849,7 @@ function! PrependTicketNumber()
     let l:branch = system("echo $(git branch | grep '*')")
     let l:ticketNumber = '['.substitute(l:branch, '\* \(.*\)', '\1', '').'] '
     exe "normal I".l:ticketNumber
-    exe "normal ggJx"
+    exe "normal gg"
     :startinsert!
 endfunction
 
@@ -900,11 +863,7 @@ autocmd FileType gitcommit nmap <buffer> <leader>w :call PrependTicketNumber()<c
 au BufEnter * if &ft ==# 'gitcommit' | :call PrependTicketNumber() | endif
 
 " Enable omni completion.
-" autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-
-" au BufNewFile,BufRead,BufWinEnter *Test.php exe ":let g:neocomplete#sources#omni#input_patterns.php = '\\.,\\h,\\w,\\b,\\u,\\t,\\k'"
-" au BufWinLeave,BufLeave *Test.php exe ":let g:neocomplete#sources#omni#input_patterns.php = '[^. \\t]->\\%(\\h\\w*\\)\\?\\|\\h\\w*::\\%(\\h\\w*\\)\\?'"
-
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -913,7 +872,10 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 nmap <leader>w :w<cr>
 autocmd FileType php nmap <buffer> <leader>w :let g:phpqa_messdetector_autorun = 0<cr>:let g:phpqa_codesniffer_autorun = 0<cr>:w<cr>:let g:phpqa_messdetector_autorun = 1<cr>:let g:phpqa_codesniffer_autorun = 1<cr>
 
-au BufNewFile,BufRead *.html,*.html.twig,*.htm,*.shtml,*.stm,*.phtml set ft=html.javascript
+au BufWritePost *.php silent! !eval '[ -f ".git/hooks/ctags" ] && .git/hooks/ctags' &
+
+au BufNewFile,BufRead *.html,*.html.twig,*.htm,*.shtml,*.stm set ft=html.javascript
+au BufNewFile,BufRead *.phtml set ft=php.html
 
 
 
@@ -927,9 +889,10 @@ au BufNewFile,BufRead *.html,*.html.twig,*.htm,*.shtml,*.stm,*.phtml set ft=html
 
 
 set nocursorcolumn
-set lazyredraw
+set nolazyredraw
 set scrolljump=5
-set scrolloff=5
+"syntax sync minlines=256
+" set synmaxcol=200
 let g:PHP_default_indenting=0
 
 
@@ -972,9 +935,6 @@ endfunction
 command! -nargs=1 -bang Replace :call Replace(<bang>0, <q-args>)
 nnoremap <Leader>rip :call Replace(0, input('Replace '.expand('<cword>').' with: ', expand('<cword>')))<CR>
 
-so ~/dotfiles/vimprojects
-nmap <leader><F2> :e ~/dotfiles/vimprojects<cr>
-
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 function! s:align()
@@ -992,11 +952,12 @@ nmap <Leader>ga :Tabularize /\|<cr>
 vmap <Leader>ga :Tabularize /\|<cr>
 
 au FileType cucumber setl sw=2 sts=2 et
+au FileType yaml setl sw=2 sts=2 et
 au FileType ruby setl sw=2 sts=2 et
 
 augroup reload_vimrc
     autocmd!
-    autocmd bufwritepost $MYVIMRC nested source $MYVIMRC
+    autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
 augroup END
 
 hi SpecialKey       guifg=#343434     guibg=NONE     gui=NONE      ctermfg=NONE        ctermbg=NONE        cterm=NONE
@@ -1020,13 +981,6 @@ au FileType go nmap <Leader>gs <Plug>(go-implements)
 au FileType go nmap <Leader>ge <Plug>(go-rename)
 
 " Quickly time out on keycodes, but never time out on mappings
-set notimeout ttimeout ttimeoutlen=200
-let c='a'
-while c <= 'z'
-  exec "set <A-".c.">=\e".c
-  exec "imap \e".c." <A-".c.">"
-  let c = nr2char(1+char2nr(c))
-endw
 
 let g:lightline = {
       \ 'colorscheme': 'solarized',
@@ -1056,7 +1010,7 @@ function! LightlineReadonly()
 endfunction
 
 function! LightlineFilename()
-  let fname = expand('%:t')
+  let fname = expand('%')
   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
         \ fname == '__Tagbar__' ? g:lightline.fname :
         \ fname =~ '__Gundo\|NERD_tree' ? '' :
@@ -1141,3 +1095,7 @@ augroup phpSyntaxOverride
   autocmd!
   autocmd FileType php call PhpSyntaxOverride()
 augroup END
+
+so ~/dotfiles/vimprojects
+nmap <leader><F2> :e ~/dotfiles/vimprojects<cr>
+
