@@ -1,5 +1,11 @@
+# Deprecated
+This repo is deprecated.
+I've switched to neovim and a dotfiles repo.
+See my current config @ https://github.com/phux/.dotfiles
+
+
 # Introduction
-This is my approach to transform vim into a full featured PHP IDE. It's only tested under linux.
+This was my approach to transform vim into a full featured PHP IDE. It's only tested under linux.
 
 ## Included Features (plugins)
 
